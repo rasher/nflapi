@@ -21,7 +21,7 @@ AUTHOR = 'Jonas Häggqvist'
 # What packages are required for this module to be executed?
 REQUIRED = [
     'requests>=2.19,<3',
-    'pytz',
+    'pendulum>=2.0.3,<3',
 ]
 
 # The rest you shouldn't have to touch too much :)
