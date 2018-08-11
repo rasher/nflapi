@@ -1,4 +1,5 @@
 import logging
+from pprint import pformat
 
 import pendulum
 import requests
@@ -29,7 +30,7 @@ class NFL:
         logger.debug('Updated token: %s - expires %s', self.__AUTH_TOKEN, self.__AUTH_TOKEN_EXPIRE)
 
     def request(self, path, method='GET', params=None, data=None, token_request=False, add_headers=None):
-        logger.debug('Request: %s %s, params=%r, data=%r', method, path, params, data)
+        logger.debug('Request: %s %s, params=<%s>, data=<%s>', method, path, pformat(params), pformat(data))
         now = pendulum.now()
 
         if not token_request and (self.__AUTH_TOKEN is None or now > self.__AUTH_TOKEN_EXPIRE):
@@ -57,7 +58,7 @@ class NFL:
             headers['Content-type'] = 'application/x-www-form-urlencoded'
 
         url = API_HOST + path
-        logger.debug('Request headers %r', headers)
+        logger.debug('Request headers: %s', pformat(headers))
         response = requests.request(method, url, data=data, params=params, headers=headers)
         response.raise_for_status()
         try:
