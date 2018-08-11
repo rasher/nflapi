@@ -4,6 +4,7 @@ import pendulum
 import requests
 
 from .const import *
+from . import helpers
 
 logger = logging.getLogger(__name__)
 
@@ -13,18 +14,21 @@ class NFL:
 
     def __init__(self, ua):
         self.ua = ua
+        for helper in helpers.__all__:
+            class_ = getattr(helpers, helper)
+            setattr(self, class_.name, class_(self))
 
     def __update_token(self):
         logger.debug('Updating auth token')
         data = {
             'grant_type': 'client_credentials'
                 }
-        response = self.__request(ENDPOINT_REROUTE, method='POST', data=data, token_request=True)
+        response = self.request(ENDPOINT_REROUTE, method='POST', data=data, token_request=True)
         self.__AUTH_TOKEN = '{token_type} {access_token}'.format(**response)
         self.__AUTH_TOKEN_EXPIRE = pendulum.now().add(seconds=response['expires_in']-2)
         logger.debug('Updated token: %s - expires %s', self.__AUTH_TOKEN, self.__AUTH_TOKEN_EXPIRE)
 
-    def __request(self, path, method='GET', params=None, data=None, token_request=False, add_headers=None):
+    def request(self, path, method='GET', params=None, data=None, token_request=False, add_headers=None):
         logger.debug('Request: %s %s, params=%r, data=%r', method, path, params, data)
         now = pendulum.now()
 
