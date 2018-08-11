@@ -44,7 +44,7 @@ class NFL:
         }
 
         if self.__AUTH_TOKEN:
-            headers['Authorization']: self.__AUTH_TOKEN
+            headers['Authorization'] = self.__AUTH_TOKEN
 
         if add_headers:
             headers.update(add_headers)
