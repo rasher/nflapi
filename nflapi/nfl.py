@@ -1,13 +1,16 @@
+import json
 import logging
 from pprint import pformat
 
 import pendulum
 import requests
+from requests.exceptions import HTTPError
 
 from .const import *
 from . import helpers
 
 logger = logging.getLogger(__name__)
+
 
 class NFL:
     __AUTH_TOKEN = None
@@ -57,13 +60,21 @@ class NFL:
         if method == 'POST':
             headers['Content-type'] = 'application/x-www-form-urlencoded'
 
+        if params:
+            if 'fs' in params:
+                params['fs'] = params['fs'].replace(" ", "").replace("\n", "")
+            if 's' in params:
+                params['s'] = json.dumps(params['s'])
+
         url = API_HOST + path
         logger.debug('Request headers: %s', pformat(headers))
         response = requests.request(method, url, data=data, params=params, headers=headers)
-        response.raise_for_status()
         try:
-            json = response.json()
-            logger.debug('Response: %r', json)
-            return json
+            js = response.json()
+            response.raise_for_status()
+            logger.debug('Response: %r', js)
+            return js
+        except HTTPError as e:
+            raise Exception("Unsuccesful response: %r" % js) from e
         except ValueError as e:
-            raise Exception("Response from API was not json") from e
+            raise Exception("Response from API was not json: %s" % response.data) from e
