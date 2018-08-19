@@ -2,9 +2,13 @@ import pendulum
 
 class NFLModel:
     _fields = {}
+    defaultJson = None
 
     def __init__(self, json):
-        self._json = json
+        if json is None and self.defaultJson is None:
+            raise Exception(("{} initialised with empty json and no default " +
+                    "available").format(type(self).__name__))
+        self._json = json if json is not None else self.defaultJson
         for field, class_ in self._fields.items():
             if field in json:
                 setattr(self, field, class_(json[field]))
@@ -26,7 +30,7 @@ class GameStatus(NFLModel):
 
 
 class TeamScore(NFLModel):
-    pass
+    defaultJson = {'pointsTotal': 0}
 
 
 class Team(NFLModel):
