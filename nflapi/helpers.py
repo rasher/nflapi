@@ -8,8 +8,6 @@ class Helper:
 
     def request(self, class_, *args, is_list=False, **kwargs):
         response = self.nfl.request(*args, **kwargs)
-        from pprint import pprint
-        pprint(response)
         if is_list:
             ret = []
             if 'data' in response:
