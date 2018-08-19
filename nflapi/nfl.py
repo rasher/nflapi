@@ -32,7 +32,7 @@ class NFL:
         self.__AUTH_TOKEN_EXPIRE = pendulum.now().add(seconds=response['expires_in']-2)
         logger.debug('Updated token: %s - expires %s', self.__AUTH_TOKEN, self.__AUTH_TOKEN_EXPIRE)
 
-    def request(self, path, method='GET', params=None, data=None, token_request=False, add_headers=None):
+    def request(self, path, method='GET', params={}, data=None, token_request=False, add_headers=None, **kwargs):
         logger.debug('Request: %s %s, params=<%s>, data=<%s>', method, path, pformat(params), pformat(data))
         now = pendulum.now()
 
@@ -60,6 +60,9 @@ class NFL:
         if method == 'POST':
             headers['Content-type'] = 'application/x-www-form-urlencoded'
 
+        if kwargs:
+            params.update(kwargs)
+
         if params:
             if 'fs' in params:
                 params['fs'] = params['fs'].replace(" ", "").replace("\n", "")
@@ -72,7 +75,7 @@ class NFL:
         try:
             js = response.json()
             response.raise_for_status()
-            logger.debug('Response: %r', js)
+            logger.debug('Response: %s', pformat(js))
             return js
         except HTTPError as e:
             raise Exception("Unsuccesful response: %r" % js) from e
