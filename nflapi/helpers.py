@@ -28,19 +28,19 @@ class StandingsHelper(Helper):
 
     def current(self):
         week = self.nfl.schedule.current_week()
-        return week, self.get(week.season, week.seasonType)
+        return self.get(week.season, week.seasonType), week
 
     def get(self, season, season_type='REG'):
         q = {
             "$query": {
-                #"abbr":"SEA",
-                "standings":{
-                    "$query":{
+#                "abbr":"SEA",
+                "standings": {
+                    "$query": {
                         }
                     },
-                "$takeLast":1
+                "$takeLast": 1
                 },
-            "$take":40
+            "$take": 40
             }
         fs = """
         {id,season,fullName,nickName,cityStateRegion,abbr,teamType,conference{abbr},division{abbr},standings{overallWins,overallWinPct,overallLosses,overallTies,divisionWins,divisionLosses,clinchDivision,clinchDivisionAndHomefield,clinchWildcard,clinchPlayoff,conferenceRank,divisionRank}}
