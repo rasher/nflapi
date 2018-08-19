@@ -6,14 +6,10 @@ class Helper:
     def __init__(self, nfl):
         self.nfl = nfl
 
-    def request(self, class_, *args, is_list=False, **kwargs):
+    def request(self, class_, *args, **kwargs):
         response = self.nfl.request(*args, **kwargs)
-        if is_list:
-            ret = []
-            if 'data' in response:
-                for obj in response['data']:
-                    ret.append(class_(obj))
-            return ret
+        if isinstance(class_, list):
+            return Pager(class_[0], response)
         else:
             return class_(response)
 
@@ -24,6 +20,34 @@ class ScheduleHelper(Helper):
 
     def current_week(self):
         return self.request(Week, self.CW)
+
+
+class StandingsHelper(Helper):
+    name = 'standings'
+    TEAMS = ENDPOINT_TEAMS
+
+    def current(self):
+        week = self.nfl.schedule.current_week()
+        return week, self.get(week.season, week.seasonType)
+
+    def get(self, season, season_type='REG'):
+        q = {
+            "$query": {
+                #"abbr":"SEA",
+                "standings":{
+                    "$query":{
+                        }
+                    },
+                "$takeLast":1
+                },
+            "$take":40
+            }
+        fs = """
+        {id,season,fullName,nickName,cityStateRegion,abbr,teamType,conference{abbr},division{abbr},standings{overallWins,overallWinPct,overallLosses,overallTies,divisionWins,divisionLosses,clinchDivision,clinchDivisionAndHomefield,clinchWildcard,clinchPlayoff,conferenceRank,divisionRank}}
+        """
+        q['$query']['season'] = season
+        q['$query']['standings']['$query']['week.seasonType'] = season_type
+        return self.request([Team], self.TEAMS, s=q, fs=fs)
 
 
 class GameHelper(Helper):
@@ -52,10 +76,11 @@ visitorTeamScore { type, pointsTotal },
 venue,
 networkChannels,
         }"""
-        return self.request(Game, self.GAMES, is_list=True, params={'s': q, 'fs': fs})
+        return self.request([Game], self.GAMES, params={'s': q, 'fs': fs})
 
 
 __all__ = [
     'ScheduleHelper',
     'GameHelper',
+    'StandingsHelper',
 ]

@@ -33,7 +33,7 @@ class NFL:
         logger.debug('Updated token: %s - expires %s', self.__AUTH_TOKEN, self.__AUTH_TOKEN_EXPIRE)
 
     def request(self, path, method='GET', params={}, data=None, token_request=False, add_headers=None, **kwargs):
-        logger.debug('Request: %s %s, params=<%s>, data=<%s>', method, path, pformat(params), pformat(data))
+        logger.debug('Request: %s %s, params=<%s>, data=<%s>, kwargs=<%s>', method, path, pformat(params), pformat(data), pformat(kwargs))
         now = pendulum.now()
 
         if not token_request and (self.__AUTH_TOKEN is None or now > self.__AUTH_TOKEN_EXPIRE):
