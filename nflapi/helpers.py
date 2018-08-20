@@ -33,7 +33,6 @@ class StandingsHelper(Helper):
     def get(self, season, season_type='REG'):
         q = {
             "$query": {
-#                "abbr":"SEA",
                 "standings": {
                     "$query": {
                         }
@@ -43,8 +42,31 @@ class StandingsHelper(Helper):
             "$take": 40
             }
         fs = """
-        {id,season,fullName,nickName,cityStateRegion,abbr,teamType,conference{abbr},division{abbr},standings{overallWins,overallWinPct,overallLosses,overallTies,divisionWins,divisionLosses,clinchDivision,clinchDivisionAndHomefield,clinchWildcard,clinchPlayoff,conferenceRank,divisionRank}}
-        """
+{
+    id,
+    season,
+    fullName,
+    nickName,
+    cityStateRegion,
+    abbr,
+    teamType,
+    conference { abbr },
+    division { abbr },
+    standings {
+        overallWins,
+        overallWinPct,
+        overallLosses,
+        overallTies,
+        divisionWins,
+        divisionLosses,
+        clinchDivision,
+        clinchDivisionAndHomefield,
+        clinchWildcard,
+        clinchPlayoff,
+        conferenceRank,
+        divisionRank
+    }
+}"""
         q['$query']['season'] = season
         q['$query']['standings']['$query']['week.seasonType'] = season_type
         return self.request([Team], self.TEAMS, s=q, fs=fs)

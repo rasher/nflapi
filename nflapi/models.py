@@ -1,13 +1,14 @@
 import pendulum
 
+
 class NFLModel:
     _fields = {}
     defaultJson = None
 
     def __init__(self, json):
         if json is None and self.defaultJson is None:
-            raise Exception(("{} initialised with empty json and no default " +
-                    "available").format(type(self).__name__))
+            raise Exception(("{} initialised with empty json and no default "
+                             "available").format(type(self).__name__))
         self._json = json if json is not None else self.defaultJson
         for field, class_ in self._fields.items():
             if field in json:
@@ -22,6 +23,7 @@ class NFLModel:
 
     def __repr__(self):
         return "<{}: {!r}>".format(type(self).__name__, self._json)
+
 
 class Pager(NFLModel):
     def __init__(self, class_, json):

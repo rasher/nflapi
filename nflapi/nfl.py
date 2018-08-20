@@ -27,17 +27,26 @@ class NFL:
         data = {
             'grant_type': 'client_credentials'
                 }
-        response = self.request(ENDPOINT_REROUTE, method='POST', data=data, token_request=True)
+        response = self.request(
+                ENDPOINT_REROUTE, method='POST', data=data, token_request=True
+                )
         self.__AUTH_TOKEN = '{token_type} {access_token}'.format(**response)
-        self.__AUTH_TOKEN_EXPIRE = pendulum.now().add(seconds=response['expires_in']-2)
-        logger.debug('Updated token: %s - expires %s', self.__AUTH_TOKEN, self.__AUTH_TOKEN_EXPIRE)
+        self.__AUTH_TOKEN_EXPIRE = pendulum.now().add(
+                seconds=response['expires_in'] - 2
+                )
+        logger.debug('Updated token: %s - expires %s',
+                     self.__AUTH_TOKEN, self.__AUTH_TOKEN_EXPIRE)
 
-    def request(self, path, method='GET', params={}, data=None, token_request=False, add_headers=None, **kwargs):
-        logger.debug('Request: %s %s, params=<%s>, data=<%s>, kwargs=<%s>', method, path, pformat(params), pformat(data), pformat(kwargs))
+    def request(self, path, method='GET', params={}, data=None,
+                token_request=False, add_headers=None, **kwargs):
+        logger.debug('Request: %s %s, params=<%s>, data=<%s>, kwargs=<%s>',
+                     method, path, pformat(params), pformat(data),
+                     pformat(kwargs))
         now = pendulum.now()
 
-        if not token_request and (self.__AUTH_TOKEN is None or now > self.__AUTH_TOKEN_EXPIRE):
-            self.__update_token()
+        if not token_request:
+            if self.__AUTH_TOKEN is None or now > self.__AUTH_TOKEN_EXPIRE:
+                self.__update_token()
 
         headers = {
             'Origin': 'http://www.nfl.com',
@@ -71,7 +80,8 @@ class NFL:
 
         url = API_HOST + path
         logger.debug('Request headers: %s', pformat(headers))
-        response = requests.request(method, url, data=data, params=params, headers=headers)
+        response = requests.request(method, url, data=data, params=params,
+                                    headers=headers)
         try:
             js = response.json()
             response.raise_for_status()
@@ -80,4 +90,5 @@ class NFL:
         except HTTPError as e:
             raise Exception("Unsuccesful response: %r" % js) from e
         except ValueError as e:
-            raise Exception("Response from API was not json: %s" % response.data) from e
+            raise Exception("Response from API was not json: %s"
+                            % response.data) from e
