@@ -22,6 +22,7 @@ AUTHOR = 'Jonas Häggqvist'
 REQUIRED = [
     'requests>=2.19,<3',
     'pendulum>=2.0.3,<3',
+    'click>=6.7,<7',
 ]
 
 # The rest you shouldn't have to touch too much :)
