@@ -75,7 +75,7 @@ class NFL:
         if params:
             if 'fs' in params:
                 params['fs'] = params['fs'].replace(" ", "").replace("\n", "")
-            if 's' in params:
+            if 's' in params and type(params['s']) != str:
                 params['s'] = json.dumps(params['s'])
 
         url = API_HOST + path
@@ -88,7 +88,7 @@ class NFL:
             logger.debug('Response: %s', pformat(js))
             return js
         except HTTPError as e:
-            raise Exception("Unsuccesful response: %r" % js) from e
+            raise Exception("Unsuccesful response: %r" % response.data) from e
         except ValueError as e:
             raise Exception("Response from API was not json: %s"
                             % response.data) from e
