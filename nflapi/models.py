@@ -51,6 +51,14 @@ class Pager(NFLModel):
         del(self.list[index])
 
 
+class Abbreviated:
+    def __hash__(self):
+        return hash(str(self.abbr))
+
+    def __eq__(self, other):
+        return str(self.abbr) == str(other.abbr)
+
+
 class Week(NFLModel):
     pass
 
@@ -63,23 +71,52 @@ class TeamScore(NFLModel):
     defaultJson = {'pointsTotal': 0}
 
 
-class Conference(NFLModel):
-    pass
+class Conference(NFLModel, Abbreviated):
+    @property
+    def fullName(self):
+        """
+        For some reason you can't make the API return the fullName
+        """
+        fullNames = {
+                'AFC': 'American Football Conference',
+                'NFC': 'National Football Conference',
+                }
+        return fullNames[self.abbr]
 
 
-class Division(NFLModel):
-    pass
+class Division(NFLModel, Abbreviated):
+    @property
+    def fullName(self):
+        """
+        For some reason you can't make the API return the fullName
+        """
+        fullNames = {
+                'ACE': 'AFC East',
+                'ACN': 'AFC North',
+                'ACS': 'AFC South',
+                'ACW': 'AFC West',
+                'NCE': 'NFC East',
+                'NCN': 'NFC North',
+                'NCS': 'NFC South',
+                'NCW': 'NFC West',
+                }
+        return fullNames[self.abbr]
 
 
 class Standings(NFLModel):
     pass
 
 
-class Team(NFLModel):
+class Venue(NFLModel):
+    pass
+
+
+class Team(NFLModel, Abbreviated):
     _fields = {
             'conference': Conference,
             'division': Division,
             'standings': [Standings],
+            'venue': Venue,
             }
 
 

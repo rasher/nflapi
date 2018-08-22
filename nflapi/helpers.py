@@ -22,6 +22,37 @@ class ScheduleHelper(Helper):
         return self.request(Week, self.CW)
 
 
+class TeamHelper(Helper):
+    name = 'team'
+    TEAMS = ENDPOINT_TEAMS
+
+    def get(self, abbr):
+        # We cannot query a specific team because the API is "special"
+        q = {
+                "$query": {
+                    "season": 2018,
+                    },
+                }
+        fs = """
+{
+    id,
+    season,
+    fullName,
+    nickName,
+    cityStateRegion,
+    abbr,
+    teamType,
+    venue{name},
+    conference{abbr},
+    division{abbr},
+    branding
+}
+"""
+        team = list(filter(lambda t: t.abbr == abbr.upper(),
+                           self.request([Team], self.TEAMS, s=q, fs=fs)))
+        return team[0] if len(team) == 1 else None
+
+
 class StandingsHelper(Helper):
     name = 'standings'
     TEAMS = ENDPOINT_TEAMS
@@ -105,4 +136,5 @@ __all__ = [
     'ScheduleHelper',
     'GameHelper',
     'StandingsHelper',
+    'TeamHelper',
 ]
