@@ -30,7 +30,7 @@ class TeamHelper(Helper):
         # We cannot query a specific team because the API is "special"
         q = {
                 "$query": {
-                    "season": 2018,
+                    "season": 2020,
                     },
                 }
         fs = """

@@ -88,7 +88,7 @@ class NFL:
             logger.debug('Response: %s', pformat(js))
             return js
         except HTTPError as e:
-            raise Exception("Unsuccesful response: %r" % response.data) from e
+            raise Exception("Unsuccessful response: %r" % response.data) from e
         except ValueError as e:
             raise Exception("Response from API was not json: %s"
                             % response.data) from e

@@ -1,10 +1,9 @@
 #!/usr/bin/env python
-from functools import update_wrapper
 import logging
-import sys
+from functools import update_wrapper
 
-import pendulum
 import click
+import pendulum
 
 from nflapi import NFL
 from nflapi.__version__ import __version__ as VERSION
@@ -16,6 +15,7 @@ def nflobj(f):
     @click.pass_context
     def new_func(ctx, *args, **kwargs):
         ctx.invoke(f, ctx.obj['nfl'], *args, **kwargs)
+
     return update_wrapper(new_func, f)
 
 
@@ -50,13 +50,13 @@ def schedule(nfl):
 
     games = nfl.game.week(cw)
     tz = pendulum.tz.local_timezone()
-    for game in games:
+    for game in sorted(games, key=lambda g: g.gameTime.pt):
         localtime = game.gameTime.astimezone(tz)
         print(("{t:%Y-%m-%d %H:%M %Z} "
                "{g.visitorTeam.abbr:3s} {g.visitorTeamScore.pointsTotal:2d} "
                "@ "
                "{g.homeTeamScore.pointsTotal:2d} {g.homeTeam.abbr:3s}").format(
-                   g=game, t=localtime))
+            g=game, t=localtime))
 
 
 @nflcli.command(short_help="List standings")
@@ -100,3 +100,7 @@ def team(nfl, abbr):
 
 def main():
     nflcli(obj={})
+
+
+if __name__ == "__main__":
+    main()
