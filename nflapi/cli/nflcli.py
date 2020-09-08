@@ -6,6 +6,7 @@ import click
 import pendulum
 
 from nflapi import NFL
+from nflapi.const import DIVISION_NAMES
 from nflapi.__version__ import __version__ as VERSION
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
@@ -36,66 +37,67 @@ def nflcli(ctx, verbose):
 
 @nflcli.command(short_help="Display the current week")
 @nflobj
-def current_week(nfl):
+def current_week(nfl: NFL):
     cw = nfl.schedule.current_week()
     logging.debug("Current week: %r", cw)
-    print("{w.season} {w.seasonType} {w.week}".format(w=cw))
+    print("{w.current_season[default]} {w.current_season_type[default]} {w.current_week[default]}".format(w=cw))
 
 
 @nflcli.command(short_help="Show schedule for a given week")
 @nflobj
-def schedule(nfl):
+def schedule(nfl: NFL):
     cw = nfl.schedule.current_week()
-    print("{w.season} {w.seasonType} {w.week}".format(w=cw))
+    print("{w.current_season[default]} {w.current_season_type[default]} {w.current_week[default]}".format(w=cw))
 
-    games = nfl.game.week(cw)
+    games = nfl.game.week_games(cw.current_week['default'], cw.current_season_type['default'],
+                                cw.current_season['default'])
     tz = pendulum.tz.local_timezone()
-    for game in sorted(games, key=lambda g: g.gameTime.pt):
-        localtime = game.gameTime.astimezone(tz)
+    for game in sorted(games, key=lambda g: g.game_time):
+        localtime = pendulum.instance(game.game_time).astimezone(tz)
         print(("{t:%Y-%m-%d %H:%M %Z} "
-               "{g.visitorTeam.abbr:3s} {g.visitorTeamScore.pointsTotal:2d} "
+               "{g.away_team.abbreviation:3s} "
                "@ "
-               "{g.homeTeamScore.pointsTotal:2d} {g.homeTeam.abbr:3s}").format(
+               "{g.home_team.abbreviation:3s}").format(
             g=game, t=localtime))
 
 
 @nflcli.command(short_help="List standings")
 @nflobj
-def standings(nfl):
-    teams, _ = nfl.standings.current()
+def standings(nfl: NFL):
+    team_records = nfl.standings.current()
 
     groups = {}
-    warned = False
-    for team in teams:
+    for team, team_record in team_records:
         group = team.division
-        rank = team.standings[0].divisionRank
-        if rank is None:
-            if not warned:
-                logging.warn("No rank in data. Sorting by winpct+name")
-                warned = True
-            rank = (-team.standings[0].overallWinPct, team.fullName)
         if group not in groups:
             groups[group] = []
-        groups[group].append((rank, team))
-    for group, teams in sorted(groups.items(), key=lambda g: g[0].abbr):
-        print(group.fullName + "\n" + ("=" * len(group.fullName)))
+        groups[group].append((team, team_record))
+    for group, teams in sorted(groups.items(), key=lambda g: g[0]):
+        group_name = DIVISION_NAMES.get(group, group)
+        print(group_name + "\n" + ("=" * len(group_name)))
         print("Team        W  L  T  PCT")
-        for rank, team in sorted(teams, key=lambda t: t[0]):
-            print(("{t.nickName:10} {s.overallWins:2d} {s.overallLosses:2d} "
-                   "{s.overallTies:2d}  {s.overallWinPct:1.3f}")
-                  .format(t=team, s=team.standings[0]))
+        for team, team_record in sorted(teams, key=lambda t: t[1].division_rank):
+            print(("{t.nick_name:10} {tr.overall_win:2d} {tr.overall_loss:2d} "
+                   "{tr.overall_tie:2d}  {tr.overall_pct:1.3f}")
+                  .format(t=team, tr=team_record))
         print()
 
 
 @nflcli.command(short_help="Team info")
 @click.argument('abbr')
 @nflobj
-def team(nfl, abbr):
-    team = nfl.team.get(abbr)
-    print(team.fullName)
-    print(team.conference.fullName)
-    print(team.division.fullName)
-    print(team.venue.name)
+def team(nfl: NFL, abbr):
+    def selector(team):
+        team.full_name()
+        team.venues().display_name()
+        team.division()
+        team.conference()
+
+    team = nfl.team.lookup(abbr, select_fun=selector)
+    print(team.full_name)
+    print(team.conference)
+    print(team.division)
+    print(team.venues[0].display_name)
 
 
 def main():
