@@ -89,9 +89,13 @@ class NFL:
         self.schedule = ScheduleHelper(self)
         self.standings = StandingsHelper(self)
         self.game = GameHelper(self)
+        self.game_detail = GameDetailHelper(self)
 
-    def query(self, op: Operation, variables: Optional[Dict] = None):
+    def query(self, op: Operation, variables: Optional[Dict] = None, return_json=False):
         logger.debug("Running query: %s", op)
         data = self.endpoint(op, variables)
         logger.debug("Return data: %s", data)
-        return op + data
+        if return_json:
+            return (op + data), data
+        else:
+            return op + data
