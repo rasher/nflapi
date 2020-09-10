@@ -6,10 +6,11 @@ from sgqlc.operation import Operation
 from .shield import shield, GameOrderBy, OrderByDirection
 
 DEFAULT_FIELDS = {
-    shield.Game: ['id', 'game_time', 'slug'],
+    shield.Game: ['id', 'game_time', 'slug', 'game_detail_id'],
+    shield.GameDetail: ['id', 'game_time', 'phase', 'period', 'game_clock'],
     shield.Team: ['id', 'abbreviation', 'full_name', 'nick_name'],
     shield.TeamRecord: ['overall_win', 'overall_loss', 'overall_tie', 'overall_pct', 'team_id', 'division_rank',
-                          'conference_rank']
+                        'conference_rank'],
 }
 
 
@@ -23,6 +24,13 @@ class Helper:
     @staticmethod
     def _standard_fields(obj: shield.AbstractEntity, type_):
         obj.__fields__(*DEFAULT_FIELDS.get(type_), 'id')
+
+
+def apply_selector(obj, type_, select_fun: Callable[[shield.Team], None] = None):
+    if select_fun:
+        select_fun(obj)
+    else:
+        Helper._standard_fields(obj, type_)
 
 
 class ScheduleHelper(Helper):
@@ -51,6 +59,27 @@ class GameHelper(Helper):
         self._standard_fields(game.away_team(), shield.Team)
         games = self.query(op)
         return [game_edge.node for game_edge in games.viewer.league.games.edges]
+
+    def by_id(self, id, select_fun: Callable[[shield.Team], None] = None):
+        op = Operation(shield.Viewer)
+        game = op.viewer.game(id=id)
+        apply_selector(game, shield.Game, select_fun)
+        return self.query(op).viewer.game
+
+
+class GameDetailHelper(Helper):
+    def by_id(self, id, select_fun: Callable[[shield.GameDetail], None] = None):
+        op = Operation(shield.Viewer)
+        game_detail = op.viewer.game_detail(id=id)
+        apply_selector(game_detail, shield.GameDetail, select_fun)
+        game_detail = self.query(op).viewer.game_detail
+        return game_detail
+
+    def by_ids(self, ids, select_fun: Callable[[shield.GameDetail], None] = None):
+        op = Operation(shield.Viewer)
+        game_details = op.viewer.game_details_by_ids(ids=ids)
+        apply_selector(game_details, shield.GameDetail, select_fun)
+        return self.query(op).viewer.game_details_by_ids
 
 
 class StandingsHelper(Helper):
@@ -89,10 +118,7 @@ class TeamHelper(Helper):
         op = Operation(shield.Viewer)
         teams = op.viewer.teams(first=100, season_value=season_value)
         team = teams.edges.node()
-        if select_fun:
-            select_fun(team)
-        else:
-            self._standard_fields(team, shield.Team)
+        apply_selector(team, shield.Team, select_fun)
         teams = self.query(op)
         return [t.node for t in teams.viewer.teams.edges]
 
@@ -110,10 +136,7 @@ class TeamHelper(Helper):
     def by_ids(self, ids: List[str], select_fun: Callable[[shield.Team], None] = None):
         op = Operation(shield.Viewer)
         teams = op.viewer.teams_by_ids(ids=ids)
-        if select_fun:
-            select_fun(teams)
-        else:
-            self._standard_fields(teams, shield.Team)
+        apply_selector(teams, shield.Team, select_fun)
         teams = self.query(op)
         return teams.viewer.teams_by_ids
 
@@ -123,4 +146,5 @@ __all__ = [
     'GameHelper',
     'StandingsHelper',
     'TeamHelper',
+    'GameDetailHelper'
 ]
