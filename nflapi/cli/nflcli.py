@@ -30,9 +30,7 @@ def nflcli(ctx, verbose):
     else:
         level = logging.WARN
     logging.basicConfig(level=level)
-    ctx.obj['nfl'] = NFL(ua=('Mozilla/5.0 (X11; CrOS x86_64 10895.10.0) '
-                             'AppleWebKit/537.36 (KHTML, like Gecko) '
-                             'Chrome/69.0.3497.21 Safari/537.36'))
+    ctx.obj['nfl'] = NFL(ua=('nflapi cli'))
 
 
 @nflcli.command(short_help="Display the current week")
