@@ -45,10 +45,10 @@ def current_week(nfl: NFL):
 @nflobj
 def schedule(nfl: NFL):
     cw = nfl.schedule.current_week()
-    print("{w.current_season[default]} {w.current_season_type[default]} {w.current_week[default]}".format(w=cw))
+    print("{w.season_value} {w.season_type} {w.week_value}".format(w=cw))
 
-    games = nfl.game.week_games(cw.current_week['default'], cw.current_season_type['default'],
-                                cw.current_season['default'])
+    games = nfl.game.week_games(cw.week_value, cw.season_type,
+                                cw.season_value)
     tz = pendulum.tz.local_timezone()
     for game in sorted(games, key=lambda g: g.game_time):
         localtime = pendulum.instance(game.game_time).astimezone(tz)
@@ -73,9 +73,9 @@ def standings(nfl: NFL):
     for group, teams in sorted(groups.items(), key=lambda g: g[0]):
         group_name = DIVISION_NAMES.get(group, group)
         print(group_name + "\n" + ("=" * len(group_name)))
-        print("Team        W  L  T  PCT")
+        print("Team            W  L  T  PCT")
         for team, team_record in sorted(teams, key=lambda t: t[1].division_rank):
-            print(("{t.nick_name:10} {tr.overall_win:2d} {tr.overall_loss:2d} "
+            print(("{t.nick_name:14} {tr.overall_win:2d} {tr.overall_loss:2d} "
                    "{tr.overall_tie:2d}  {tr.overall_pct:1.3f}")
                   .format(t=team, tr=team_record))
         print()

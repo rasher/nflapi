@@ -34,20 +34,23 @@ def apply_selector(obj, type_, select_fun: Callable[[shield.Team], None] = None)
 
 
 class ScheduleHelper(Helper):
-    def current_week(self):
+    def current_week(self) -> shield.Week:
         op = Operation(shield.Viewer)
-        op.viewer.current_week()
-        op.viewer.current_season()
-        op.viewer.current_season_type()
-        return self.query(op).viewer
+        week: shield.Week = op.viewer.league.current.week()
+        week.season_value()
+        week.season_type()
+        week.week_order()
+        week.week_type()
+        week.week_value()
+        return self.query(op).viewer.league.current.week
 
 
 class GameHelper(Helper):
     def week_games(self, week=None, season_type=None, season=0):
         if week is None or season_type is None:
             current_week = self.nfl.schedule.current_week()
-            week = current_week.current_week['default']
-            season_type = current_week.current_season_type['default']
+            week = current_week.week_value
+            season_type = current_week.season_type
 
         op = Operation(shield.Viewer)
         games = op.viewer.league.games(first=16, week_season_value=season, week_season_type=season_type,
@@ -107,9 +110,9 @@ class StandingsHelper(Helper):
 
     def current(self):
         current_week = self.nfl.schedule.current_week()
-        week = current_week.current_week['standings']
-        season_type = current_week.current_season_type['standings']
-        season = current_week.current_season['standings']
+        week = current_week.week_value
+        season_type = current_week.season_type
+        season = current_week.season_value
         return self.get(week, season_type, season)
 
 
