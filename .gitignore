@@ -266,3 +266,5 @@ tags
 
 # I don't understand why this isn't what pycharm does
 .idea
+
+.vscode
