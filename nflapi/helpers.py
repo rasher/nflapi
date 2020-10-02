@@ -184,10 +184,6 @@ class RosterHelper(Helper):
         return self.by_id(the_team.franchise.property.id, select_fun)
 
 
-class InjuryHelper(Helper):
-    
-
-
 __all__ = [
     'ScheduleHelper',
     'GameHelper',
