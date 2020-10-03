@@ -90,6 +90,7 @@ class NFL:
         self.standings = StandingsHelper(self)
         self.game = GameHelper(self)
         self.game_detail = GameDetailHelper(self)
+        self.roster = RosterHelper(self)
 
     def query(self, op: Operation, variables: Optional[Dict] = None, return_json=False):
         logger.debug("Running query: %s", op)

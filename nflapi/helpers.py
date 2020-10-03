@@ -11,6 +11,8 @@ DEFAULT_FIELDS = {
     shield.Team: ['id', 'abbreviation', 'full_name', 'nick_name'],
     shield.TeamRecord: ['overall_win', 'overall_loss', 'overall_tie', 'overall_pct', 'team_id', 'division_rank',
                         'conference_rank'],
+    shield.CurrentClubRoster: ['display_name', 'first_name', 'jersey_number', 'last_name', 'nfl_experience',
+                                'person_id', 'position', 'status'],
 }
 
 
@@ -23,7 +25,7 @@ class Helper:
 
     @staticmethod
     def _standard_fields(obj: shield.AbstractEntity, type_):
-        obj.__fields__(*DEFAULT_FIELDS.get(type_), 'id')
+        obj.__fields__(*DEFAULT_FIELDS.get(type_))
 
 
 def apply_selector(obj, type_, select_fun: Callable[[shield.Team], None] = None):
@@ -144,10 +146,49 @@ class TeamHelper(Helper):
         return teams.viewer.teams_by_ids
 
 
+class RosterHelper(Helper):
+    def lookup(self, abbreviation, select_fun: Callable[[shield.Team], None] = None):
+        def add_abbr_and_property_id(team):
+            if select_fun:
+                select_fun(team)
+            team.abbreviation()
+            team.franchise.property.id()
+
+        all_teams = self.nfl.team.get_all(select_fun=add_abbr_and_property_id)
+        the_team = next(filter(lambda t: t.abbreviation == abbreviation, all_teams), None)
+        if not the_team:
+            return None
+
+        return self.by_id(the_team.franchise.property.id, select_fun)
+
+    def by_id(self, id: str, select_fun: Callable[[shield.Team], None] = None):
+        # id param is team.franchise.property.id
+        op = Operation(shield.Viewer)
+        roster = op.viewer.clubs.current_club_roster(property_id=id)
+        apply_selector(roster, shield.CurrentClubRoster, select_fun)
+        roster = self.query(op)
+        return roster.viewer.clubs.current_club_roster
+
+    def by_team_id(self, team_id: str, select_fun: Callable[[shield.Team], None] = None):
+        def add_property_id(team):
+            if select_fun:
+                select_fun(team)
+            team.franchise.property.id()
+
+        the_team = self.nfl.team.by_ids(ids=[team_id], select_fun=add_property_id)
+        if not len(the_team):
+            return None
+        else:
+            the_team = the_team[0]
+
+        return self.by_id(the_team.franchise.property.id, select_fun)
+
+
 __all__ = [
     'ScheduleHelper',
     'GameHelper',
     'StandingsHelper',
     'TeamHelper',
-    'GameDetailHelper'
+    'GameDetailHelper',
+    'RosterHelper',
 ]
