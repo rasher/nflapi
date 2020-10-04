@@ -149,7 +149,7 @@ class TeamHelper(Helper):
 
 
 class RosterHelper(Helper):
-    def lookup(self, abbreviation, select_fun: Callable[[shield.Team], None] = None):
+    def lookup(self, abbreviation, select_fun: Callable[[shield.CurrentClubRoster], None] = None):
         def add_abbr_and_property_id(team):
             if select_fun:
                 select_fun(team)
@@ -163,7 +163,7 @@ class RosterHelper(Helper):
 
         return self.by_id(the_team.franchise.property.id, select_fun)
 
-    def by_id(self, id: str, select_fun: Callable[[shield.Team], None] = None):
+    def by_id(self, id: str, select_fun: Callable[[shield.CurrentClubRoster], None] = None):
         # id param is team.franchise.property.id
         op = Operation(shield.Viewer)
         roster = op.viewer.clubs.current_club_roster(property_id=id)
@@ -171,7 +171,7 @@ class RosterHelper(Helper):
         roster = self.query(op)
         return roster.viewer.clubs.current_club_roster
 
-    def by_team_id(self, team_id: str, select_fun: Callable[[shield.Team], None] = None):
+    def by_team_id(self, team_id: str, select_fun: Callable[[shield.CurrentClubRoster], None] = None):
         def add_property_id(team):
             if select_fun:
                 select_fun(team)
@@ -187,7 +187,7 @@ class RosterHelper(Helper):
 
 
 class PlayerHelper(Helper):
-    def lookup(self, season: int, player_name: str = None, team_id: str = None, status=None, first=100, after=None, select_fun: Callable[[shield.Player], None] = None):
+    def lookup(self, season: int = 0, player_name: str = None, team_id: str = None, status=None, first=100, after=None, select_fun: Callable[[shield.Player], None] = None):
         def add_team_person_fields(player):
             if select_fun:
                 select_fun(player)
