@@ -11,6 +11,7 @@ from sgqlc.operation import Operation
 
 from .const import *
 from .helpers import *
+from .__version__ import __version__
 
 logger = logging.getLogger(__name__)
 
@@ -76,6 +77,7 @@ class NFLClientCredentials(requests.auth.AuthBase):
 
 class NFL:
     def __init__(self, ua: str, auth: requests.auth.AuthBase = False):
+        self.__version__ = __version__
         self.ua = ua
         base_headers = {
             'X-Domain-Id': '100',
@@ -91,6 +93,7 @@ class NFL:
         self.game = GameHelper(self)
         self.game_detail = GameDetailHelper(self)
         self.roster = RosterHelper(self)
+        self.player = PlayerHelper(self)
 
     def query(self, op: Operation, variables: Optional[Dict] = None, return_json=False):
         logger.debug("Running query: %s", op)
