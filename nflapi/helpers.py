@@ -13,6 +13,8 @@ DEFAULT_FIELDS = {
                         'conference_rank'],
     shield.CurrentClubRoster: ['display_name', 'first_name', 'jersey_number', 'last_name', 'nfl_experience',
                                 'person_id', 'position', 'status'],
+    shield.Player: ['id', 'position', 'jersey_number', 'nfl_experience', 'status', 'person', 'current_team'],
+    shield.PlayerPerson: ['id', 'display_name', 'first_name', 'last_name'],
 }
 
 
@@ -184,6 +186,48 @@ class RosterHelper(Helper):
         return self.by_id(the_team.franchise.property.id, select_fun)
 
 
+class PlayerHelper(Helper):
+    def lookup(self, season: int, player_name: str = None, team_id: str = None, status=None, first=100, after=None, select_fun: Callable[[shield.Player], None] = None):
+        def add_team_person_fields(player):
+            if select_fun:
+                select_fun(player)
+            else:
+                apply_selector(player, shield.Player)
+                person = player.person()
+                apply_selector(person, shield.PlayerPerson)
+                team = player.current_team()
+                apply_selector(team, shield.Team)
+
+        op = Operation(shield.Viewer)
+        players = op.viewer.players(season_season=season, person_display_name_contains=player_name, current_team_id=team_id, first=first, after=after)
+        players.edges.cursor()
+        player = players.edges.node()
+        apply_selector(player, shield.Player, select_fun=add_team_person_fields)
+        players = self.query(op)
+        player_list = []
+        for p in players.viewer.players.edges:
+            p.node.cursor = p.cursor
+            player_list.append(p.node)
+        return player_list
+    
+    def by_id(self, id: str, select_fun: Callable[[shield.Player], None] = None):
+        def add_team_person_fields(player):
+            if select_fun:
+                select_fun(player)
+            else:
+                apply_selector(player, shield.Player)
+                person = player.person()
+                apply_selector(person, shield.PlayerPerson)
+                team = player.current_team()
+                apply_selector(team, shield.Team)
+
+        op = Operation(shield.Viewer)
+        player = op.viewer.player(id=id)
+        apply_selector(player, shield.Player, select_fun=add_team_person_fields)
+        player = self.query(op)
+        return player.viewer.player
+
+
 __all__ = [
     'ScheduleHelper',
     'GameHelper',
@@ -191,4 +235,5 @@ __all__ = [
     'TeamHelper',
     'GameDetailHelper',
     'RosterHelper',
+    'PlayerHelper',
 ]
