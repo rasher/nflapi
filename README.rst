@@ -13,7 +13,7 @@ rough state. There's a distinct risk that this might not ever change. To
 install, you can use pip's ability to to install directly from a git
 repository::
 
-  pip install -e git+git@github.com:rasher/nflapi.git#egg=nflapi
+  pip install -e git+ssh://git@github.com:rasher/nflapi.git#egg=nflapi
 
 Examples
 ========
