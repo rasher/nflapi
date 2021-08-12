@@ -51,13 +51,13 @@ class Football:
         self.base_headers = base_headers
         self.game_detail_lut = {}
 
-    def request(self, path, method='GET'):
+    def request(self, path, method='GET', **kwargs):
         url = API_HOST + ENDPOINT_FOOTBALL_V2 + path
-        return requests.request(method, url, auth=self.auth)
+        return requests.request(method, url, auth=self.auth, **kwargs).json()
 
     def game_by_id(self, game_id):
         path = FOOTBALL_GAME_BY_ID.format(game_id=game_id, with_external_ids='true')
-        result = self.request(path).json()
+        result = self.request(path)
         return result
 
     def game_detail_id_for_id(self, game_id):
