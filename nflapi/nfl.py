@@ -96,4 +96,4 @@ class NFL:
 
     def query(self, *args, **kwargs):
         logger.info("Using deprecated method")
-        self.shield.query(*args, **kwargs)
+        return self.shield.query(*args, **kwargs)
