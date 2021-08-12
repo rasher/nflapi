@@ -1,7 +1,10 @@
+import datetime
 import logging
 from typing import Callable, List
 
+import pendulum
 from sgqlc.operation import Operation
+from sgqlc import types
 
 from .shield import shield, GameOrderBy, OrderByDirection
 
@@ -19,14 +22,14 @@ class Helper:
         self.nfl = nfl
 
     def query(self, op: Operation):
-        return self.nfl.query(op)
+        return self.nfl.shield.query(op)
 
     @staticmethod
     def _standard_fields(obj: shield.AbstractEntity, type_):
         obj.__fields__(*DEFAULT_FIELDS.get(type_), 'id')
 
 
-def apply_selector(obj, type_, select_fun: Callable[[shield.Team], None] = None):
+def apply_selector(obj, type_, select_fun: Callable[[types.Type], None] = None):
     if select_fun:
         select_fun(obj)
     else:
@@ -34,15 +37,22 @@ def apply_selector(obj, type_, select_fun: Callable[[shield.Team], None] = None)
 
 
 class ScheduleHelper(Helper):
-    def current_week(self) -> shield.Week:
+    def current_week(self, date: datetime.datetime = None) -> shield.Week:
+        date = date.astimezone(pendulum.UTC)
         op = Operation(shield.Viewer)
-        week: shield.Week = op.viewer.league.current.week()
+        if date is None:
+            week: shield.Week = op.viewer.league.current.week()
+        else:
+            week: shield.Week = op.viewer.league.current(date=date).week()
         week.season_value()
         week.season_type()
         week.week_order()
         week.week_type()
         week.week_value()
         return self.query(op).viewer.league.current.week
+
+    def week(self, date: datetime.datetime):
+        return self.current_week(date)
 
 
 class GameHelper(Helper):
@@ -63,11 +73,14 @@ class GameHelper(Helper):
         games = self.query(op)
         return [game_edge.node for game_edge in games.viewer.league.games.edges]
 
-    def by_id(self, id, select_fun: Callable[[shield.Team], None] = None):
+    def by_id(self, id, select_fun: Callable[[shield.Game], None] = None):
         op = Operation(shield.Viewer)
         game = op.viewer.game(id=id)
         apply_selector(game, shield.Game, select_fun)
         return self.query(op).viewer.game
+
+    def game_detail_id_for_id(self, id):
+        return self.nfl.football.game_detail_id_for_id(id)
 
 
 class GameDetailHelper(Helper):
@@ -95,6 +108,8 @@ class StandingsHelper(Helper):
         record = standing.team_records
         self._standard_fields(record, shield.TeamRecord)
         standings = self.query(op)
+        if len(standings.viewer.standings.edges) == 0:
+            return []
         team_records = standings.viewer.standings.edges[0].node.team_records
         team_ids = [tr.team_id for tr in team_records]
 
@@ -108,8 +123,8 @@ class StandingsHelper(Helper):
         teams = {t.id: t for t in self.nfl.team.by_ids(team_ids, select_fun=with_div_con)}
         return [(teams[team_record['team_id']], team_record) for team_record in team_records]
 
-    def current(self):
-        current_week = self.nfl.schedule.current_week()
+    def current(self, date=None):
+        current_week = self.nfl.schedule.current_week(date)
         week = current_week.week_value
         season_type = current_week.season_type
         season = current_week.season_value
@@ -136,7 +151,7 @@ class TeamHelper(Helper):
         all_teams = self.get_all(season_value, select_fun=add_abbreviation)
         return next(filter(lambda t: t.abbreviation == abbreviation, all_teams), None)
 
-    def by_ids(self, ids: List[str], select_fun: Callable[[shield.Team], None] = None):
+    def by_ids(self, ids: List[str], select_fun: Callable[[shield.Game], None] = None):
         op = Operation(shield.Viewer)
         teams = op.viewer.teams_by_ids(ids=ids)
         apply_selector(teams, shield.Team, select_fun)

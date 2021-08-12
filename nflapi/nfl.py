@@ -1,15 +1,13 @@
 import logging
 from pprint import pformat
-from typing import Dict, Optional
 
 import pendulum
 import requests
 from fcache.cache import FileCache
 from requests.exceptions import HTTPError
-from sgqlc.endpoint.requests import RequestsEndpoint
-from sgqlc.operation import Operation
 
 from .const import *
+from .endpoints import Football, Shield
 from .helpers import *
 
 logger = logging.getLogger(__name__)
@@ -83,7 +81,8 @@ class NFL:
         }
         if auth is False:
             auth = NFLClientCredentials('nflapi')
-        self.endpoint = RequestsEndpoint(API_HOST + ENDPOINT_V3, base_headers=base_headers, auth=auth)
+        self.football = Football(auth, base_headers)
+        self.shield = Shield(auth, base_headers)
 
         self.team = TeamHelper(self)
         self.schedule = ScheduleHelper(self)
@@ -91,11 +90,6 @@ class NFL:
         self.game = GameHelper(self)
         self.game_detail = GameDetailHelper(self)
 
-    def query(self, op: Operation, variables: Optional[Dict] = None, return_json=False):
-        logger.debug("Running query: %s", op)
-        data = self.endpoint(op, variables)
-        logger.debug("Return data: %s", data)
-        if return_json:
-            return (op + data), data
-        else:
-            return op + data
+    def query(self, *args, **kwargs):
+        logger.info("Using deprecated method")
+        self.shield.query(*args, **kwargs)
