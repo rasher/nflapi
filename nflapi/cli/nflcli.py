@@ -8,6 +8,7 @@ import pendulum
 from nflapi import NFL
 from nflapi.const import DIVISION_NAMES
 from nflapi.__version__ import __version__ as VERSION
+from nflapi.shield import WeekType, Game
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
@@ -15,7 +16,7 @@ CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 def nflobj(f):
     @click.pass_context
     def new_func(ctx, *args, **kwargs):
-        ctx.invoke(f, ctx.obj['nfl'], *args, **kwargs)
+        ctx.invoke(f, *args, nfl=ctx.obj['nfl'], date=ctx.obj['date'], **kwargs)
 
     return update_wrapper(new_func, f)
 
@@ -23,32 +24,46 @@ def nflobj(f):
 @click.version_option(version=VERSION)
 @click.group(context_settings=CONTEXT_SETTINGS)
 @click.option('--verbose/--quiet', default=False)
+@click.option('--date', default=None, type=click.DateTime())
 @click.pass_context
-def nflcli(ctx, verbose):
+def nflcli(ctx, verbose, date):
     if verbose:
         level = logging.DEBUG
     else:
         level = logging.WARN
     logging.basicConfig(level=level)
+    if date is None:
+        date = pendulum.now()
+    else:
+        date = pendulum.instance(date)
+    logging.debug("Using date %s", date)
+    ctx.obj['date'] = date
     ctx.obj['nfl'] = NFL(ua=('nflapi cli'))
+
+
+def print_week(w):
+    logging.debug("Week: %r", w)
+    if w.week_type in (WeekType.PRE, WeekType.REG):
+        print("{w.season_value} {w.season_type} {w.week_value}".format(w=w))
+    else:
+        print("{w.season_value} {w.week_type}".format(w=w))
 
 
 @nflcli.command(short_help="Display the current week")
 @nflobj
-def current_week(nfl: NFL):
-    cw = nfl.schedule.current_week()
-    logging.debug("Current week: %r", cw)
-    print("{w.current_season[default]} {w.current_season_type[default]} {w.current_week[default]}".format(w=cw))
+def current_week(nfl: NFL, date: pendulum.DateTime, *args, **kwargs):
+    w = nfl.schedule.current_week(date)
+    print_week(w)
 
 
 @nflcli.command(short_help="Show schedule for a given week")
 @nflobj
-def schedule(nfl: NFL):
-    cw = nfl.schedule.current_week()
-    print("{w.season_value} {w.season_type} {w.week_value}".format(w=cw))
+def schedule(nfl: NFL, date: pendulum.DateTime, *args, **kwargs):
+    w = nfl.schedule.current_week(date)
+    print_week(w)
 
-    games = nfl.game.week_games(cw.week_value, cw.season_type,
-                                cw.season_value)
+    games = nfl.game.week_games(w.week_value, w.season_type,
+                                w.season_value)
     tz = pendulum.tz.local_timezone()
     for game in sorted(games, key=lambda g: g.game_time):
         localtime = pendulum.instance(game.game_time).astimezone(tz)
@@ -61,8 +76,8 @@ def schedule(nfl: NFL):
 
 @nflcli.command(short_help="List standings")
 @nflobj
-def standings(nfl: NFL):
-    team_records = nfl.standings.current()
+def standings(nfl: NFL, date: pendulum.DateTime, *args, **kwargs):
+    team_records = nfl.standings.current(date)
 
     groups = {}
     for team, team_record in team_records:
@@ -84,7 +99,7 @@ def standings(nfl: NFL):
 @nflcli.command(short_help="Team info")
 @click.argument('abbr')
 @nflobj
-def team(nfl: NFL, abbr):
+def team(nfl: NFL, abbr, *args, **kwargs):
     def selector(team):
         team.full_name()
         team.venues().display_name()
@@ -96,6 +111,21 @@ def team(nfl: NFL, abbr):
     print(team.conference)
     print(team.division)
     print(team.venues[0].display_name)
+
+
+@nflcli.command(short_help="Game state")
+@click.argument('id')
+@nflobj
+def game(nfl: NFL, id, *args, **kwargs):
+    def selector(game: Game):
+        game.game_time()
+        game.game_detail_id()
+        game.home_team().full_name()
+        game.away_team().full_name()
+    game = nfl.game.by_id(id, select_fun=selector)
+    if game.game_detail_id is None:
+        game.game_detail_id = nfl.game.game_detail_id_for_id(id)
+    print(game)
 
 
 def main():
