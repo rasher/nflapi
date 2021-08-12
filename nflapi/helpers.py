@@ -42,11 +42,11 @@ def apply_selector(obj, type_, select_fun: Callable[[types.Type], None] = None):
 
 class ScheduleHelper(Helper):
     def current_week(self, date: datetime.datetime = None) -> shield.Week:
-        date = date.astimezone(pendulum.UTC)
         op = Operation(shield.Viewer)
         if date is None:
             week: shield.Week = op.viewer.league.current.week()
         else:
+            date = date.astimezone(pendulum.UTC)
             week: shield.Week = op.viewer.league.current(date=date).week()
         week.season_value()
         week.season_type()
@@ -224,7 +224,7 @@ class PlayerHelper(Helper):
             p.node.cursor = p.cursor
             player_list.append(p.node)
         return player_list
-    
+
     def by_id(self, id: str, select_fun: Callable[[shield.Player], None] = None):
         def add_team_person_fields(player):
             if select_fun:
