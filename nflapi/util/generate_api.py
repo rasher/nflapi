@@ -8,7 +8,7 @@ from nflapi.nfl import NFL
 
 def main():
     nfl = NFL(ua=('nflapi schema generator'))
-    data = nfl.endpoint(query, variables())
+    data = nfl.shield.endpoint(query, variables())
     with open(sys.argv[1], 'w') as fp:
         json.dump(data, fp)
 

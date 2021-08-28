@@ -3423,14 +3423,18 @@ class CreateImageInput(sgqlc.types.Input):
 
 class CreateInjuryReport(sgqlc.types.Input):
     __schema__ = shield
-    __field_names__ = ('club_reported_injuries', 'id', 'team_id', 'week_id')
+    __field_names__ = ('club_reported_injuries', 'id', 'season_type', 'season_value', 'team_id', 'week_value')
     club_reported_injuries = sgqlc.types.Field(sgqlc.types.list_of('InjuredPlayerInput'), graphql_name='clubReportedInjuries')
 
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
 
+    season_type = sgqlc.types.Field(sgqlc.types.non_null(SeasonType), graphql_name='seasonType')
+
+    season_value = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='seasonValue')
+
     team_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='teamId')
 
-    week_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='weekId')
+    week_value = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='weekValue')
 
 
 

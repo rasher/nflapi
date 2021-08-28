@@ -60,31 +60,22 @@ class ScheduleHelper(Helper):
 
 
 class GameHelper(Helper):
-    def week_games(self, week=None, season_type=None, season=0):
-        if week is None or season_type is None:
+
+    def week_games(self, week=None, season_type=None, season=None):
+        if week is None or season_type is None or season is None:
             current_week = self.nfl.schedule.current_week()
-            week = current_week.week_value
-            season_type = current_week.season_type
+        week = week or current_week.week_value
+        season_type = season_type or current_week.season_type
+        season = season or current_week.season_value
 
-        op = Operation(shield.Viewer)
-        games = op.viewer.league.games(first=16, week_season_value=season, week_season_type=season_type,
-                                       week_week_value=week, order_by=GameOrderBy.gameTime,
-                                       order_by_direction=OrderByDirection.ASC)
-        game = games.edges.node
-        self._standard_fields(game, shield.Game)
-        self._standard_fields(game.home_team(), shield.Team)
-        self._standard_fields(game.away_team(), shield.Team)
-        games = self.query(op)
-        return [game_edge.node for game_edge in games.viewer.league.games.edges]
+        games = self.nfl.football.games_by_week(season, season_type=season_type, week=week)
+        return games
 
-    def by_id(self, id, select_fun: Callable[[shield.Game], None] = None):
-        op = Operation(shield.Viewer)
-        game = op.viewer.game(id=id)
-        apply_selector(game, shield.Game, select_fun)
-        return self.query(op).viewer.game
+    def by_id(self, game_id: str):
+        return self.nfl.football.game_by_id(game_id)
 
-    def game_detail_id_for_id(self, id):
-        return self.nfl.football.game_detail_id_for_id(id)
+    def game_detail_id_for_id(self, game_id: str):
+        return self.nfl.football.game_detail_id_for_id(game_id)
 
 
 class GameDetailHelper(Helper):
@@ -136,7 +127,7 @@ class StandingsHelper(Helper):
 
 
 class TeamHelper(Helper):
-    def get_all(self, season_value=0, select_fun: Callable[[shield.Team], None] = None):
+    def get_all(self, season_value=0, select_fun: Callable[[shield.Team], None] = None) -> List[shield.Team]:
         op = Operation(shield.Viewer)
         teams = op.viewer.teams(first=100, season_value=season_value)
         team = teams.edges.node()

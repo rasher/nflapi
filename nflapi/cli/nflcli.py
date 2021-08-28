@@ -8,7 +8,7 @@ import pendulum
 from nflapi import NFL
 from nflapi.const import DIVISION_NAMES
 from nflapi.__version__ import __version__ as VERSION
-from nflapi.shield import WeekType, Game
+from nflapi.shield import WeekType, Game, Team
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
@@ -65,12 +65,12 @@ def schedule(nfl: NFL, date: pendulum.DateTime, *args, **kwargs):
     games = nfl.game.week_games(w.week_value, w.season_type,
                                 w.season_value)
     tz = pendulum.tz.local_timezone()
-    for game in sorted(games, key=lambda g: g.game_time):
-        localtime = pendulum.instance(game.game_time).astimezone(tz)
+    for game in sorted(games, key=lambda g: g.time):
+        localtime = pendulum.parse(game.time).astimezone(tz)
         print(("{t:%Y-%m-%d %H:%M %Z} "
-               "{g.away_team.abbreviation:3s} "
+               "{g.away_team.full_name} "
                "@ "
-               "{g.home_team.abbreviation:3s}").format(
+               "{g.home_team.full_name}").format(
             g=game, t=localtime))
 
 
@@ -94,6 +94,22 @@ def standings(nfl: NFL, date: pendulum.DateTime, *args, **kwargs):
                    "{tr.overall_tie:2d}  {tr.overall_pct:1.3f}")
                   .format(t=team, tr=team_record))
         print()
+
+
+@nflcli.command()
+@nflobj
+def teams(nfl: NFL, **kwargs):
+    def add(t: Team):
+        t.id()
+        t.full_name()
+        t.conference()
+        t.division()
+        t.venues()
+
+    for t in sorted(nfl.team.get_all(select_fun=add), key=lambda t: t.full_name):
+        print("{t.full_name}\n  Id:    {t.id}\n  Conf.: {t.conference}\n  Div.:  {t.division}".format(t=t))
+        for v in t.venues:
+            print("  Venue: {v.full_name}".format(v=v))
 
 
 @nflcli.command(short_help="Team info")

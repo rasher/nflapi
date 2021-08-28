@@ -6,6 +6,11 @@ ENDPOINT_SHIELD_V3 = '/v3/shield'
 
 ENDPOINT_FOOTBALL_V2 = '/football/v2'
 FOOTBALL_GAME_BY_ID = "/games/{game_id}?withExternalIds={with_external_ids}"
+FOOTBALL_GAMES_BY_WEEK = '/games/season/{season}/seasonType/{season_type}/week/{week}?withExternalIds={with_external_ids}'
+FOOTBALL_WEEK_BY_DATE = '/weeks/date/{date:%Y-%m-%d}'
+FOOTBALL_TEAMS_BY_SEASON = '/teams/history?season={season}&limit={limit}'
+FOOTBALL_TEAM_BY_ID = '/teams/{id}'
+FOOTBALL_STANDINGS_BY_WEEK = '/standings?seasonType={season_type}&week={week}&season={season}&limit={limit}'
 
 CONFERENCE_NAMES = {
     'AFC': 'American Football Conference',

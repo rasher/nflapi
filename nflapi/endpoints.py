@@ -1,3 +1,4 @@
+import datetime
 import logging
 from typing import Optional, Dict
 
@@ -44,6 +45,39 @@ class Shield:
         DT.DateTime.__to_json_value__ = classmethod(f)
 
 
+class JsonWrapper:
+    def __init__(self, json):
+        self._raw = json
+
+    def __getattr__(self, item):
+        key = self.__to_camel(item)
+        item = self.raw.get(key)
+        return self.__class__.wrap_object(item)
+
+    def __to_camel(self, s):
+        camel = ''.join(word.title() for word in s.split('_'))
+        return camel[0].lower() + camel[1:]
+
+    @property
+    def raw(self):
+        return self._raw
+
+    def __str__(self):
+        return str(self.raw)
+
+    def __repr__(self):
+        return repr(self.raw)
+
+    @classmethod
+    def wrap_object(cls, o):
+        if isinstance(o, dict):
+            return JsonWrapper(o)
+        elif isinstance(o, list):
+            return [cls.wrap_object(i) for i in o]
+        else:
+            return o
+
+
 class Football:
 
     def __init__(self, auth, base_headers):
@@ -53,12 +87,11 @@ class Football:
 
     def request(self, path, method='GET', **kwargs):
         url = API_HOST + ENDPOINT_FOOTBALL_V2 + path
-        return requests.request(method, url, auth=self.auth, **kwargs).json()
+        return JsonWrapper.wrap_object(requests.request(method, url, auth=self.auth, **kwargs).json())
 
     def game_by_id(self, game_id):
         path = FOOTBALL_GAME_BY_ID.format(game_id=game_id, with_external_ids='true')
-        result = self.request(path)
-        return result
+        return self.request(path)
 
     def game_detail_id_for_id(self, game_id):
         """
@@ -67,7 +100,27 @@ class Football:
         if game_id in self.game_detail_lut:
             return self.game_detail_lut[game_id]
         result = self.game_by_id(game_id)
-        game_detail_id = next((x["id"] for x in result["externalIds"] if x["source"] == "gamedetail"), None)
+        game_detail_id = next((x["id"] for x in result.external_ids if x.source == "gamedetail"), None)
         if game_detail_id is not None:
             self.game_detail_lut[game_id] = game_detail_id
         return game_detail_id
+
+    def games_by_week(self, season: int, season_type: str, week: int):
+        path = FOOTBALL_GAMES_BY_WEEK.format(season=season, season_type=season_type, week=week, with_external_ids='true')
+        return self.request(path).games
+
+    def week_by_date(self, date: datetime.datetime):
+        path = FOOTBALL_WEEK_BY_DATE.format(date=date)
+        return self.request(path)
+
+    def teams_by_season(self, season: int):
+        path = FOOTBALL_TEAMS_BY_SEASON.format(season=season, limit=100)
+        return self.request(path)
+
+    def team_by_id(self, id: str):
+        path = FOOTBALL_TEAM_BY_ID.format(id=id, with_external_ids='true')
+        return self.request(path)
+
+    def standings_by_week(self, season: int, season_type: str, week: int):
+        path = FOOTBALL_STANDINGS_BY_WEEK.format(season=season, season_type=season_type, week=week, with_external_ids='true', limit=100)
+        return self.request(path)
