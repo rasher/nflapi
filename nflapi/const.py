@@ -11,6 +11,9 @@ FOOTBALL_WEEK_BY_DATE = '/weeks/date/{date:%Y-%m-%d}'
 FOOTBALL_TEAMS_BY_SEASON = '/teams/history?season={season}&limit={limit}'
 FOOTBALL_TEAM_BY_ID = '/teams/{id}'
 FOOTBALL_STANDINGS_BY_WEEK = '/standings?seasonType={season_type}&week={week}&season={season}&limit={limit}'
+FOOTBALL_COMBINE_BY_YEAR = '/combine/profiles?year={year}&combineAttendance={combine_attendance}&limit={limit}'
+FOOTBALL_ROSTERS_BY_SEASON = '/rosters?season={season}&limit={limit}'
+FOOTBALL_DRAFT_PICKS_REPORT_BY_YEAR = '/draft/picks/report?year={year}&limit={limit}'
 
 CONFERENCE_NAMES = {
     'AFC': 'American Football Conference',

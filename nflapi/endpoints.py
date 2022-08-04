@@ -100,7 +100,7 @@ class Football:
         if game_id in self.game_detail_lut:
             return self.game_detail_lut[game_id]
         result = self.game_by_id(game_id)
-        game_detail_id = next((x["id"] for x in result.external_ids if x.source == "gamedetail"), None)
+        game_detail_id = next((x.id for x in result.external_ids if x.source == "gamedetail"), None)
         if game_detail_id is not None:
             self.game_detail_lut[game_id] = game_detail_id
         return game_detail_id
@@ -123,4 +123,8 @@ class Football:
 
     def standings_by_week(self, season: int, season_type: str, week: int):
         path = FOOTBALL_STANDINGS_BY_WEEK.format(season=season, season_type=season_type, week=week, with_external_ids='true', limit=100)
+        return self.request(path)
+
+    def combine_profiles_by_year(self, year: int, combine_attendance: bool = True, limit: int = 1000):
+        path = FOOTBALL_COMBINE_BY_YEAR.format(year=year, combine_attendance=combine_attendance, limit=limit)
         return self.request(path)

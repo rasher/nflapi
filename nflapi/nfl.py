@@ -93,6 +93,7 @@ class NFL:
         self.game_detail = GameDetailHelper(self)
         self.roster = RosterHelper(self)
         self.player = PlayerHelper(self)
+        self.combine = CombineHelper(self)
 
     def query(self, *args, **kwargs):
         logger.info("Using deprecated method")
