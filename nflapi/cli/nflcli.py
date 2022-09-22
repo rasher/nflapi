@@ -86,7 +86,7 @@ def standings(nfl: NFL, date: pendulum.DateTime, *args, **kwargs):
 
     groups = {}
     for team, team_record in team_records:
-        group = team.division
+        group = team.division_full_name
         if group not in groups:
             groups[group] = []
         groups[group].append((team, team_record))
@@ -94,9 +94,9 @@ def standings(nfl: NFL, date: pendulum.DateTime, *args, **kwargs):
         group_name = DIVISION_NAMES.get(group, group)
         print(group_name + "\n" + ("=" * len(group_name)))
         print("Team            W  L  T  PCT")
-        for team, team_record in sorted(teams, key=lambda t: t[1].division_rank):
-            print(("{t.nick_name:14} {tr.overall_win:2d} {tr.overall_loss:2d} "
-                   "{tr.overall_tie:2d}  {tr.overall_pct:1.3f}")
+        for team, team_record in sorted(teams, key=lambda t: t[1].division.rank):
+            print(("{t.nick_name:14} {tr.overall.wins:2d} {tr.overall.losses:2d} "
+                   "{tr.overall.ties:2d}  {tr.overall.win_pct:1.3f}")
                   .format(t=team, tr=team_record))
         print()
 

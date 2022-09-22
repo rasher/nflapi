@@ -94,29 +94,13 @@ class GameDetailHelper(Helper):
 
 
 class StandingsHelper(Helper):
-    def get(self, week, season_type, season=0):
-        logging.debug("Getting week %s, type %s, season %s", week, season_type, season)
-        op = Operation(shield.Viewer)
-        standings = op.viewer.standings(first=40, week_season_value=season, week_season_type=season_type,
-                                        week_week_value=week)
-        standing = standings.edges.node
-        record = standing.team_records
-        self._standard_fields(record, shield.TeamRecord)
-        standings = self.query(op)
-        if len(standings.viewer.standings.edges) == 0:
-            return []
-        team_records = standings.viewer.standings.edges[0].node.team_records
-        team_ids = [tr.team_id for tr in team_records]
+    def get(self, week, season_type, season):
+        result = self.nfl.football.standings_by_week(season, season_type, week)
+        team_records = result.weeks[0].standings
 
-        def with_div_con(team):
-            team.id()
-            team.full_name()
-            team.nick_name()
-            team.division()
-            team.conference()
+        teams = {t.id: t for t in self.nfl.team.by_season(season)}
 
-        teams = {t.id: t for t in self.nfl.team.by_ids(team_ids, select_fun=with_div_con)}
-        return [(teams[team_record['team_id']], team_record) for team_record in team_records]
+        return [(teams[team_record.team.id], team_record) for team_record in team_records]
 
     def current(self, date=None):
         current_week = self.nfl.schedule.current_week(date)
@@ -152,6 +136,9 @@ class TeamHelper(Helper):
         apply_selector(teams, shield.Team, select_fun)
         teams = self.query(op)
         return teams.viewer.teams_by_ids
+
+    def by_season(self, season: int):
+        return self.nfl.football.teams_by_season(season).teams
 
 
 class RosterHelper(Helper):
