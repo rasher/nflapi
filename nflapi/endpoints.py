@@ -91,7 +91,9 @@ class Football:
 
     def game_by_id(self, game_id):
         path = FOOTBALL_GAME_BY_ID.format(game_id=game_id, with_external_ids='true')
-        return self.request(path)
+        game = self.request(path)
+        self.remember_game_detail_id(game)
+        return game
 
     def game_detail_id_for_id(self, game_id):
         """
@@ -100,7 +102,7 @@ class Football:
         if game_id in self.game_detail_lut:
             return self.game_detail_lut[game_id]
         result = self.game_by_id(game_id)
-        game_detail_id = next((x.id for x in result.external_ids if x.source == "gamedetail"), None)
+        game_detail_id = self._game_detail_id(result)
         if game_detail_id is not None:
             self.game_detail_lut[game_id] = game_detail_id
         return game_detail_id
@@ -128,3 +130,12 @@ class Football:
     def combine_profiles_by_year(self, year: int, combine_attendance: bool = True, limit: int = 1000):
         path = FOOTBALL_COMBINE_BY_YEAR.format(year=year, combine_attendance=combine_attendance, limit=limit)
         return self.request(path)
+
+    @staticmethod
+    def _game_detail_id(game):
+        return next((x.id for x in game.external_ids if x.source == "gamedetail"), None)
+
+    def remember_game_detail_id(self, game):
+        gdi = self._game_detail_id(game)
+        if gdi is not None:
+            self.game_detail_lut[game.id] = gdi
