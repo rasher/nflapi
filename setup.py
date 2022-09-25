@@ -20,10 +20,10 @@ AUTHOR = 'Jonas Häggqvist'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
-    'requests>=2.19,<3',
+    'requests>=2.28.1,<3',
     'pendulum>=2.1.2,<3',
-    'click>=8.0.1,<9',
-    'sgqlc>=14.0,<15',
+    'click>=8.1.3,<9',
+    'sgqlc>=16.0,<17',
     'fcache>=0.4.7,<0.5',
 ]
 

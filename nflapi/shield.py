@@ -21,8 +21,8 @@ class AuthorOrderBy(sgqlc.types.Enum):
     '''Enumeration Choices:
 
     * `createdDate`None
-    * `lastModifiedDate`None
     * `displayName`None
+    * `lastModifiedDate`None
     * `person__displayName`None
     '''
     __schema__ = shield
@@ -39,9 +39,9 @@ Boolean = sgqlc.types.Boolean
 class CheerleaderOrderBy(sgqlc.types.Enum):
     '''Enumeration Choices:
 
+    * `cheerleaderPerson__displayName`None
     * `createdDate`None
     * `lastModifiedDate`None
-    * `cheerleaderPerson__displayName`None
     * `person__displayName`None
     * `season__season`None
     '''
@@ -52,24 +52,24 @@ class CheerleaderOrderBy(sgqlc.types.Enum):
 class ClipType(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `PREVIEW`None
-    * `GAME_HIGHLIGHT`None
-    * `IN_GAME_HIGHLIGHT`None
-    * `FANTASY_HIGHLIGHT`None
     * `CLUB_TV`None
-    * `FEATURE`None
-    * `LOCKER_ROOM_SOUND`None
-    * `PRESS_CONFERENCE`None
     * `DIARIES`None
+    * `FANTASY_HIGHLIGHT`None
+    * `FANTASY_PLAYERRECAP`None
+    * `FEATURE`None
+    * `GAME_HIGHLIGHT`None
     * `HIGHLIGHT_REEL`None
     * `INTERVIEWS`None
+    * `IN_GAME_HIGHLIGHT`None
+    * `LIVE_CONTENT_CORRESPONDENTS`None
+    * `LOCKER_ROOM_SOUND`None
     * `NFL_NOW`None
     * `PLAYER_HIGHLIGHT`None
+    * `PRESS_CONFERENCE`None
+    * `PREVIEW`None
     * `RECAP`None
     * `SHOW`None
     * `TEAM_HIGHLIGHT`None
-    * `FANTASY_PLAYERRECAP`None
-    * `LIVE_CONTENT_CORRESPONDENTS`None
     '''
     __schema__ = shield
     __choices__ = ('CLUB_TV', 'DIARIES', 'FANTASY_HIGHLIGHT', 'FANTASY_PLAYERRECAP', 'FEATURE', 'GAME_HIGHLIGHT', 'HIGHLIGHT_REEL', 'INTERVIEWS', 'IN_GAME_HIGHLIGHT', 'LIVE_CONTENT_CORRESPONDENTS', 'LOCKER_ROOM_SOUND', 'NFL_NOW', 'PLAYER_HIGHLIGHT', 'PRESS_CONFERENCE', 'PREVIEW', 'RECAP', 'SHOW', 'TEAM_HIGHLIGHT')
@@ -78,9 +78,9 @@ class ClipType(sgqlc.types.Enum):
 class CoachOrderBy(sgqlc.types.Enum):
     '''Enumeration Choices:
 
+    * `coachPerson__displayName`None
     * `createdDate`None
     * `lastModifiedDate`None
-    * `coachPerson__displayName`None
     * `person__displayName`None
     * `season__season`None
     '''
@@ -91,11 +91,11 @@ class CoachOrderBy(sgqlc.types.Enum):
 class CoachType(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `HEAD_COACH`None
-    * `UNASSIGNED`None
-    * `OFFENSE`None
     * `DEFENSE`None
+    * `HEAD_COACH`None
+    * `OFFENSE`None
     * `SPECIAL_TEAMS`None
+    * `UNASSIGNED`None
     '''
     __schema__ = shield
     __choices__ = ('DEFENSE', 'HEAD_COACH', 'OFFENSE', 'SPECIAL_TEAMS', 'UNASSIGNED')
@@ -106,32 +106,32 @@ class Conference(sgqlc.types.Enum):
 
     Enumeration Choices:
 
-    * `AFC`None
-    * `NFC`None
-    * `NFL_EAST`None
-    * `NFL_WEST`None
-    * `AFL_EAST`None
-    * `AFL_WEST`None
-    * `EASTERN_CONFERENCE`None
-    * `WESTERN_CONFERENCE`None
-    * `AMERICAN_CONFERENCE`None
-    * `AMERICAN_FOOTBALL_CONFERENCE`None
-    * `NATIONAL_CONFERENCE`None
-    * `NATIONAL_FOOTBALL_CONFERENCE`None
-    * `EASTERN_DIVISION`None
-    * `WESTERN_DIVISION`None
-    * `NFL_EASTERN_DIVISION`None
-    * `NFL_WESTERN_DIVISION`None
-    * `NFL_EASTERN_CONFERENCE`None
-    * `NFL_WESTERN_CONFERENCE`None
-    * `AFL_EASTERN_DIVISION`None
-    * `AFL_EASTERN_CONFERENCE`None
-    * `AFL_WESTERN_DIVISION`None
-    * `AFL_WESTERN_CONFERENCE`None
     * `AAFC_EASTERN_DIVISION`None
     * `AAFC_WESTERN_DIVISION`None
-    * `NO_CONFERENCE`None
+    * `AFC`None
+    * `AFL_EAST`None
+    * `AFL_EASTERN_CONFERENCE`None
+    * `AFL_EASTERN_DIVISION`None
+    * `AFL_WEST`None
+    * `AFL_WESTERN_CONFERENCE`None
+    * `AFL_WESTERN_DIVISION`None
+    * `AMERICAN_CONFERENCE`None
+    * `AMERICAN_FOOTBALL_CONFERENCE`None
+    * `EASTERN_CONFERENCE`None
+    * `EASTERN_DIVISION`None
     * `HISTORICAL`None
+    * `NATIONAL_CONFERENCE`None
+    * `NATIONAL_FOOTBALL_CONFERENCE`None
+    * `NFC`None
+    * `NFL_EAST`None
+    * `NFL_EASTERN_CONFERENCE`None
+    * `NFL_EASTERN_DIVISION`None
+    * `NFL_WEST`None
+    * `NFL_WESTERN_CONFERENCE`None
+    * `NFL_WESTERN_DIVISION`None
+    * `NO_CONFERENCE`None
+    * `WESTERN_CONFERENCE`None
+    * `WESTERN_DIVISION`None
     '''
     __schema__ = shield
     __choices__ = ('AAFC_EASTERN_DIVISION', 'AAFC_WESTERN_DIVISION', 'AFC', 'AFL_EAST', 'AFL_EASTERN_CONFERENCE', 'AFL_EASTERN_DIVISION', 'AFL_WEST', 'AFL_WESTERN_CONFERENCE', 'AFL_WESTERN_DIVISION', 'AMERICAN_CONFERENCE', 'AMERICAN_FOOTBALL_CONFERENCE', 'EASTERN_CONFERENCE', 'EASTERN_DIVISION', 'HISTORICAL', 'NATIONAL_CONFERENCE', 'NATIONAL_FOOTBALL_CONFERENCE', 'NFC', 'NFL_EAST', 'NFL_EASTERN_CONFERENCE', 'NFL_EASTERN_DIVISION', 'NFL_WEST', 'NFL_WESTERN_CONFERENCE', 'NFL_WESTERN_DIVISION', 'NO_CONFERENCE', 'WESTERN_CONFERENCE', 'WESTERN_DIVISION')
@@ -142,13 +142,13 @@ class ContentHint(sgqlc.types.Enum):
 
     * `ARTICLE`None
     * `AUDIO`None
-    * `IMAGE`None
-    * `PHOTO`None
-    * `VIDEO`None
-    * `EVENT`None
-    * `PROMO`None
     * `CONTENT_LIST`None
+    * `EVENT`None
+    * `IMAGE`None
     * `MIXED`None
+    * `PHOTO`None
+    * `PROMO`None
+    * `VIDEO`None
     '''
     __schema__ = shield
     __choices__ = ('ARTICLE', 'AUDIO', 'CONTENT_LIST', 'EVENT', 'IMAGE', 'MIXED', 'PHOTO', 'PROMO', 'VIDEO')
@@ -159,8 +159,8 @@ class ContentOrderBy(sgqlc.types.Enum):
 
     * `createdDate`None
     * `lastModifiedDate`None
-    * `originalPublishDate`None
     * `lastPublishDate`None
+    * `originalPublishDate`None
     '''
     __schema__ = shield
     __choices__ = ('createdDate', 'lastModifiedDate', 'lastPublishDate', 'originalPublishDate')
@@ -169,14 +169,14 @@ class ContentOrderBy(sgqlc.types.Enum):
 class ContentType(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `VIDEO`None
-    * `AUDIO`None
-    * `EVENT`None
-    * `PROMO`None
-    * `IMAGE`None
     * `ARTICLE`None
+    * `AUDIO`None
     * `CONTENTLIST`None
+    * `EVENT`None
+    * `IMAGE`None
     * `PERSONLIST`None
+    * `PROMO`None
+    * `VIDEO`None
     '''
     __schema__ = shield
     __choices__ = ('ARTICLE', 'AUDIO', 'CONTENTLIST', 'EVENT', 'IMAGE', 'PERSONLIST', 'PROMO', 'VIDEO')
@@ -197,14 +197,14 @@ class Curation(sgqlc.types.Enum):
 class CurrentContext(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `DEFAULT`None
-    * `GAME`None
-    * `COMBINE`None
-    * `DRAFT`None
-    * `PLAYER`None
     * `CHEERLEADER`None
     * `COACH`None
+    * `COMBINE`None
+    * `DEFAULT`None
+    * `DRAFT`None
     * `EXECUTIVE`None
+    * `GAME`None
+    * `PLAYER`None
     * `STANDINGS`None
     * `STATS`None
     * `TEAM`None
@@ -231,13 +231,13 @@ DateTime = sgqlc.types.datetime.DateTime
 class DayOfWeek(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `MONDAY`None
-    * `TUESDAY`None
-    * `WEDNESDAY`None
-    * `THURSDAY`None
     * `FRIDAY`None
+    * `MONDAY`None
     * `SATURDAY`None
     * `SUNDAY`None
+    * `THURSDAY`None
+    * `TUESDAY`None
+    * `WEDNESDAY`None
     '''
     __schema__ = shield
     __choices__ = ('FRIDAY', 'MONDAY', 'SATURDAY', 'SUNDAY', 'THURSDAY', 'TUESDAY', 'WEDNESDAY')
@@ -246,8 +246,8 @@ class DayOfWeek(sgqlc.types.Enum):
 class DisplayHint(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `SHOW`None
     * `DONT_SHOW`None
+    * `SHOW`None
     '''
     __schema__ = shield
     __choices__ = ('DONT_SHOW', 'SHOW')
@@ -259,25 +259,25 @@ class Division(sgqlc.types.Enum):
 
     Enumeration Choices:
 
+    * `AFC_CENTRAL`None
+    * `AFC_EAST`None
+    * `AFC_EASTERN`None
     * `AFC_NORTH`None
     * `AFC_SOUTH`None
-    * `AFC_EAST`None
     * `AFC_WEST`None
+    * `AFC_WESTERN`None
+    * `CAPITOL`None
+    * `CENTRAL`None
+    * `CENTURY`None
+    * `COASTAL`None
+    * `HISTORICAL_DIVISION`None
+    * `NFC_CENTRAL`None
+    * `NFC_EAST`None
+    * `NFC_EASTERN`None
     * `NFC_NORTH`None
     * `NFC_SOUTH`None
-    * `NFC_EAST`None
     * `NFC_WEST`None
-    * `AFC_CENTRAL`None
-    * `AFC_EASTERN`None
-    * `AFC_WESTERN`None
-    * `NFC_CENTRAL`None
-    * `NFC_EASTERN`None
     * `NFC_WESTERN`None
-    * `CENTRAL`None
-    * `COASTAL`None
-    * `CAPITOL`None
-    * `CENTURY`None
-    * `HISTORICAL_DIVISION`None
     * `NO_DIVISION`None
     '''
     __schema__ = shield
@@ -288,9 +288,9 @@ class DraftPickOrderBy(sgqlc.types.Enum):
     '''Enumeration Choices:
 
     * `createdDate`None
-    * `lastModifiedDate`None
-    * `draftRound`None
     * `draftNumberOverall`None
+    * `draftRound`None
+    * `lastModifiedDate`None
     '''
     __schema__ = shield
     __choices__ = ('createdDate', 'draftNumberOverall', 'draftRound', 'lastModifiedDate')
@@ -299,10 +299,10 @@ class DraftPickOrderBy(sgqlc.types.Enum):
 class DraftState(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `PRE`None
     * `ACTIVE`None
     * `IN`None
     * `POST`None
+    * `PRE`None
     '''
     __schema__ = shield
     __choices__ = ('ACTIVE', 'IN', 'POST', 'PRE')
@@ -311,196 +311,196 @@ class DraftState(sgqlc.types.Enum):
 class EliasStatsLeadersOrderBy(sgqlc.types.Enum):
     '''Enumeration Choices:
 
+    * `defensiveAllKickBlocked`None
+    * `defensiveAssists`None
+    * `defensiveCombineTackles`None
+    * `defensiveFgBlocked`None
+    * `defensiveForcedFumble`None
+    * `defensiveInterceptions`None
+    * `defensiveInterceptionsAvgyds`None
+    * `defensiveInterceptionsLgtd`None
+    * `defensiveInterceptionsLong`None
+    * `defensiveInterceptionsTds`None
+    * `defensiveInterceptionsYards`None
+    * `defensivePassesDefensed`None
+    * `defensivePuntBlocked`None
+    * `defensiveSacks`None
+    * `defensiveSafeties`None
+    * `defensiveSoloTackles`None
+    * `defensiveTotalTackles`None
+    * `defensiveXpBlocked`None
+    * `down1stAttempted`None
+    * `down1stFdMade`None
+    * `down2ndAttempted`None
+    * `down2ndFdMade`None
+    * `down3rdAttempted`None
+    * `down3rdFdMade`None
+    * `down4thAttempted`None
+    * `down4thFdMade`None
+    * `extraPointAtt2ptNonkick`None
+    * `extraPointGood2ptNonkick`None
+    * `firstDownsPerGameAverage`None
+    * `firstdownsPass`None
+    * `firstdownsPenalty`None
+    * `firstdownsRush`None
+    * `firstdownsTotal`None
+    * `fumblesAbortedYds`None
+    * `fumblesLost`None
+    * `fumblesOutbounds`None
+    * `fumblesSafety`None
+    * `fumblesTotal`None
+    * `fumblesTouchback`None
+    * `gamesDnp`None
+    * `gamesInactive`None
     * `gamesPlayed`None
     * `gamesStarted`None
     * `gamesSub`None
-    * `gamesDnp`None
-    * `gamesInactive`None
-    * `passingAttempts`None
-    * `passingCompletions`None
-    * `passingYards`None
-    * `passingLong`None
-    * `passingLgtd`None
-    * `passingTouchdowns`None
-    * `passingFirstDowns`None
-    * `passingInterceptions`None
-    * `passingSacked`None
-    * `passingSackedYardsLost`None
-    * `passingNetYards`None
-    * `passingFumbles`None
-    * `passing20plusYardsEach`None
-    * `passing40plusYardsEach`None
-    * `passingPasserRating`None
-    * `passingCompletionPercentage`None
-    * `passingTouchdownPercentage`None
-    * `passingInterceptionPercentage`None
-    * `passingFirstDownPercentage`None
-    * `passingAverageYards`None
-    * `rushingAttempts`None
-    * `rushingYards`None
-    * `rushingLong`None
-    * `rushingLgtd`None
-    * `rushingTouchdowns`None
-    * `rushingFirstDowns`None
-    * `rushingFumbles`None
-    * `rushing20plusYardsEach`None
-    * `rushing40plusYardsEach`None
-    * `rushingAverageYards`None
-    * `rushingFirstDownPercentage`None
-    * `receivingReceptions`None
-    * `receivingYards`None
-    * `receivingLong`None
-    * `receivingLgtd`None
-    * `receivingTouchdowns`None
-    * `receivingFirstDowns`None
-    * `receivingFumbles`None
-    * `receivingTarget`None
-    * `receiving20plusYardsEach`None
-    * `receiving40plusYardsEach`None
-    * `receivingAverageYards`None
-    * `receivingFirstDownPercentage`None
-    * `defensiveInterceptions`None
-    * `defensiveInterceptionsYards`None
-    * `defensiveInterceptionsLong`None
-    * `defensiveInterceptionsLgtd`None
-    * `defensiveInterceptionsTds`None
-    * `defensiveInterceptionsAvgyds`None
-    * `puntReturns`None
-    * `puntReturnsYards`None
-    * `puntReturnsLong`None
-    * `puntReturnsLgtd`None
-    * `puntReturnsTouchdowns`None
-    * `puntReturnsFumbles`None
-    * `puntReturnsFairCatches`None
-    * `puntReturnsAverageYards`None
-    * `puntReturns20plusYardsEach`None
-    * `puntReturns40plusYardsEach`None
     * `kickReturns`None
-    * `kickReturnsYards`None
-    * `kickReturnsLong`None
-    * `kickReturnsLgtd`None
-    * `kickReturnsTouchdowns`None
-    * `kickReturnsFumbles`None
-    * `kickReturnsFairCatches`None
-    * `kickReturnsAverageYards`None
     * `kickReturns20plusYardsEach`None
     * `kickReturns40plusYardsEach`None
-    * `puntingPunts`None
-    * `puntingYards`None
-    * `puntingLong`None
-    * `puntingAverageYards`None
-    * `puntingBlocked`None
-    * `puntingPuntsInside20`None
-    * `puntingTotalPuntsInclBlks`None
-    * `puntingTouchbacks`None
-    * `puntingDowned`None
-    * `puntingOutOfBounds`None
-    * `puntingPuntsFairCaught`None
-    * `puntingNumberReturned`None
-    * `puntingReturnYards`None
-    * `puntingReturnTouchdowns`None
-    * `puntingNetYardage`None
-    * `kickoffTotal`None
-    * `kickoffYards`None
-    * `kickoffAverageYards`None
-    * `kickoffTouchbacks`None
-    * `kickoffTouchbacksPercentage`None
-    * `kickoffReturns`None
-    * `kickoffReturnsYards`None
-    * `kickoffReturnsAverageYards`None
-    * `kickoffReturnsTouchdowns`None
-    * `kickoffOnside`None
-    * `kickoffOnsideRecovered`None
-    * `kickoffOutbounds`None
-    * `kickoffFairCaught`None
-    * `kickingFgMade`None
+    * `kickReturnsAverageYards`None
+    * `kickReturnsFairCatches`None
+    * `kickReturnsFumbles`None
+    * `kickReturnsLgtd`None
+    * `kickReturnsLong`None
+    * `kickReturnsTouchdowns`None
+    * `kickReturnsYards`None
     * `kickingFgAtt`None
-    * `kickingFgBlk`None
-    * `kickingFgLong`None
-    * `kickingFgPct`None
-    * `kickingXkMade`None
-    * `kickingXkAtt`None
-    * `kickingXkBlk`None
-    * `kickingXkPct`None
     * `kickingFgAttMade1To19`None
     * `kickingFgAttMade20To29`None
     * `kickingFgAttMade30To39`None
     * `kickingFgAttMade40To49`None
     * `kickingFgAttMade50plus`None
-    * `totalPointsScored`None
-    * `touchdownsTotal`None
-    * `touchdownsRushing`None
-    * `touchdownsReceiving`None
-    * `touchdownsPassing`None
-    * `touchdownsInterceptionRtrns`None
-    * `touchdownsPuntReturns`None
-    * `touchdownsKickReturns`None
-    * `touchdownsFumbleReturns`None
-    * `touchdownsBlockedFgReturns`None
-    * `touchdownsBlockedPuntRtrns`None
-    * `touchdownsMissedFgReturns`None
-    * `touchdownsKoRecInEndzone`None
-    * `touchdownsOffLateralHist`None
-    * `defensiveSafeties`None
-    * `extraPointGood2ptNonkick`None
-    * `extraPointAtt2ptNonkick`None
-    * `defensiveTotalTackles`None
-    * `defensiveSoloTackles`None
-    * `defensiveCombineTackles`None
-    * `defensiveAssists`None
-    * `defensiveSacks`None
-    * `defensivePassesDefensed`None
-    * `defensiveForcedFumble`None
-    * `defensivePuntBlocked`None
-    * `defensiveFgBlocked`None
-    * `defensiveXpBlocked`None
-    * `defensiveAllKickBlocked`None
-    * `fumblesTotal`None
-    * `fumblesLost`None
-    * `fumblesOutbounds`None
-    * `fumblesTouchback`None
-    * `fumblesSafety`None
-    * `fumblesAbortedYds`None
-    * `teammateFumbleRecovery`None
-    * `teammateFumbleYds`None
-    * `teammateFumbleLong`None
-    * `teammateFumbleLgtd`None
-    * `teammateFumbleTd`None
-    * `opponentFumbleRecovery`None
-    * `opponentFumbleYds`None
-    * `opponentFumbleLong`None
+    * `kickingFgBlk`None
+    * `kickingFgLong`None
+    * `kickingFgMade`None
+    * `kickingFgPct`None
+    * `kickingXkAtt`None
+    * `kickingXkBlk`None
+    * `kickingXkMade`None
+    * `kickingXkPct`None
+    * `kickoffAverageYards`None
+    * `kickoffFairCaught`None
+    * `kickoffOnside`None
+    * `kickoffOnsideRecovered`None
+    * `kickoffOutbounds`None
+    * `kickoffReturns`None
+    * `kickoffReturnsAverageYards`None
+    * `kickoffReturnsTouchdowns`None
+    * `kickoffReturnsYards`None
+    * `kickoffTotal`None
+    * `kickoffTouchbacks`None
+    * `kickoffTouchbacksPercentage`None
+    * `kickoffYards`None
     * `opponentFumbleLgtd`None
+    * `opponentFumbleLong`None
+    * `opponentFumbleRecovery`None
     * `opponentFumbleTd`None
-    * `firstdownsTotal`None
-    * `firstdownsRush`None
-    * `firstdownsPass`None
-    * `firstdownsPenalty`None
-    * `down1stFdMade`None
-    * `down1stAttempted`None
-    * `down2ndFdMade`None
-    * `down2ndAttempted`None
-    * `down3rdFdMade`None
-    * `down3rdAttempted`None
-    * `down4thFdMade`None
-    * `down4thAttempted`None
-    * `scrimmagePlays`None
-    * `scrimmageYds`None
-    * `timeOfPossSeconds`None
+    * `opponentFumbleYds`None
+    * `passing20plusYardsEach`None
+    * `passing40plusYardsEach`None
+    * `passingAttempts`None
+    * `passingAverageYards`None
+    * `passingCompletionPercentage`None
+    * `passingCompletions`None
+    * `passingFirstDownPercentage`None
+    * `passingFirstDowns`None
+    * `passingFumbles`None
+    * `passingInterceptionPercentage`None
+    * `passingInterceptions`None
+    * `passingLgtd`None
+    * `passingLong`None
+    * `passingNetYards`None
+    * `passingPasserRating`None
+    * `passingSacked`None
+    * `passingSackedYardsLost`None
+    * `passingTouchdownPercentage`None
+    * `passingTouchdowns`None
+    * `passingYards`None
     * `penaltiesTotal`None
     * `penaltiesYardsPenalized`None
-    * `recordWins`None
+    * `pointsPerGameAverage`None
+    * `puntReturns`None
+    * `puntReturns20plusYardsEach`None
+    * `puntReturns40plusYardsEach`None
+    * `puntReturnsAverageYards`None
+    * `puntReturnsFairCatches`None
+    * `puntReturnsFumbles`None
+    * `puntReturnsLgtd`None
+    * `puntReturnsLong`None
+    * `puntReturnsTouchdowns`None
+    * `puntReturnsYards`None
+    * `puntingAverageYards`None
+    * `puntingBlocked`None
+    * `puntingDowned`None
+    * `puntingLong`None
+    * `puntingNetYardage`None
+    * `puntingNumberReturned`None
+    * `puntingOutOfBounds`None
+    * `puntingPunts`None
+    * `puntingPuntsFairCaught`None
+    * `puntingPuntsInside20`None
+    * `puntingReturnTouchdowns`None
+    * `puntingReturnYards`None
+    * `puntingTotalPuntsInclBlks`None
+    * `puntingTouchbacks`None
+    * `puntingYards`None
+    * `receiving20plusYardsEach`None
+    * `receiving40plusYardsEach`None
+    * `receivingAverageYards`None
+    * `receivingFirstDownPercentage`None
+    * `receivingFirstDowns`None
+    * `receivingFumbles`None
+    * `receivingLgtd`None
+    * `receivingLong`None
+    * `receivingReceptions`None
+    * `receivingTarget`None
+    * `receivingTouchdowns`None
+    * `receivingYards`None
     * `recordLosses`None
     * `recordTies`None
     * `recordWinPct`None
+    * `recordWins`None
+    * `rushing20plusYardsEach`None
+    * `rushing40plusYardsEach`None
+    * `rushingAttempts`None
+    * `rushingAverageYards`None
+    * `rushingFirstDownPercentage`None
+    * `rushingFirstDowns`None
+    * `rushingFumbles`None
+    * `rushingLgtd`None
+    * `rushingLong`None
+    * `rushingTouchdowns`None
+    * `rushingYards`None
+    * `scrimmagePlays`None
+    * `scrimmageYds`None
     * `startPosition`None
-    * `touchdownsOffense`None
-    * `touchdownsDefense`None
-    * `pointsPerGameAverage`None
-    * `yardsPerGameAverage`None
+    * `teammateFumbleLgtd`None
+    * `teammateFumbleLong`None
+    * `teammateFumbleRecovery`None
+    * `teammateFumbleTd`None
+    * `teammateFumbleYds`None
+    * `timeOfPossSeconds`None
     * `timeOfPossSecondsPerGameAverage`None
-    * `turnoverDifferential`None
+    * `totalPointsScored`None
     * `totalPointsScoredPerGameAverage`None
-    * `firstDownsPerGameAverage`None
+    * `touchdownsBlockedFgReturns`None
+    * `touchdownsBlockedPuntRtrns`None
+    * `touchdownsDefense`None
+    * `touchdownsFumbleReturns`None
+    * `touchdownsInterceptionRtrns`None
+    * `touchdownsKickReturns`None
+    * `touchdownsKoRecInEndzone`None
+    * `touchdownsMissedFgReturns`None
+    * `touchdownsOffLateralHist`None
+    * `touchdownsOffense`None
+    * `touchdownsPassing`None
+    * `touchdownsPuntReturns`None
+    * `touchdownsReceiving`None
+    * `touchdownsRushing`None
+    * `touchdownsTotal`None
+    * `turnoverDifferential`None
+    * `yardsPerGameAverage`None
     '''
     __schema__ = shield
     __choices__ = ('defensiveAllKickBlocked', 'defensiveAssists', 'defensiveCombineTackles', 'defensiveFgBlocked', 'defensiveForcedFumble', 'defensiveInterceptions', 'defensiveInterceptionsAvgyds', 'defensiveInterceptionsLgtd', 'defensiveInterceptionsLong', 'defensiveInterceptionsTds', 'defensiveInterceptionsYards', 'defensivePassesDefensed', 'defensivePuntBlocked', 'defensiveSacks', 'defensiveSafeties', 'defensiveSoloTackles', 'defensiveTotalTackles', 'defensiveXpBlocked', 'down1stAttempted', 'down1stFdMade', 'down2ndAttempted', 'down2ndFdMade', 'down3rdAttempted', 'down3rdFdMade', 'down4thAttempted', 'down4thFdMade', 'extraPointAtt2ptNonkick', 'extraPointGood2ptNonkick', 'firstDownsPerGameAverage', 'firstdownsPass', 'firstdownsPenalty', 'firstdownsRush', 'firstdownsTotal', 'fumblesAbortedYds', 'fumblesLost', 'fumblesOutbounds', 'fumblesSafety', 'fumblesTotal', 'fumblesTouchback', 'gamesDnp', 'gamesInactive', 'gamesPlayed', 'gamesStarted', 'gamesSub', 'kickReturns', 'kickReturns20plusYardsEach', 'kickReturns40plusYardsEach', 'kickReturnsAverageYards', 'kickReturnsFairCatches', 'kickReturnsFumbles', 'kickReturnsLgtd', 'kickReturnsLong', 'kickReturnsTouchdowns', 'kickReturnsYards', 'kickingFgAtt', 'kickingFgAttMade1To19', 'kickingFgAttMade20To29', 'kickingFgAttMade30To39', 'kickingFgAttMade40To49', 'kickingFgAttMade50plus', 'kickingFgBlk', 'kickingFgLong', 'kickingFgMade', 'kickingFgPct', 'kickingXkAtt', 'kickingXkBlk', 'kickingXkMade', 'kickingXkPct', 'kickoffAverageYards', 'kickoffFairCaught', 'kickoffOnside', 'kickoffOnsideRecovered', 'kickoffOutbounds', 'kickoffReturns', 'kickoffReturnsAverageYards', 'kickoffReturnsTouchdowns', 'kickoffReturnsYards', 'kickoffTotal', 'kickoffTouchbacks', 'kickoffTouchbacksPercentage', 'kickoffYards', 'opponentFumbleLgtd', 'opponentFumbleLong', 'opponentFumbleRecovery', 'opponentFumbleTd', 'opponentFumbleYds', 'passing20plusYardsEach', 'passing40plusYardsEach', 'passingAttempts', 'passingAverageYards', 'passingCompletionPercentage', 'passingCompletions', 'passingFirstDownPercentage', 'passingFirstDowns', 'passingFumbles', 'passingInterceptionPercentage', 'passingInterceptions', 'passingLgtd', 'passingLong', 'passingNetYards', 'passingPasserRating', 'passingSacked', 'passingSackedYardsLost', 'passingTouchdownPercentage', 'passingTouchdowns', 'passingYards', 'penaltiesTotal', 'penaltiesYardsPenalized', 'pointsPerGameAverage', 'puntReturns', 'puntReturns20plusYardsEach', 'puntReturns40plusYardsEach', 'puntReturnsAverageYards', 'puntReturnsFairCatches', 'puntReturnsFumbles', 'puntReturnsLgtd', 'puntReturnsLong', 'puntReturnsTouchdowns', 'puntReturnsYards', 'puntingAverageYards', 'puntingBlocked', 'puntingDowned', 'puntingLong', 'puntingNetYardage', 'puntingNumberReturned', 'puntingOutOfBounds', 'puntingPunts', 'puntingPuntsFairCaught', 'puntingPuntsInside20', 'puntingReturnTouchdowns', 'puntingReturnYards', 'puntingTotalPuntsInclBlks', 'puntingTouchbacks', 'puntingYards', 'receiving20plusYardsEach', 'receiving40plusYardsEach', 'receivingAverageYards', 'receivingFirstDownPercentage', 'receivingFirstDowns', 'receivingFumbles', 'receivingLgtd', 'receivingLong', 'receivingReceptions', 'receivingTarget', 'receivingTouchdowns', 'receivingYards', 'recordLosses', 'recordTies', 'recordWinPct', 'recordWins', 'rushing20plusYardsEach', 'rushing40plusYardsEach', 'rushingAttempts', 'rushingAverageYards', 'rushingFirstDownPercentage', 'rushingFirstDowns', 'rushingFumbles', 'rushingLgtd', 'rushingLong', 'rushingTouchdowns', 'rushingYards', 'scrimmagePlays', 'scrimmageYds', 'startPosition', 'teammateFumbleLgtd', 'teammateFumbleLong', 'teammateFumbleRecovery', 'teammateFumbleTd', 'teammateFumbleYds', 'timeOfPossSeconds', 'timeOfPossSecondsPerGameAverage', 'totalPointsScored', 'totalPointsScoredPerGameAverage', 'touchdownsBlockedFgReturns', 'touchdownsBlockedPuntRtrns', 'touchdownsDefense', 'touchdownsFumbleReturns', 'touchdownsInterceptionRtrns', 'touchdownsKickReturns', 'touchdownsKoRecInEndzone', 'touchdownsMissedFgReturns', 'touchdownsOffLateralHist', 'touchdownsOffense', 'touchdownsPassing', 'touchdownsPuntReturns', 'touchdownsReceiving', 'touchdownsRushing', 'touchdownsTotal', 'turnoverDifferential', 'yardsPerGameAverage')
@@ -510,8 +510,8 @@ class Entitlement(sgqlc.types.Enum):
     '''Enumeration Choices:
 
     * `FREE`None
-    * `PREMIUM`None
     * `HIDDEN`None
+    * `PREMIUM`None
     '''
     __schema__ = shield
     __choices__ = ('FREE', 'HIDDEN', 'PREMIUM')
@@ -531,8 +531,8 @@ class ExecutiveOrderBy(sgqlc.types.Enum):
     '''Enumeration Choices:
 
     * `createdDate`None
-    * `lastModifiedDate`None
     * `executivePerson__displayName`None
+    * `lastModifiedDate`None
     * `person__displayName`None
     * `season__season`None
     '''
@@ -586,11 +586,11 @@ class FranchiseState(sgqlc.types.Enum):
 class GameOrderBy(sgqlc.types.Enum):
     '''Enumeration Choices:
 
+    * `gameTime`None
     * `week__seasonValue`None
-    * `week__weekValue`None
     * `week__weekOrder`None
     * `week__weekType`None
-    * `gameTime`None
+    * `week__weekValue`None
     '''
     __schema__ = shield
     __choices__ = ('gameTime', 'week__seasonValue', 'week__weekOrder', 'week__weekType', 'week__weekValue')
@@ -603,9 +603,9 @@ class IdpFilterType(sgqlc.types.Enum):
 
     Enumeration Choices:
 
-    * `ENABLED`None
-    * `DISABLED`None
     * `ALL`None
+    * `DISABLED`None
+    * `ENABLED`None
     '''
     __schema__ = shield
     __choices__ = ('ALL', 'DISABLED', 'ENABLED')
@@ -614,11 +614,11 @@ class IdpFilterType(sgqlc.types.Enum):
 class ImageType(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `VIDEO_IMAGE`None
+    * `MISC`None
+    * `PHOTO_GALLERY_IMAGE`None
     * `VIDEO_ASSET_POSTER_IMAGE`None
     * `VIDEO_COLLECTION_IMAGE`None
-    * `PHOTO_GALLERY_IMAGE`None
-    * `MISC`None
+    * `VIDEO_IMAGE`None
     '''
     __schema__ = shield
     __choices__ = ('MISC', 'PHOTO_GALLERY_IMAGE', 'VIDEO_ASSET_POSTER_IMAGE', 'VIDEO_COLLECTION_IMAGE', 'VIDEO_IMAGE')
@@ -631,9 +631,9 @@ class InjuryReportOrderBy(sgqlc.types.Enum):
     * `lastModifiedDate`None
     * `team_abbreviation`None
     * `week__seasonValue`None
-    * `week__weekValue`None
     * `week__weekOrder`None
     * `week__weekType`None
+    * `week__weekValue`None
     '''
     __schema__ = shield
     __choices__ = ('createdDate', 'lastModifiedDate', 'team_abbreviation', 'week__seasonValue', 'week__weekOrder', 'week__weekType', 'week__weekValue')
@@ -642,11 +642,11 @@ class InjuryReportOrderBy(sgqlc.types.Enum):
 class InjuryStatus(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `NOT_LISTED`None
-    * `QUESTIONABLE`None
-    * `PROBABLE`None
     * `DOUBTFUL`None
+    * `NOT_LISTED`None
     * `OUT`None
+    * `PROBABLE`None
+    * `QUESTIONABLE`None
     '''
     __schema__ = shield
     __choices__ = ('DOUBTFUL', 'NOT_LISTED', 'OUT', 'PROBABLE', 'QUESTIONABLE')
@@ -656,14 +656,14 @@ class InsightTemplate(sgqlc.types.Enum):
     '''Enumeration Choices:
 
     * `GAMES_LIST_TEASER`None
-    * `RESEARCH_FACT`None
-    * `PLAYER_FEATURE`None
-    * `TEAM_FEATURE`None
     * `PLAYER_COMPARISON`None
-    * `TEAM_COMPARISON`None
+    * `PLAYER_FEATURE`None
     * `PLAYER_TEAM_COMPARISON`None
-    * `RANKING`None
     * `PLAYOFF_IMPLICATIONS`None
+    * `RANKING`None
+    * `RESEARCH_FACT`None
+    * `TEAM_COMPARISON`None
+    * `TEAM_FEATURE`None
     '''
     __schema__ = shield
     __choices__ = ('GAMES_LIST_TEASER', 'PLAYER_COMPARISON', 'PLAYER_FEATURE', 'PLAYER_TEAM_COMPARISON', 'PLAYOFF_IMPLICATIONS', 'RANKING', 'RESEARCH_FACT', 'TEAM_COMPARISON', 'TEAM_FEATURE')
@@ -674,8 +674,8 @@ Int = sgqlc.types.Int
 class ItemPicker(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `TEAM`None
     * `PLAYER`None
+    * `TEAM`None
     '''
     __schema__ = shield
     __choices__ = ('PLAYER', 'TEAM')
@@ -700,110 +700,110 @@ class League(sgqlc.types.Enum):
 class LegacyId(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `SEASON`None
-    * `SEASON_TYPE`None
-    * `WEEK`None
-    * `YEAR`None
-    * `GAME_ID`None
-    * `SITE_ID`None
-    * `GSIS_GAME_KEY`None
-    * `DRIVE_SEQ`None
-    * `PLAY_ID`None
-    * `PLAY_STAT_ID`None
-    * `PLAY_STAT_SEQ`None
-    * `GAME_INSIGHT_SEQ`None
-    * `PERSON_ESB_ID`None
-    * `PERSON_GSIS_ID`None
-    * `PERSON_ALFRESCO`None
-    * `PERSON_NFL_ID`None
-    * `PERSON_GLOBAL`None
-    * `PERSON_TYPE`None
-    * `TEAM_ID`None
-    * `TEAM_SEQ`None
-    * `DRAFT_SEQ`None
-    * `OFFICIAL_TRANSACTION`None
-    * `NDC_ALFRESCO`None
-    * `CLUB_ARTICLE`None
-    * `CLUB_AUDIO`None
-    * `CLUB_VIDEO`None
-    * `FORGE_ARTICLE`None
-    * `FORGE_AUDIO`None
-    * `FORGE_EVENT`None
-    * `FORGE_PROMO`None
-    * `FORGE_VIDEO`None
-    * `FORGE_IMAGE`None
-    * `FORGE_DOCUMENT`None
-    * `FORGE_CONTENT_LIST`None
-    * `FORGE_PERSON_LIST`None
-    * `FORGE_CLUB_ROSTER`None
-    * `FORGE_SERIES`None
-    * `NDC_VIDEO_CHANNEL`None
-    * `NDC_VIDEO_CHANNEL_CATEGORY`None
-    * `NDC_RANKING`None
-    * `NDC_DYNAMIC_TITLE_RANKING`None
-    * `NDC_VIDEO_CHANNEL_CATEGORIES`None
-    * `NDC_ALFRESCO_EVENT`None
-    * `NDC_ALFRESCO_SHOW`None
-    * `NDC_ALFRESCO_CATEGORY`None
-    * `NDC_PROGRAM`None
-    * `NDC_PARTNER`None
-    * `TEAM_STAT_TYPE`None
-    * `CLUB_NOW_VIDEO_ASSET`None
-    * `CLUB_NOW_VIDEO`None
-    * `CLUB_TEAMSITE_EVENT`None
-    * `CLUB_DRUPAL_EVENT`None
-    * `CONTENT_PROVIDER`None
-    * `SHIELD_SCREEN`None
-    * `SHIELD_BROADCAST`None
-    * `NL_VIDEO`None
-    * `NL_AUDIO`None
+    * `ADOBEPASS_MSO_ID`None
+    * `AUDIO_ASSET`None
+    * `AUTHOR`None
+    * `AUTH_PROVIDER`None
+    * `BREAKING_NEWS`None
     * `BROCHURE`None
     * `BROCHURE_SHARED_DATA`None
-    * `AUDIO_ASSET`None
-    * `VIDEO_ASSET_VODZILLA`None
-    * `VIDEO_ASSET_ALFRESCO`None
-    * `VIDEO_ASSET_DRUPAL`None
-    * `VIDEO_ASSET_TEAMSITE`None
-    * `POCKET_VIDEO_VODZILLA`None
-    * `POCKET_VIDEO_TEAMSITE`None
-    * `POCKET_VIDEO_DRUPAL`None
-    * `POCKET_VIDEO_ALFRESCO`None
-    * `PROPERTY`None
-    * `EVENT`None
-    * `SHOW`None
-    * `MUSIC`None
-    * `MUSIC_LIBRARY`None
+    * `CALL_SIGN`None
+    * `CLOUDINARY_IMAGE_ASSET`None
+    * `CLUB_ARTICLE`None
+    * `CLUB_AUDIO`None
+    * `CLUB_DRUPAL_EVENT`None
+    * `CLUB_NOW_VIDEO`None
+    * `CLUB_NOW_VIDEO_ASSET`None
+    * `CLUB_TEAMSITE_EVENT`None
+    * `CLUB_VIDEO`None
+    * `CONTENT_PROVIDER`None
+    * `DATE`None
+    * `DCL_AUDIO_ASSET`None
+    * `DCL_VIDEO_ASSET`None
+    * `DRAFT_SEQ`None
+    * `DRIVE_SEQ`None
+    * `ENDPOINT_KEY`None
     * `EPISODE`None
-    * `IMAGE_ASSET_VODZILLA`None
+    * `EVENT`None
+    * `FORGE_ARTICLE`None
+    * `FORGE_AUDIO`None
+    * `FORGE_CLUB_ROSTER`None
+    * `FORGE_CONTENT_LIST`None
+    * `FORGE_DOCUMENT`None
+    * `FORGE_EVENT`None
+    * `FORGE_IMAGE`None
+    * `FORGE_PERSON_LIST`None
+    * `FORGE_PROMO`None
+    * `FORGE_SERIES`None
+    * `FORGE_VIDEO`None
+    * `GAME_ID`None
+    * `GAME_INSIGHT_SEQ`None
+    * `GSIS_GAME_KEY`None
+    * `GSIS_PLAYER_NAME`None
+    * `IDENTITY_PROVIDER_GROUP`None
     * `IMAGE_ASSET_ALFRESCO`None
     * `IMAGE_ASSET_DRUPAL`None
     * `IMAGE_ASSET_TEAMSITE`None
-    * `POCKET_IMAGE_VODZILLA`None
-    * `POCKET_IMAGE_TEAMSITE`None
-    * `POCKET_IMAGE_DRUPAL`None
-    * `POCKET_IMAGE_ALFRESCO`None
-    * `PUSH_DB_NOTIFICATION`None
-    * `BREAKING_NEWS`None
-    * `DCL_AUDIO_ASSET`None
-    * `DCL_VIDEO_ASSET`None
-    * `CLOUDINARY_IMAGE_ASSET`None
-    * `STREAM_GUYS_AUDIO_ASSET`None
-    * `TAG`None
-    * `DATE`None
-    * `GSIS_PLAYER_NAME`None
-    * `MCP_ID`None
-    * `ADOBEPASS_MSO_ID`None
-    * `IDENTITY_PROVIDER_GROUP`None
-    * `AUTH_PROVIDER`None
-    * `NETWORK`None
-    * `CALL_SIGN`None
-    * `TMS_ID`None
+    * `IMAGE_ASSET_VODZILLA`None
     * `MCP_DIGITAL_SHOW_TYPE`None
-    * `VERSION`None
-    * `AUTHOR`None
-    * `ENDPOINT_KEY`None
+    * `MCP_ID`None
+    * `MUSIC`None
+    * `MUSIC_LIBRARY`None
+    * `NDC_ALFRESCO`None
+    * `NDC_ALFRESCO_CATEGORY`None
+    * `NDC_ALFRESCO_EVENT`None
+    * `NDC_ALFRESCO_SHOW`None
+    * `NDC_DYNAMIC_TITLE_RANKING`None
+    * `NDC_PARTNER`None
+    * `NDC_PROGRAM`None
+    * `NDC_RANKING`None
+    * `NDC_VIDEO_CHANNEL`None
+    * `NDC_VIDEO_CHANNEL_CATEGORIES`None
+    * `NDC_VIDEO_CHANNEL_CATEGORY`None
+    * `NETWORK`None
+    * `NL_AUDIO`None
+    * `NL_VIDEO`None
+    * `OFFICIAL_TRANSACTION`None
+    * `PERSON_ALFRESCO`None
+    * `PERSON_ESB_ID`None
+    * `PERSON_GLOBAL`None
+    * `PERSON_GSIS_ID`None
+    * `PERSON_NFL_ID`None
+    * `PERSON_TYPE`None
+    * `PLAY_ID`None
+    * `PLAY_STAT_ID`None
+    * `PLAY_STAT_SEQ`None
+    * `POCKET_IMAGE_ALFRESCO`None
+    * `POCKET_IMAGE_DRUPAL`None
+    * `POCKET_IMAGE_TEAMSITE`None
+    * `POCKET_IMAGE_VODZILLA`None
+    * `POCKET_VIDEO_ALFRESCO`None
+    * `POCKET_VIDEO_DRUPAL`None
+    * `POCKET_VIDEO_TEAMSITE`None
+    * `POCKET_VIDEO_VODZILLA`None
+    * `PROPERTY`None
+    * `PUSH_DB_NOTIFICATION`None
+    * `SEASON`None
+    * `SEASON_TYPE`None
+    * `SHIELD_BROADCAST`None
+    * `SHIELD_SCREEN`None
+    * `SHOW`None
+    * `SITE_ID`None
     * `SLUG`None
     * `SMART_ID`None
+    * `STREAM_GUYS_AUDIO_ASSET`None
+    * `TAG`None
+    * `TEAM_ID`None
+    * `TEAM_SEQ`None
+    * `TEAM_STAT_TYPE`None
+    * `TMS_ID`None
+    * `VERSION`None
+    * `VIDEO_ASSET_ALFRESCO`None
+    * `VIDEO_ASSET_DRUPAL`None
+    * `VIDEO_ASSET_TEAMSITE`None
+    * `VIDEO_ASSET_VODZILLA`None
+    * `WEEK`None
+    * `YEAR`None
     '''
     __schema__ = shield
     __choices__ = ('ADOBEPASS_MSO_ID', 'AUDIO_ASSET', 'AUTHOR', 'AUTH_PROVIDER', 'BREAKING_NEWS', 'BROCHURE', 'BROCHURE_SHARED_DATA', 'CALL_SIGN', 'CLOUDINARY_IMAGE_ASSET', 'CLUB_ARTICLE', 'CLUB_AUDIO', 'CLUB_DRUPAL_EVENT', 'CLUB_NOW_VIDEO', 'CLUB_NOW_VIDEO_ASSET', 'CLUB_TEAMSITE_EVENT', 'CLUB_VIDEO', 'CONTENT_PROVIDER', 'DATE', 'DCL_AUDIO_ASSET', 'DCL_VIDEO_ASSET', 'DRAFT_SEQ', 'DRIVE_SEQ', 'ENDPOINT_KEY', 'EPISODE', 'EVENT', 'FORGE_ARTICLE', 'FORGE_AUDIO', 'FORGE_CLUB_ROSTER', 'FORGE_CONTENT_LIST', 'FORGE_DOCUMENT', 'FORGE_EVENT', 'FORGE_IMAGE', 'FORGE_PERSON_LIST', 'FORGE_PROMO', 'FORGE_SERIES', 'FORGE_VIDEO', 'GAME_ID', 'GAME_INSIGHT_SEQ', 'GSIS_GAME_KEY', 'GSIS_PLAYER_NAME', 'IDENTITY_PROVIDER_GROUP', 'IMAGE_ASSET_ALFRESCO', 'IMAGE_ASSET_DRUPAL', 'IMAGE_ASSET_TEAMSITE', 'IMAGE_ASSET_VODZILLA', 'MCP_DIGITAL_SHOW_TYPE', 'MCP_ID', 'MUSIC', 'MUSIC_LIBRARY', 'NDC_ALFRESCO', 'NDC_ALFRESCO_CATEGORY', 'NDC_ALFRESCO_EVENT', 'NDC_ALFRESCO_SHOW', 'NDC_DYNAMIC_TITLE_RANKING', 'NDC_PARTNER', 'NDC_PROGRAM', 'NDC_RANKING', 'NDC_VIDEO_CHANNEL', 'NDC_VIDEO_CHANNEL_CATEGORIES', 'NDC_VIDEO_CHANNEL_CATEGORY', 'NETWORK', 'NL_AUDIO', 'NL_VIDEO', 'OFFICIAL_TRANSACTION', 'PERSON_ALFRESCO', 'PERSON_ESB_ID', 'PERSON_GLOBAL', 'PERSON_GSIS_ID', 'PERSON_NFL_ID', 'PERSON_TYPE', 'PLAY_ID', 'PLAY_STAT_ID', 'PLAY_STAT_SEQ', 'POCKET_IMAGE_ALFRESCO', 'POCKET_IMAGE_DRUPAL', 'POCKET_IMAGE_TEAMSITE', 'POCKET_IMAGE_VODZILLA', 'POCKET_VIDEO_ALFRESCO', 'POCKET_VIDEO_DRUPAL', 'POCKET_VIDEO_TEAMSITE', 'POCKET_VIDEO_VODZILLA', 'PROPERTY', 'PUSH_DB_NOTIFICATION', 'SEASON', 'SEASON_TYPE', 'SHIELD_BROADCAST', 'SHIELD_SCREEN', 'SHOW', 'SITE_ID', 'SLUG', 'SMART_ID', 'STREAM_GUYS_AUDIO_ASSET', 'TAG', 'TEAM_ID', 'TEAM_SEQ', 'TEAM_STAT_TYPE', 'TMS_ID', 'VERSION', 'VIDEO_ASSET_ALFRESCO', 'VIDEO_ASSET_DRUPAL', 'VIDEO_ASSET_TEAMSITE', 'VIDEO_ASSET_VODZILLA', 'WEEK', 'YEAR')
@@ -812,11 +812,11 @@ class LegacyId(sgqlc.types.Enum):
 class LiveGameRosterStatus(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `PLAYER_SUBSTITUTE`None
     * `ACTIVE_DID_NOT_PLAY`None
     * `INJURED_DID_NOT_PLAY`None
-    * `NOT_ACTIVE`None
     * `INJURED_RESERVE`None
+    * `NOT_ACTIVE`None
+    * `PLAYER_SUBSTITUTE`None
     * `STARTED`None
     '''
     __schema__ = shield
@@ -838,9 +838,9 @@ class Map(sgqlc.types.Scalar):
 class MaterializationHint(sgqlc.types.Enum):
     '''Enumeration Choices:
 
+    * `CATEGORY`None
     * `CHANNEL`None
     * `RANKING`None
-    * `CATEGORY`None
     '''
     __schema__ = shield
     __choices__ = ('CATEGORY', 'CHANNEL', 'RANKING')
@@ -849,27 +849,27 @@ class MaterializationHint(sgqlc.types.Enum):
 class MilestoneType(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `PASSING_YARDS`None
-    * `RECEIVING_YARDS`None
-    * `RUSHING_YARDS`None
-    * `PASSING_TD`None
-    * `RECEIVING_TD`None
-    * `RUSHING_TD`None
-    * `SACKS`None
-    * `FG_LONG`None
-    * `RECEPTIONS`None
     * `COMBINED_TACKLES`None
-    * `RUSHING_TD_LONG`None
-    * `RECEIVING_TD_LONG`None
-    * `TOTAL_FG_MADE`None
-    * `RETURN_TD`None
+    * `FG_LONG`None
     * `INTERCEPTIONS`None
-    * `TEAM_SACKS`None
-    * `TEAM_TOTAL_OFFENSE`None
+    * `PASSING_TD`None
+    * `PASSING_YARDS`None
+    * `RECEIVING_TD`None
+    * `RECEIVING_TD_LONG`None
+    * `RECEIVING_YARDS`None
+    * `RECEPTIONS`None
+    * `RETURN_TD`None
+    * `RUSHING_TD`None
+    * `RUSHING_TD_LONG`None
+    * `RUSHING_YARDS`None
+    * `SACKS`None
+    * `TEAM_PENALTY_YARDS`None
     * `TEAM_PUNTS_BLOCKED`None
+    * `TEAM_SACKS`None
     * `TEAM_TAKEAWAYS`None
     * `TEAM_TOTAL_FIRST_DOWNS`None
-    * `TEAM_PENALTY_YARDS`None
+    * `TEAM_TOTAL_OFFENSE`None
+    * `TOTAL_FG_MADE`None
     '''
     __schema__ = shield
     __choices__ = ('COMBINED_TACKLES', 'FG_LONG', 'INTERCEPTIONS', 'PASSING_TD', 'PASSING_YARDS', 'RECEIVING_TD', 'RECEIVING_TD_LONG', 'RECEIVING_YARDS', 'RECEPTIONS', 'RETURN_TD', 'RUSHING_TD', 'RUSHING_TD_LONG', 'RUSHING_YARDS', 'SACKS', 'TEAM_PENALTY_YARDS', 'TEAM_PUNTS_BLOCKED', 'TEAM_SACKS', 'TEAM_TAKEAWAYS', 'TEAM_TOTAL_FIRST_DOWNS', 'TEAM_TOTAL_OFFENSE', 'TOTAL_FG_MADE')
@@ -880,8 +880,8 @@ class MockDraftOrderBy(sgqlc.types.Enum):
 
     * `createdDate`None
     * `lastModifiedDate`None
-    * `year`None
     * `version`None
+    * `year`None
     '''
     __schema__ = shield
     __choices__ = ('createdDate', 'lastModifiedDate', 'version', 'year')
@@ -922,8 +922,8 @@ class OrderByDates(sgqlc.types.Enum):
 class OrderByDirection(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `DESC`None
     * `ASC`None
+    * `DESC`None
     '''
     __schema__ = shield
     __choices__ = ('ASC', 'DESC')
@@ -943,8 +943,8 @@ class PersonOrderBy(sgqlc.types.Enum):
     '''Enumeration Choices:
 
     * `createdDate`None
-    * `lastModifiedDate`None
     * `displayName`None
+    * `lastModifiedDate`None
     * `lastName`None
     '''
     __schema__ = shield
@@ -954,12 +954,12 @@ class PersonOrderBy(sgqlc.types.Enum):
 class Phase(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `PREGAME`None
-    * `INGAME`None
-    * `HALFTIME`None
-    * `SUSPENDED`None
     * `FINAL`None
     * `FINAL_OVERTIME`None
+    * `HALFTIME`None
+    * `INGAME`None
+    * `PREGAME`None
+    * `SUSPENDED`None
     '''
     __schema__ = shield
     __choices__ = ('FINAL', 'FINAL_OVERTIME', 'HALFTIME', 'INGAME', 'PREGAME', 'SUSPENDED')
@@ -968,8 +968,8 @@ class Phase(sgqlc.types.Enum):
 class Platoon(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `OFFENSE`None
     * `DEFENSE`None
+    * `OFFENSE`None
     * `SPECIAL_TEAMS`None
     '''
     __schema__ = shield
@@ -980,9 +980,9 @@ class PlayReviewStatus(sgqlc.types.Enum):
     '''Enumeration Choices:
 
     * `NOT_REVIEWED`None
-    * `UNDER_REVIEW`None
     * `REVIEWED`None
     * `REVIEWED_OVERTURNED`None
+    * `UNDER_REVIEW`None
     '''
     __schema__ = shield
     __choices__ = ('NOT_REVIEWED', 'REVIEWED', 'REVIEWED_OVERTURNED', 'UNDER_REVIEW')
@@ -991,23 +991,23 @@ class PlayReviewStatus(sgqlc.types.Enum):
 class PlayType(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `GAME_START`None
-    * `TIMEOUT`None
-    * `FAIR_CATCH_KICK`None
-    * `FREE_KICK`None
-    * `END_QUARTER`None
     * `COMMENT`None
     * `END_GAME`None
-    * `PUNT`None
+    * `END_QUARTER`None
+    * `FAIR_CATCH_KICK`None
     * `FIELD_GOAL`None
+    * `FREE_KICK`None
+    * `GAME_START`None
     * `KICK_OFF`None
-    * `XP_KICK`None
     * `PASS`None
-    * `SACK`None
-    * `RUSH`None
-    * `PENALTY`None
     * `PAT2`None
+    * `PENALTY`None
     * `PLAY_FROM_SCRIMMAGE`None
+    * `PUNT`None
+    * `RUSH`None
+    * `SACK`None
+    * `TIMEOUT`None
+    * `XP_KICK`None
     '''
     __schema__ = shield
     __choices__ = ('COMMENT', 'END_GAME', 'END_QUARTER', 'FAIR_CATCH_KICK', 'FIELD_GOAL', 'FREE_KICK', 'GAME_START', 'KICK_OFF', 'PASS', 'PAT2', 'PENALTY', 'PLAY_FROM_SCRIMMAGE', 'PUNT', 'RUSH', 'SACK', 'TIMEOUT', 'XP_KICK')
@@ -1018,9 +1018,9 @@ class PlayerAwardsOrderBy(sgqlc.types.Enum):
 
     * `createdDate`None
     * `lastModifiedDate`None
+    * `person__displayName`None
     * `person__firstName`None
     * `person__lastName`None
-    * `person__displayName`None
     '''
     __schema__ = shield
     __choices__ = ('createdDate', 'lastModifiedDate', 'person__displayName', 'person__firstName', 'person__lastName')
@@ -1041,21 +1041,21 @@ class PlayerOrderBy(sgqlc.types.Enum):
 class PlayerStatsLeadersOrderBy(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `totalPointsScored`None
-    * `passingNetYards`None
-    * `rushingYards`None
-    * `receivingYards`None
-    * `firstdownsTotal`None
-    * `passingYards`None
-    * `touchdownsTotal`None
-    * `defensiveTotalTackles`None
     * `defensiveAssists`None
-    * `defensiveSacks`None
     * `defensiveInterceptions`None
-    * `kickingFgMade`None
-    * `puntingYards`None
+    * `defensiveSacks`None
+    * `defensiveTotalTackles`None
+    * `firstdownsTotal`None
     * `kickReturns`None
+    * `kickingFgMade`None
+    * `passingNetYards`None
+    * `passingYards`None
+    * `puntingYards`None
+    * `receivingYards`None
+    * `rushingYards`None
+    * `totalPointsScored`None
     * `totalTackles`None
+    * `touchdownsTotal`None
     '''
     __schema__ = shield
     __choices__ = ('defensiveAssists', 'defensiveInterceptions', 'defensiveSacks', 'defensiveTotalTackles', 'firstdownsTotal', 'kickReturns', 'kickingFgMade', 'passingNetYards', 'passingYards', 'puntingYards', 'receivingYards', 'rushingYards', 'totalPointsScored', 'totalTackles', 'touchdownsTotal')
@@ -1100,9 +1100,9 @@ class Position(sgqlc.types.Enum):
     * `PR`None
     * `QB`None
     * `RB`None
+    * `S`None
     * `SAF`None
     * `SS`None
-    * `S`None
     * `T`None
     * `TB`None
     * `TE`None
@@ -1152,9 +1152,9 @@ class PropertyOrderBy(sgqlc.types.Enum):
     '''Enumeration Choices:
 
     * `createdDate`None
-    * `lastModifiedDate`None
     * `displayName`None
     * `fullName`None
+    * `lastModifiedDate`None
     '''
     __schema__ = shield
     __choices__ = ('createdDate', 'displayName', 'fullName', 'lastModifiedDate')
@@ -1163,8 +1163,8 @@ class PropertyOrderBy(sgqlc.types.Enum):
 class PropertyType(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `POCKET`None
     * `PARTNER`None
+    * `POCKET`None
     '''
     __schema__ = shield
     __choices__ = ('PARTNER', 'POCKET')
@@ -1186,8 +1186,8 @@ class PublishState(sgqlc.types.Enum):
     '''Enumeration Choices:
 
     * `PUBLISHED`None
-    * `UNPUBLISHED`None
     * `UNLISTED`None
+    * `UNPUBLISHED`None
     '''
     __schema__ = shield
     __choices__ = ('PUBLISHED', 'UNLISTED', 'UNPUBLISHED')
@@ -1196,10 +1196,10 @@ class PublishState(sgqlc.types.Enum):
 class Recurrence(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `WEEKLY`None
     * `BIWEEKLY`None
-    * `TRIWEEKLY`None
     * `MONTHLY`None
+    * `TRIWEEKLY`None
+    * `WEEKLY`None
     '''
     __schema__ = shield
     __choices__ = ('BIWEEKLY', 'MONTHLY', 'TRIWEEKLY', 'WEEKLY')
@@ -1208,8 +1208,8 @@ class Recurrence(sgqlc.types.Enum):
 class Repository(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `POCKET`None
     * `ENDZONE`None
+    * `POCKET`None
     '''
     __schema__ = shield
     __choices__ = ('ENDZONE', 'POCKET')
@@ -1218,11 +1218,11 @@ class Repository(sgqlc.types.Enum):
 class ScoringPlayType(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `TD`None
     * `FG`None
     * `PAT`None
     * `PAT2`None
     * `SFTY`None
+    * `TD`None
     '''
     __schema__ = shield
     __choices__ = ('FG', 'PAT', 'PAT2', 'SFTY', 'TD')
@@ -1254,10 +1254,10 @@ class SeasonType(sgqlc.types.Enum):
 
     Enumeration Choices:
 
-    * `PRE`None
-    * `REG`None
     * `POST`None
+    * `PRE`None
     * `PRO`None
+    * `REG`None
     '''
     __schema__ = shield
     __choices__ = ('POST', 'PRE', 'PRO', 'REG')
@@ -1276,8 +1276,8 @@ class SeasonTypeOrderBy(sgqlc.types.Enum):
 class SeriesType(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `CATEGORY`None
     * `AUDIO_CHANNEL`None
+    * `CATEGORY`None
     * `VIDEO_CHANNEL`None
     '''
     __schema__ = shield
@@ -1287,155 +1287,155 @@ class SeriesType(sgqlc.types.Enum):
 class SmartID(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `SEASON`None
-    * `WEEK`None
-    * `GAME`None
-    * `GAME_DETAIL`None
-    * `DRIVE`None
-    * `PLAY`None
-    * `TEAM`None
-    * `FRANCHISE`None
-    * `STANDING`None
-    * `STANDINGS`None
-    * `INJURY_REPORT`None
-    * `DEPTH_CHART`None
-    * `CURRENT`None
-    * `SITE`None
-    * `VENUE`None
-    * `PLAYER_TEAM`None
-    * `PERSON_TEAM`None
-    * `PERSON_GSISID`None
-    * `PERSON_GSISID_UNKNOWN`None
-    * `PERSON_NFLID`None
-    * `PERSON_ALFRESCO`None
-    * `PERSON_ESBID`None
-    * `PROSPECT_ESBID`None
-    * `COACH_PERSON_ESBID`None
-    * `PLAYER_ESBID`None
-    * `COACH_ESBID`None
-    * `PERSON`None
-    * `AUTHOR_PERSON`None
-    * `CHEERLEADER_PERSON`None
-    * `COACH_PERSON`None
-    * `EXECUTIVE_PERSON`None
-    * `OWNER_PERSON`None
-    * `AUTHOR`None
-    * `CHEERLEADER`None
-    * `COACH`None
-    * `EXECUTIVE`None
-    * `PROSPECT`None
-    * `PROSPECT_NFLID`None
-    * `DRAFT_PICK`None
-    * `DRAFT_TEAM`None
-    * `OFFICIAL_TRANSACTION`None
-    * `CLUB_TRANSACTION`None
-    * `PLAY_STAT`None
-    * `TEAM_GAME_STAT`None
-    * `TEAM_SEASON_STAT`None
-    * `PLAYER_GAME_STAT_GSIS`None
-    * `PROSPECT_COMBINE_STAT`None
-    * `PLAYER_TEAM_STAT`None
-    * `PLAYER_GAME_STAT`None
-    * `PLAYER_GAME_STAT_V3`None
-    * `PLAYER_STAT_V3`None
-    * `TEAM_GAME_STAT_V3`None
-    * `TEAM_STAT_V3`None
-    * `DCL_AUDIO_ASSET`None
-    * `DCL_VIDEO_ASSET`None
-    * `NDC_HEADSHOT_IMAGE`None
-    * `NDC_HEADSHOT_IMAGE_ASSET`None
-    * `CLOUDINARY_IMAGE_ASSET`None
-    * `STREAM_GUYS_AUDIO_ASSET`None
-    * `FORGE_ARTICLE`None
-    * `FORGE_AUDIO`None
-    * `FORGE_EVENT`None
-    * `FORGE_IMAGE`None
-    * `FORGE_PROMO`None
-    * `FORGE_VIDEO`None
-    * `FORGE_CONTENT_LIST`None
-    * `FORGE_PERSON_LIST`None
-    * `FORGE_CLUB_ROSTER`None
-    * `NDC_ALFRESCO_ARTICLE`None
-    * `CLUB_ARTICLE`None
-    * `NDC_ALFRESCO_VIDEO`None
-    * `POCKET_VIDEO`None
-    * `POCKET_VIDEO_VODZILLA`None
-    * `POCKET_VIDEO_TEAMSITE`None
-    * `POCKET_VIDEO_DRUPAL`None
-    * `POCKET_VIDEO_ALFRESCO`None
-    * `CLUB_VIDEO`None
-    * `CLUB_NOW_VIDEO`None
-    * `NL_VIDEO`None
-    * `POCKET_VIDEO_ASSET`None
-    * `CLUB_NOW_VIDEO_ASSET`None
-    * `VIDEO_ASSET_ALFRESCO`None
-    * `VIDEO_ASSET_VODZILLA`None
-    * `VIDEO_ASSET_TEAMSITE`None
-    * `VIDEO_ASSET_DRUPAL`None
-    * `NDC_ALFRESCO_EXTERNAL_LINK`None
-    * `NDC_VIDEO_CHANNEL`None
-    * `NDC_VIDEO_CHANNEL_CATEGORY`None
-    * `NDC_RANKING`None
-    * `NDC_RANKING_PAGE`None
-    * `NDC_VIDEO_CHANNEL_CATEGORIES`None
-    * `SHIELD_BROADCAST`None
-    * `NDC_DYNAMIC_TITLE_RANKING`None
-    * `NL_AUDIO`None
-    * `CLUB_AUDIO`None
     * `AUDIO_ASSET`None
-    * `MUSIC`None
-    * `MUSIC_LIBRARY`None
-    * `IMAGE`None
-    * `POCKET_IMAGE_TEAMSITE`None
-    * `POCKET_IMAGE_DRUPAL`None
-    * `POCKET_IMAGE_ALFRESCO`None
-    * `IMAGE_ASSET`None
-    * `IMAGE_ASSET_TEAMSITE`None
-    * `IMAGE_ASSET_DRUPAL`None
-    * `IMAGE_ASSET_ALFRESCO`None
-    * `NDC_ALFRESCO_PHOTO_GALLERY`None
-    * `NDC_ALFRESCO_PHOTO_ESSAY`None
-    * `NDC_ALFRESCO_PHOTO`None
-    * `NDC_PARTNER`None
-    * `CONTENT_PROVIDER`None
-    * `PROPERTY`None
-    * `SHIELD_SCREEN`None
+    * `AUTHOR`None
+    * `AUTHOR_PERSON`None
+    * `AUTH_PROVIDER`None
+    * `BLACKLIST`None
+    * `BREAKING_NEWS`None
     * `BROCHURE`None
     * `BROCHURE_SHARED_DATA`None
-    * `NDC_ALFRESCO_EVENT`None
-    * `CLUB_TEAMSITE_EVENT`None
+    * `CALL_SIGN`None
+    * `CHEERLEADER`None
+    * `CHEERLEADER_PERSON`None
+    * `CLOUDINARY_IMAGE_ASSET`None
+    * `CLUB_ARTICLE`None
+    * `CLUB_AUDIO`None
     * `CLUB_DRUPAL_EVENT`None
-    * `ZEPPELIN_EVENT`None
-    * `DRAFT`None
+    * `CLUB_NOW_VIDEO`None
+    * `CLUB_NOW_VIDEO_ASSET`None
+    * `CLUB_TEAMSITE_EVENT`None
+    * `CLUB_TRANSACTION`None
+    * `CLUB_VIDEO`None
+    * `COACH`None
+    * `COACH_ESBID`None
+    * `COACH_PERSON`None
+    * `COACH_PERSON_ESBID`None
     * `COMBINE`None
-    * `NDC_ALFRESCO_SHOW`None
-    * `ZEPPELIN_SHOW`None
-    * `NDC_ALFRESCO_CATEGORY`None
-    * `NDC_PROGRAM`None
-    * `BREAKING_NEWS`None
-    * `TAG_CONTENT_LIST`None
-    * `POCKET_CONTENT_LIST`None
-    * `TAG`None
-    * `SERIES`None
-    * `PUSH_NOTIFICATION`None
-    * `TICKET_LOG`None
-    * `MEDIA_OBJECT`None
+    * `CONTENT_PROVIDER`None
+    * `CONTENT_TRAY`None
+    * `CURRENT`None
+    * `DCL_AUDIO_ASSET`None
+    * `DCL_VIDEO_ASSET`None
+    * `DEPTH_CHART`None
+    * `DRAFT`None
+    * `DRAFT_PICK`None
+    * `DRAFT_TEAM`None
+    * `DRIVE`None
+    * `EXECUTIVE`None
+    * `EXECUTIVE_PERSON`None
+    * `FORGE_ARTICLE`None
+    * `FORGE_AUDIO`None
+    * `FORGE_CLUB_ROSTER`None
+    * `FORGE_CONTENT_LIST`None
+    * `FORGE_EVENT`None
+    * `FORGE_IMAGE`None
+    * `FORGE_PERSON_LIST`None
+    * `FORGE_PROMO`None
+    * `FORGE_VIDEO`None
+    * `FRANCHISE`None
+    * `GAME`None
+    * `GAME_DETAIL`None
+    * `GAME_INSIGHT`None
+    * `GEO_CALL_SIGN`None
     * `IDENTITY_PROVIDER`None
     * `IDENTITY_PROVIDER_GROUP`None
-    * `AUTH_PROVIDER`None
-    * `NETWORK`None
-    * `CALL_SIGN`None
-    * `PROMOTION`None
-    * `BLACKLIST`None
-    * `GEO_CALL_SIGN`None
+    * `IMAGE`None
+    * `IMAGE_ASSET`None
+    * `IMAGE_ASSET_ALFRESCO`None
+    * `IMAGE_ASSET_DRUPAL`None
+    * `IMAGE_ASSET_TEAMSITE`None
+    * `INJURY_REPORT`None
+    * `MCP_DIGITAL_SHOW`None
+    * `MCP_SHOW`None
+    * `MCP_VOD`None
+    * `MEDIA_OBJECT`None
     * `MOCK_DRAFT`None
     * `MOCK_DRAFT_PICK`None
+    * `MUSIC`None
+    * `MUSIC_LIBRARY`None
+    * `NDC_ALFRESCO_ARTICLE`None
+    * `NDC_ALFRESCO_CATEGORY`None
+    * `NDC_ALFRESCO_EVENT`None
+    * `NDC_ALFRESCO_EXTERNAL_LINK`None
+    * `NDC_ALFRESCO_PHOTO`None
+    * `NDC_ALFRESCO_PHOTO_ESSAY`None
+    * `NDC_ALFRESCO_PHOTO_GALLERY`None
+    * `NDC_ALFRESCO_SHOW`None
+    * `NDC_ALFRESCO_VIDEO`None
+    * `NDC_DYNAMIC_TITLE_RANKING`None
+    * `NDC_HEADSHOT_IMAGE`None
+    * `NDC_HEADSHOT_IMAGE_ASSET`None
+    * `NDC_PARTNER`None
+    * `NDC_PROGRAM`None
+    * `NDC_RANKING`None
+    * `NDC_RANKING_PAGE`None
+    * `NDC_VIDEO_CHANNEL`None
+    * `NDC_VIDEO_CHANNEL_CATEGORIES`None
+    * `NDC_VIDEO_CHANNEL_CATEGORY`None
+    * `NETWORK`None
+    * `NL_AUDIO`None
+    * `NL_VIDEO`None
+    * `OFFICIAL_TRANSACTION`None
+    * `OWNER_PERSON`None
+    * `PERSON`None
+    * `PERSON_ALFRESCO`None
+    * `PERSON_ESBID`None
+    * `PERSON_GSISID`None
+    * `PERSON_GSISID_UNKNOWN`None
     * `PERSON_LIST`None
-    * `MCP_SHOW`None
-    * `GAME_INSIGHT`None
-    * `CONTENT_TRAY`None
-    * `MCP_DIGITAL_SHOW`None
-    * `MCP_VOD`None
+    * `PERSON_NFLID`None
+    * `PERSON_TEAM`None
+    * `PLAY`None
+    * `PLAYER_ESBID`None
+    * `PLAYER_GAME_STAT`None
+    * `PLAYER_GAME_STAT_GSIS`None
+    * `PLAYER_GAME_STAT_V3`None
+    * `PLAYER_STAT_V3`None
+    * `PLAYER_TEAM`None
+    * `PLAYER_TEAM_STAT`None
+    * `PLAY_STAT`None
+    * `POCKET_CONTENT_LIST`None
+    * `POCKET_IMAGE_ALFRESCO`None
+    * `POCKET_IMAGE_DRUPAL`None
+    * `POCKET_IMAGE_TEAMSITE`None
+    * `POCKET_VIDEO`None
+    * `POCKET_VIDEO_ALFRESCO`None
+    * `POCKET_VIDEO_ASSET`None
+    * `POCKET_VIDEO_DRUPAL`None
+    * `POCKET_VIDEO_TEAMSITE`None
+    * `POCKET_VIDEO_VODZILLA`None
+    * `PROMOTION`None
+    * `PROPERTY`None
+    * `PROSPECT`None
+    * `PROSPECT_COMBINE_STAT`None
+    * `PROSPECT_ESBID`None
+    * `PROSPECT_NFLID`None
+    * `PUSH_NOTIFICATION`None
+    * `SEASON`None
+    * `SERIES`None
+    * `SHIELD_BROADCAST`None
+    * `SHIELD_SCREEN`None
+    * `SITE`None
+    * `STANDING`None
+    * `STANDINGS`None
+    * `STREAM_GUYS_AUDIO_ASSET`None
+    * `TAG`None
+    * `TAG_CONTENT_LIST`None
+    * `TEAM`None
+    * `TEAM_GAME_STAT`None
+    * `TEAM_GAME_STAT_V3`None
+    * `TEAM_SEASON_STAT`None
+    * `TEAM_STAT_V3`None
+    * `TICKET_LOG`None
+    * `VENUE`None
+    * `VIDEO_ASSET_ALFRESCO`None
+    * `VIDEO_ASSET_DRUPAL`None
+    * `VIDEO_ASSET_TEAMSITE`None
+    * `VIDEO_ASSET_VODZILLA`None
+    * `WEEK`None
+    * `ZEPPELIN_EVENT`None
+    * `ZEPPELIN_SHOW`None
     '''
     __schema__ = shield
     __choices__ = ('AUDIO_ASSET', 'AUTHOR', 'AUTHOR_PERSON', 'AUTH_PROVIDER', 'BLACKLIST', 'BREAKING_NEWS', 'BROCHURE', 'BROCHURE_SHARED_DATA', 'CALL_SIGN', 'CHEERLEADER', 'CHEERLEADER_PERSON', 'CLOUDINARY_IMAGE_ASSET', 'CLUB_ARTICLE', 'CLUB_AUDIO', 'CLUB_DRUPAL_EVENT', 'CLUB_NOW_VIDEO', 'CLUB_NOW_VIDEO_ASSET', 'CLUB_TEAMSITE_EVENT', 'CLUB_TRANSACTION', 'CLUB_VIDEO', 'COACH', 'COACH_ESBID', 'COACH_PERSON', 'COACH_PERSON_ESBID', 'COMBINE', 'CONTENT_PROVIDER', 'CONTENT_TRAY', 'CURRENT', 'DCL_AUDIO_ASSET', 'DCL_VIDEO_ASSET', 'DEPTH_CHART', 'DRAFT', 'DRAFT_PICK', 'DRAFT_TEAM', 'DRIVE', 'EXECUTIVE', 'EXECUTIVE_PERSON', 'FORGE_ARTICLE', 'FORGE_AUDIO', 'FORGE_CLUB_ROSTER', 'FORGE_CONTENT_LIST', 'FORGE_EVENT', 'FORGE_IMAGE', 'FORGE_PERSON_LIST', 'FORGE_PROMO', 'FORGE_VIDEO', 'FRANCHISE', 'GAME', 'GAME_DETAIL', 'GAME_INSIGHT', 'GEO_CALL_SIGN', 'IDENTITY_PROVIDER', 'IDENTITY_PROVIDER_GROUP', 'IMAGE', 'IMAGE_ASSET', 'IMAGE_ASSET_ALFRESCO', 'IMAGE_ASSET_DRUPAL', 'IMAGE_ASSET_TEAMSITE', 'INJURY_REPORT', 'MCP_DIGITAL_SHOW', 'MCP_SHOW', 'MCP_VOD', 'MEDIA_OBJECT', 'MOCK_DRAFT', 'MOCK_DRAFT_PICK', 'MUSIC', 'MUSIC_LIBRARY', 'NDC_ALFRESCO_ARTICLE', 'NDC_ALFRESCO_CATEGORY', 'NDC_ALFRESCO_EVENT', 'NDC_ALFRESCO_EXTERNAL_LINK', 'NDC_ALFRESCO_PHOTO', 'NDC_ALFRESCO_PHOTO_ESSAY', 'NDC_ALFRESCO_PHOTO_GALLERY', 'NDC_ALFRESCO_SHOW', 'NDC_ALFRESCO_VIDEO', 'NDC_DYNAMIC_TITLE_RANKING', 'NDC_HEADSHOT_IMAGE', 'NDC_HEADSHOT_IMAGE_ASSET', 'NDC_PARTNER', 'NDC_PROGRAM', 'NDC_RANKING', 'NDC_RANKING_PAGE', 'NDC_VIDEO_CHANNEL', 'NDC_VIDEO_CHANNEL_CATEGORIES', 'NDC_VIDEO_CHANNEL_CATEGORY', 'NETWORK', 'NL_AUDIO', 'NL_VIDEO', 'OFFICIAL_TRANSACTION', 'OWNER_PERSON', 'PERSON', 'PERSON_ALFRESCO', 'PERSON_ESBID', 'PERSON_GSISID', 'PERSON_GSISID_UNKNOWN', 'PERSON_LIST', 'PERSON_NFLID', 'PERSON_TEAM', 'PLAY', 'PLAYER_ESBID', 'PLAYER_GAME_STAT', 'PLAYER_GAME_STAT_GSIS', 'PLAYER_GAME_STAT_V3', 'PLAYER_STAT_V3', 'PLAYER_TEAM', 'PLAYER_TEAM_STAT', 'PLAY_STAT', 'POCKET_CONTENT_LIST', 'POCKET_IMAGE_ALFRESCO', 'POCKET_IMAGE_DRUPAL', 'POCKET_IMAGE_TEAMSITE', 'POCKET_VIDEO', 'POCKET_VIDEO_ALFRESCO', 'POCKET_VIDEO_ASSET', 'POCKET_VIDEO_DRUPAL', 'POCKET_VIDEO_TEAMSITE', 'POCKET_VIDEO_VODZILLA', 'PROMOTION', 'PROPERTY', 'PROSPECT', 'PROSPECT_COMBINE_STAT', 'PROSPECT_ESBID', 'PROSPECT_NFLID', 'PUSH_NOTIFICATION', 'SEASON', 'SERIES', 'SHIELD_BROADCAST', 'SHIELD_SCREEN', 'SITE', 'STANDING', 'STANDINGS', 'STREAM_GUYS_AUDIO_ASSET', 'TAG', 'TAG_CONTENT_LIST', 'TEAM', 'TEAM_GAME_STAT', 'TEAM_GAME_STAT_V3', 'TEAM_SEASON_STAT', 'TEAM_STAT_V3', 'TICKET_LOG', 'VENUE', 'VIDEO_ASSET_ALFRESCO', 'VIDEO_ASSET_DRUPAL', 'VIDEO_ASSET_TEAMSITE', 'VIDEO_ASSET_VODZILLA', 'WEEK', 'ZEPPELIN_EVENT', 'ZEPPELIN_SHOW')
@@ -1469,8 +1469,8 @@ class SplitCategory(sgqlc.types.Enum):
 class StatsRole(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `TM`None
     * `OPP`None
+    * `TM`None
     '''
     __schema__ = shield
     __choices__ = ('OPP', 'TM')
@@ -1480,45 +1480,45 @@ class Status(sgqlc.types.Enum):
     '''Enumeration Choices:
 
     * `ACT`None
-    * `RET`None
-    * `NWT`None
-    * `TRL`None
-    * `TRC`None
-    * `TRD`None
-    * `TRT`None
-    * `RES`None
-    * `NON`None
-    * `RSN`None
-    * `INA`None
-    * `EXE`None
-    * `CUT`None
-    * `SUS`None
-    * `DEV`None
-    * `PUP`None
-    * `UFA`None
-    * `RFA`None
-    * `UDF`None
-    * `RSR`None
     * `ANI`None
     * `ANJ`None
-    * `DTR`None
+    * `COM`None
+    * `CUT`None
+    * `DEV`None
+    * `DIN`None
     * `DNR`None
     * `DOL`None
+    * `DTR`None
     * `DUS`None
+    * `ERF`None
+    * `EXE`None
     * `EXR`None
-    * `FRR`None
     * `FPL`None
+    * `FRR`None
     * `FUT`None
     * `IDR`None
+    * `INA`None
     * `IRC`None
     * `MIL`None
+    * `NON`None
     * `NOS`None
+    * `NWT`None
+    * `PUP`None
+    * `RES`None
+    * `RET`None
+    * `RFA`None
     * `RNI`None
-    * `COM`None
+    * `RSN`None
+    * `RSR`None
+    * `SUS`None
+    * `TRC`None
+    * `TRD`None
+    * `TRL`None
     * `TRN`None
+    * `TRT`None
+    * `UDF`None
+    * `UFA`None
     * `VFA`None
-    * `DIN`None
-    * `ERF`None
     * `WAV`None
     '''
     __schema__ = shield
@@ -1530,11 +1530,11 @@ String = sgqlc.types.String
 class TeamOrderBy(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `createdDate`None
-    * `lastModifiedDate`None
-    * `fullName`None
-    * `nickName`None
     * `abbreviation`None
+    * `createdDate`None
+    * `fullName`None
+    * `lastModifiedDate`None
+    * `nickName`None
     '''
     __schema__ = shield
     __choices__ = ('abbreviation', 'createdDate', 'fullName', 'lastModifiedDate', 'nickName')
@@ -1543,23 +1543,23 @@ class TeamOrderBy(sgqlc.types.Enum):
 class TeamStatsLeaderOrderBy(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `offenseScrimmageYds`None
-    * `offenseScrimmageYdsPerGame`None
-    * `offensePassingNetYards`None
-    * `offensePassingNetYardsPerGame`None
-    * `offenseRushingYards`None
-    * `offenseRushingYardsPerGame`None
-    * `defenseScrimmageYds`None
-    * `defenseScrimmageYdsPerGame`None
     * `defensePassingNetYards`None
     * `defensePassingNetYardsPerGame`None
     * `defenseRushingYards`None
     * `defenseRushingYardsPerGame`None
-    * `totalTackles`None
-    * `defensiveTotalTackles`None
+    * `defenseScrimmageYds`None
+    * `defenseScrimmageYdsPerGame`None
     * `defensiveAssists`None
-    * `defensiveSacks`None
     * `defensiveInterceptions`None
+    * `defensiveSacks`None
+    * `defensiveTotalTackles`None
+    * `offensePassingNetYards`None
+    * `offensePassingNetYardsPerGame`None
+    * `offenseRushingYards`None
+    * `offenseRushingYardsPerGame`None
+    * `offenseScrimmageYds`None
+    * `offenseScrimmageYdsPerGame`None
+    * `totalTackles`None
     '''
     __schema__ = shield
     __choices__ = ('defensePassingNetYards', 'defensePassingNetYardsPerGame', 'defenseRushingYards', 'defenseRushingYardsPerGame', 'defenseScrimmageYds', 'defenseScrimmageYdsPerGame', 'defensiveAssists', 'defensiveInterceptions', 'defensiveSacks', 'defensiveTotalTackles', 'offensePassingNetYards', 'offensePassingNetYardsPerGame', 'offenseRushingYards', 'offenseRushingYardsPerGame', 'offenseScrimmageYds', 'offenseScrimmageYdsPerGame', 'totalTackles')
@@ -1568,9 +1568,9 @@ class TeamStatsLeaderOrderBy(sgqlc.types.Enum):
 class TeamType(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `TEAM`None
-    * `PRO`None
     * `AS`None
+    * `PRO`None
+    * `TEAM`None
     '''
     __schema__ = shield
     __choices__ = ('AS', 'PRO', 'TEAM')
@@ -1590,27 +1590,27 @@ class TransactionOrderBy(sgqlc.types.Enum):
 class Transition(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `INTERCEPTION`None
-    * `FUMBLE`None
-    * `PUNT`None
-    * `DOWNS`None
-    * `KICKOFF`None
-    * `SAFETY_KICK`None
-    * `TOUCHDOWN`None
-    * `FIELD_GOAL`None
-    * `SAFETY`None
-    * `END_HALF`None
-    * `END_GAME`None
-    * `OWN_KICKOFF`None
-    * `MUFFED_PUNT`None
-    * `MUFFED_KICKOFF`None
-    * `ONSIDE_KICK`None
-    * `MISSED_FG`None
-    * `FUMBLE_SAFETY`None
-    * `BLOCKED_PUNT`None
-    * `BLOCKED_PUNT_DOWNS`None
     * `BLOCKED_FG`None
     * `BLOCKED_FG_DOWNS`None
+    * `BLOCKED_PUNT`None
+    * `BLOCKED_PUNT_DOWNS`None
+    * `DOWNS`None
+    * `END_GAME`None
+    * `END_HALF`None
+    * `FIELD_GOAL`None
+    * `FUMBLE`None
+    * `FUMBLE_SAFETY`None
+    * `INTERCEPTION`None
+    * `KICKOFF`None
+    * `MISSED_FG`None
+    * `MUFFED_KICKOFF`None
+    * `MUFFED_PUNT`None
+    * `ONSIDE_KICK`None
+    * `OWN_KICKOFF`None
+    * `PUNT`None
+    * `SAFETY`None
+    * `SAFETY_KICK`None
+    * `TOUCHDOWN`None
     '''
     __schema__ = shield
     __choices__ = ('BLOCKED_FG', 'BLOCKED_FG_DOWNS', 'BLOCKED_PUNT', 'BLOCKED_PUNT_DOWNS', 'DOWNS', 'END_GAME', 'END_HALF', 'FIELD_GOAL', 'FUMBLE', 'FUMBLE_SAFETY', 'INTERCEPTION', 'KICKOFF', 'MISSED_FG', 'MUFFED_KICKOFF', 'MUFFED_PUNT', 'ONSIDE_KICK', 'OWN_KICKOFF', 'PUNT', 'SAFETY', 'SAFETY_KICK', 'TOUCHDOWN')
@@ -1620,9 +1620,9 @@ class WeekOrderBy(sgqlc.types.Enum):
     '''Enumeration Choices:
 
     * `week__seasonValue`None
-    * `week__weekValue`None
     * `week__weekOrder`None
     * `week__weekType`None
+    * `week__weekValue`None
     '''
     __schema__ = shield
     __choices__ = ('week__seasonValue', 'week__weekOrder', 'week__weekType', 'week__weekValue')
@@ -1634,14 +1634,14 @@ class WeekType(sgqlc.types.Enum):
 
     Enumeration Choices:
 
+    * `CONF`None
+    * `DIV`None
     * `HOF`None
     * `PRE`None
-    * `REG`None
-    * `WC`None
-    * `DIV`None
-    * `CONF`None
-    * `SB`None
     * `PRO`None
+    * `REG`None
+    * `SB`None
+    * `WC`None
     '''
     __schema__ = shield
     __choices__ = ('CONF', 'DIV', 'HOF', 'PRE', 'PRO', 'REG', 'SB', 'WC')
@@ -1660,9 +1660,9 @@ class WorkStatus(sgqlc.types.Enum):
 class WorkflowStatus(sgqlc.types.Enum):
     '''Enumeration Choices:
 
-    * `WIP`None
     * `ACTIVE`None
     * `ARCHIVED`None
+    * `WIP`None
     '''
     __schema__ = shield
     __choices__ = ('ACTIVE', 'ARCHIVED', 'WIP')
@@ -1750,15 +1750,6 @@ class CombineDataInput(sgqlc.types.Input):
     vertical_jump_result = sgqlc.types.Field(String, graphql_name='verticalJumpResult')
 
     vertical_jump_result_video_ids = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name='verticalJumpResultVideoIds')
-
-
-
-class CommonIdInput(sgqlc.types.Input):
-    __schema__ = shield
-    __field_names__ = ('client_mutation_id', 'id')
-    client_mutation_id = sgqlc.types.Field(String, graphql_name='clientMutationId')
-
-    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
 
 
 
@@ -2239,40 +2230,6 @@ class CreateCheerleaderPersonInput(sgqlc.types.Input):
 
 
 
-class CreateClubInjuryReport(sgqlc.types.Input):
-    __schema__ = shield
-    __field_names__ = ('display_name', 'headshot_image_url', 'injuries', 'injury_status', 'player_id', 'position', 'practice_statuses', 'practices', 'team_id', 'week_id')
-    display_name = sgqlc.types.Field(String, graphql_name='displayName')
-
-    headshot_image_url = sgqlc.types.Field(String, graphql_name='headshotImageUrl')
-
-    injuries = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name='injuries')
-
-    injury_status = sgqlc.types.Field(InjuryStatus, graphql_name='injuryStatus')
-
-    player_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='playerId')
-
-    position = sgqlc.types.Field(String, graphql_name='position')
-
-    practice_statuses = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name='practiceStatuses')
-
-    practices = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name='practices')
-
-    team_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='teamId')
-
-    week_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='weekId')
-
-
-
-class CreateClubInjuryReportInput(sgqlc.types.Input):
-    __schema__ = shield
-    __field_names__ = ('client_mutation_id', 'club_injury_report')
-    client_mutation_id = sgqlc.types.Field(String, graphql_name='clientMutationId')
-
-    club_injury_report = sgqlc.types.Field(sgqlc.types.non_null(CreateClubInjuryReport), graphql_name='clubInjuryReport')
-
-
-
 class CreateClubTransaction(sgqlc.types.Input):
     __schema__ = shield
     __field_names__ = ('available_to_properties_ids', 'franchise_id', 'id', 'last_publish_date', 'original_publish_date', 'publish_state', 'repository', 'transaction_day', 'transaction_detail', 'transaction_month', 'transaction_year', 'workflow_status')
@@ -2453,7 +2410,9 @@ class CreateContentInput(sgqlc.types.Input):
 
 class CreateContentList(sgqlc.types.Input):
     __schema__ = shield
-    __field_names__ = ('analytics_id', 'author_ids', 'available_to_properties_ids', 'available_to_property_ids', 'caption', 'content_hints', 'content_ids', 'content_ids_to_add', 'content_ids_to_remove', 'content_list_ids', 'content_query', 'curation', 'description', 'entitlement', 'event_ids', 'external_id', 'franchise_ids', 'game_ids', 'id', 'image_id', 'last_publish_date', 'materialization_hint', 'original_publish_date', 'origination', 'permalink', 'person_ids', 'property_id', 'publish_state', 'repository', 'season_id', 'season_value', 'series_ids', 'show_ids', 'slug', 'tags', 'title', 'workflow_status')
+    __field_names__ = ('ad_frequency', 'analytics_id', 'author_ids', 'available_to_properties_ids', 'available_to_property_ids', 'caption', 'content_hints', 'content_ids', 'content_ids_to_add', 'content_ids_to_remove', 'content_list_ids', 'content_query', 'curation', 'description', 'entitlement', 'event_ids', 'external_id', 'franchise_ids', 'gallery_view', 'game_ids', 'id', 'image_id', 'last_publish_date', 'materialization_hint', 'original_publish_date', 'origination', 'permalink', 'person_ids', 'property_id', 'publish_state', 'repository', 'season_id', 'season_value', 'series_ids', 'show_ids', 'slug', 'tags', 'title', 'workflow_status')
+    ad_frequency = sgqlc.types.Field(Int, graphql_name='adFrequency')
+
     analytics_id = sgqlc.types.Field(String, graphql_name='analyticsId')
     '''Matches the CMS Entity ID. Used as the ID to tie together the same
     content on web & apps
@@ -2497,6 +2456,8 @@ class CreateContentList(sgqlc.types.Input):
 
     franchise_ids = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name='franchiseIds')
     '''The franchises related to this content. See franchise'''
+
+    gallery_view = sgqlc.types.Field(String, graphql_name='galleryView')
 
     game_ids = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name='gameIds')
     '''The games related to this content. See game'''
@@ -3154,46 +3115,6 @@ class CreateExecutivePersonInput(sgqlc.types.Input):
     client_mutation_id = sgqlc.types.Field(String, graphql_name='clientMutationId')
 
     executive_person = sgqlc.types.Field(sgqlc.types.non_null(CreateExecutivePerson), graphql_name='executivePerson')
-
-
-
-class CreateGame(sgqlc.types.Input):
-    __schema__ = shield
-    __field_names__ = ('away_team_id', 'category', 'esb_id', 'game_time', 'gsis_id', 'home_team_id', 'id', 'network_channels', 'radio_links', 'territory', 'ticket_url', 'venue_id', 'week_id')
-    away_team_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='awayTeamId')
-
-    category = sgqlc.types.Field(String, graphql_name='category')
-
-    esb_id = sgqlc.types.Field(String, graphql_name='esbId')
-
-    game_time = sgqlc.types.Field(DateTime, graphql_name='gameTime')
-
-    gsis_id = sgqlc.types.Field(String, graphql_name='gsisId')
-
-    home_team_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='homeTeamId')
-
-    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
-
-    network_channels = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name='networkChannels')
-
-    radio_links = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name='radioLinks')
-
-    territory = sgqlc.types.Field(String, graphql_name='territory')
-
-    ticket_url = sgqlc.types.Field(String, graphql_name='ticketUrl')
-
-    venue_id = sgqlc.types.Field(String, graphql_name='venueId')
-
-    week_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='weekId')
-
-
-
-class CreateGameInput(sgqlc.types.Input):
-    __schema__ = shield
-    __field_names__ = ('client_mutation_id', 'game')
-    client_mutation_id = sgqlc.types.Field(String, graphql_name='clientMutationId')
-
-    game = sgqlc.types.Field(sgqlc.types.non_null(CreateGame), graphql_name='game')
 
 
 
@@ -4528,38 +4449,6 @@ class SaveGameInsightInput(sgqlc.types.Input):
 
 
 
-class SaveWeek(sgqlc.types.Input):
-    __schema__ = shield
-    __field_names__ = ('date_begin', 'date_end', 'id', 'season_id', 'season_type', 'season_value', 'week_order', 'week_type', 'week_value')
-    date_begin = sgqlc.types.Field(sgqlc.types.non_null(DateTime), graphql_name='dateBegin')
-
-    date_end = sgqlc.types.Field(sgqlc.types.non_null(DateTime), graphql_name='dateEnd')
-
-    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
-
-    season_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name='seasonId')
-
-    season_type = sgqlc.types.Field(sgqlc.types.non_null(SeasonType), graphql_name='seasonType')
-
-    season_value = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='seasonValue')
-
-    week_order = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='weekOrder')
-
-    week_type = sgqlc.types.Field(sgqlc.types.non_null(WeekType), graphql_name='weekType')
-
-    week_value = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name='weekValue')
-
-
-
-class SaveWeekInput(sgqlc.types.Input):
-    __schema__ = shield
-    __field_names__ = ('client_mutation_id', 'week')
-    client_mutation_id = sgqlc.types.Field(String, graphql_name='clientMutationId')
-
-    week = sgqlc.types.Field(sgqlc.types.non_null(SaveWeek), graphql_name='week')
-
-
-
 class SocialInput(sgqlc.types.Input):
     __schema__ = shield
     __field_names__ = ('label', 'link', 'platform')
@@ -4729,48 +4618,6 @@ class UpdateFranchiseInput(sgqlc.types.Input):
     client_mutation_id = sgqlc.types.Field(String, graphql_name='clientMutationId')
 
     franchise = sgqlc.types.Field(sgqlc.types.non_null(UpdateFranchise), graphql_name='franchise')
-
-
-
-class UpdateGame(sgqlc.types.Input):
-    __schema__ = shield
-    __field_names__ = ('away_team_id', 'category', 'esb_id', 'game_time', 'gsis_id', 'home_team_id', 'id', 'network_channels', 'radio_links', 'slug', 'territory', 'ticket_url', 'venue_id', 'week_id')
-    away_team_id = sgqlc.types.Field(String, graphql_name='awayTeamId')
-
-    category = sgqlc.types.Field(String, graphql_name='category')
-
-    esb_id = sgqlc.types.Field(String, graphql_name='esbId')
-
-    game_time = sgqlc.types.Field(DateTime, graphql_name='gameTime')
-
-    gsis_id = sgqlc.types.Field(String, graphql_name='gsisId')
-
-    home_team_id = sgqlc.types.Field(String, graphql_name='homeTeamId')
-
-    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name='id')
-
-    network_channels = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name='networkChannels')
-
-    radio_links = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name='radioLinks')
-
-    slug = sgqlc.types.Field(String, graphql_name='slug')
-
-    territory = sgqlc.types.Field(String, graphql_name='territory')
-
-    ticket_url = sgqlc.types.Field(String, graphql_name='ticketUrl')
-
-    venue_id = sgqlc.types.Field(String, graphql_name='venueId')
-
-    week_id = sgqlc.types.Field(String, graphql_name='weekId')
-
-
-
-class UpdateGameInput(sgqlc.types.Input):
-    __schema__ = shield
-    __field_names__ = ('client_mutation_id', 'game')
-    client_mutation_id = sgqlc.types.Field(String, graphql_name='clientMutationId')
-
-    game = sgqlc.types.Field(sgqlc.types.non_null(UpdateGame), graphql_name='game')
 
 
 
@@ -5540,22 +5387,7 @@ class ClubTransactionEdge(sgqlc.types.Type):
 class ClubsGroup(sgqlc.types.Type):
     '''Group for all club data lookups.'''
     __schema__ = shield
-    __field_names__ = ('club_injury_reports', 'club_transaction', 'club_transactions', 'club_transactions_by_ids', 'current_club_depth_chart', 'current_club_roster', 'depth_chart_position_order', 'injury_report', 'injury_reports', 'injury_reports_by_ids')
-    club_injury_reports = sgqlc.types.Field(sgqlc.types.non_null(sgqlc.types.list_of('ClubInjury')), graphql_name='clubInjuryReports', args=sgqlc.types.ArgDict((
-        ('team_id', sgqlc.types.Arg(sgqlc.types.non_null(String), graphql_name='teamId', default=None)),
-        ('season_value', sgqlc.types.Arg(sgqlc.types.non_null(Int), graphql_name='seasonValue', default=None)),
-        ('season_type', sgqlc.types.Arg(sgqlc.types.non_null(SeasonType), graphql_name='seasonType', default=None)),
-        ('week_value', sgqlc.types.Arg(Int, graphql_name='weekValue', default=None)),
-))
-    )
-    '''Arguments:
-
-    * `team_id` (`String!`)
-    * `season_value` (`Int!`)
-    * `season_type` (`SeasonType!`)
-    * `week_value` (`Int`)
-    '''
-
+    __field_names__ = ('club_transaction', 'club_transactions', 'club_transactions_by_ids', 'current_club_depth_chart', 'current_club_roster', 'depth_chart_position_order', 'injury_report', 'injury_reports', 'injury_reports_by_ids')
     club_transaction = sgqlc.types.Field('ClubTransaction', graphql_name='clubTransaction', args=sgqlc.types.ArgDict((
         ('id', sgqlc.types.Arg(sgqlc.types.non_null(ID), graphql_name='id', default=None)),
 ))
@@ -8389,7 +8221,7 @@ class Music(sgqlc.types.Type):
 class Mutation(sgqlc.types.Type):
     '''Where to persist something.'''
     __schema__ = shield
-    __field_names__ = ('create_article', 'create_audio', 'create_audio_asset', 'create_cheerleader_person', 'create_club_injury_report', 'create_club_transaction', 'create_coach_person', 'create_content_list', 'create_current_club_depth_chart', 'create_current_club_roster', 'create_current_contextual', 'create_depth_chart_position_order', 'create_draft', 'create_draft_pick', 'create_draft_team', 'create_elias_prospect', 'create_event', 'create_executive_person', 'create_game', 'create_image', 'create_image_asset', 'create_injury_report', 'create_meta', 'create_milestone_player', 'create_milestone_team', 'create_mock_draft', 'create_mock_draft_pick', 'create_new_author', 'create_new_cheerleader', 'create_new_coach', 'create_new_executive', 'create_new_prospect', 'create_person_list', 'create_promo', 'create_season', 'create_series', 'create_show', 'create_tag', 'create_team', 'create_video', 'create_video_asset', 'create_week', 'delete_current_club_depth_chart', 'delete_current_club_roster', 'delete_draft_pick', 'delete_game', 'delete_injury_report', 'fantasy_celebration_delete', 'fantasy_celebration_save', 'game_insight_delete', 'game_insight_save', 'generate_smart_id', 'heimdallr', 'mvpd_add_identity_providers_to_group', 'mvpd_clear_identity_provider_group', 'mvpd_create_black_list', 'mvpd_create_identity_provider', 'mvpd_create_identity_provider_group', 'mvpd_delete_black_list', 'mvpd_delete_identity_provider', 'search_create_content', 'search_create_keyword', 'search_delete_content', 'search_delete_keyword', 'update_elias_prospect', 'update_franchise', 'update_game', 'update_player_person', 'update_team', 'update_video')
+    __field_names__ = ('create_article', 'create_audio', 'create_audio_asset', 'create_cheerleader_person', 'create_club_transaction', 'create_coach_person', 'create_content_list', 'create_current_club_depth_chart', 'create_current_club_roster', 'create_current_contextual', 'create_depth_chart_position_order', 'create_draft', 'create_draft_pick', 'create_draft_team', 'create_elias_prospect', 'create_event', 'create_executive_person', 'create_image', 'create_image_asset', 'create_injury_report', 'create_meta', 'create_milestone_player', 'create_milestone_team', 'create_mock_draft', 'create_mock_draft_pick', 'create_new_author', 'create_new_cheerleader', 'create_new_coach', 'create_new_executive', 'create_new_prospect', 'create_person_list', 'create_promo', 'create_season', 'create_series', 'create_show', 'create_tag', 'create_team', 'create_video', 'create_video_asset', 'delete_current_club_depth_chart', 'delete_current_club_roster', 'delete_draft_pick', 'delete_injury_report', 'fantasy_celebration_delete', 'fantasy_celebration_save', 'game_insight_delete', 'game_insight_save', 'generate_smart_id', 'heimdallr', 'mvpd_add_identity_providers_to_group', 'mvpd_clear_identity_provider_group', 'mvpd_create_black_list', 'mvpd_create_identity_provider', 'mvpd_create_identity_provider_group', 'mvpd_delete_black_list', 'mvpd_delete_identity_provider', 'search_create_content', 'search_create_keyword', 'search_delete_content', 'search_delete_keyword', 'update_elias_prospect', 'update_franchise', 'update_player_person', 'update_team', 'update_video')
     create_article = sgqlc.types.Field('CreateArticlePayload', graphql_name='createArticle', args=sgqlc.types.ArgDict((
         ('input', sgqlc.types.Arg(sgqlc.types.non_null(CreateArticleInput), graphql_name='input', default=None)),
 ))
@@ -8424,15 +8256,6 @@ class Mutation(sgqlc.types.Type):
     '''Arguments:
 
     * `input` (`CreateCheerleaderPersonInput!`)
-    '''
-
-    create_club_injury_report = sgqlc.types.Field('CreateClubInjuryReportPayload', graphql_name='createClubInjuryReport', args=sgqlc.types.ArgDict((
-        ('input', sgqlc.types.Arg(sgqlc.types.non_null(CreateClubInjuryReportInput), graphql_name='input', default=None)),
-))
-    )
-    '''Arguments:
-
-    * `input` (`CreateClubInjuryReportInput!`)
     '''
 
     create_club_transaction = sgqlc.types.Field('CreateClubTransactionPayload', graphql_name='createClubTransaction', args=sgqlc.types.ArgDict((
@@ -8550,15 +8373,6 @@ class Mutation(sgqlc.types.Type):
     '''Arguments:
 
     * `input` (`CreateExecutivePersonInput!`)
-    '''
-
-    create_game = sgqlc.types.Field('CreateGamePayload', graphql_name='createGame', args=sgqlc.types.ArgDict((
-        ('input', sgqlc.types.Arg(sgqlc.types.non_null(CreateGameInput), graphql_name='input', default=None)),
-))
-    )
-    '''Arguments:
-
-    * `input` (`CreateGameInput!`)
     '''
 
     create_image = sgqlc.types.Field('CreateImagePayload', graphql_name='createImage', args=sgqlc.types.ArgDict((
@@ -8759,15 +8573,6 @@ class Mutation(sgqlc.types.Type):
     * `input` (`CreateVideoAssetInput!`)
     '''
 
-    create_week = sgqlc.types.Field('CreateWeekPayload', graphql_name='createWeek', args=sgqlc.types.ArgDict((
-        ('input', sgqlc.types.Arg(sgqlc.types.non_null(SaveWeekInput), graphql_name='input', default=None)),
-))
-    )
-    '''Arguments:
-
-    * `input` (`SaveWeekInput!`)
-    '''
-
     delete_current_club_depth_chart = sgqlc.types.Field('CommonVoidPayload', graphql_name='deleteCurrentClubDepthChart', args=sgqlc.types.ArgDict((
         ('input', sgqlc.types.Arg(sgqlc.types.non_null(DeleteCurrentClubDepthChartInput), graphql_name='input', default=None)),
 ))
@@ -8793,15 +8598,6 @@ class Mutation(sgqlc.types.Type):
     '''Arguments:
 
     * `input` (`DeleteDraftPickInput!`)
-    '''
-
-    delete_game = sgqlc.types.Field('CommonVoidPayload', graphql_name='deleteGame', args=sgqlc.types.ArgDict((
-        ('input', sgqlc.types.Arg(sgqlc.types.non_null(CommonIdInput), graphql_name='input', default=None)),
-))
-    )
-    '''Arguments:
-
-    * `input` (`CommonIdInput!`)
     '''
 
     delete_injury_report = sgqlc.types.Field('CommonVoidPayload', graphql_name='deleteInjuryReport', args=sgqlc.types.ArgDict((
@@ -8982,15 +8778,6 @@ class Mutation(sgqlc.types.Type):
     '''Arguments:
 
     * `input` (`UpdateFranchiseInput!`)
-    '''
-
-    update_game = sgqlc.types.Field('UpdateGamePayload', graphql_name='updateGame', args=sgqlc.types.ArgDict((
-        ('input', sgqlc.types.Arg(sgqlc.types.non_null(UpdateGameInput), graphql_name='input', default=None)),
-))
-    )
-    '''Arguments:
-
-    * `input` (`UpdateGameInput!`)
     '''
 
     update_player_person = sgqlc.types.Field('UpdatePlayerPersonPayload', graphql_name='updatePlayerPerson', args=sgqlc.types.ArgDict((
@@ -15835,36 +15622,6 @@ class ClearIdentityProviderGroupPayload(sgqlc.types.Type, RelayMutationType):
 
 
 
-class ClubInjury(sgqlc.types.Type, AbstractAuditable):
-    '''The details around a club related injury'''
-    __schema__ = shield
-    __field_names__ = ('display_name', 'headshot_image_url', 'injuries', 'injury_status', 'player_id', 'position', 'practice_statuses', 'practices', 'season_type', 'season_value', 'team_id', 'week_value')
-    display_name = sgqlc.types.Field(String, graphql_name='displayName')
-
-    headshot_image_url = sgqlc.types.Field(String, graphql_name='headshotImageUrl')
-
-    injuries = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name='injuries')
-
-    injury_status = sgqlc.types.Field(InjuryStatus, graphql_name='injuryStatus')
-
-    player_id = sgqlc.types.Field(String, graphql_name='playerId')
-
-    position = sgqlc.types.Field(String, graphql_name='position')
-
-    practice_statuses = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name='practiceStatuses')
-
-    practices = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name='practices')
-
-    season_type = sgqlc.types.Field(SeasonType, graphql_name='seasonType')
-
-    season_value = sgqlc.types.Field(Int, graphql_name='seasonValue')
-
-    team_id = sgqlc.types.Field(String, graphql_name='teamId')
-
-    week_value = sgqlc.types.Field(Int, graphql_name='weekValue')
-
-
-
 class ClubTransaction(sgqlc.types.Type, AbstractPublishable, AbstractEntity, AbstractAuditable, Node):
     '''Records of team trades, cuts and signings (as reported by clubs).'''
     __schema__ = shield
@@ -16021,7 +15778,9 @@ class Content(sgqlc.types.Type, Node):
 
 class ContentList(sgqlc.types.Type, AbstractContent, AbstractPublishable, AbstractEntity, AbstractAuditable, Node):
     __schema__ = shield
-    __field_names__ = ('authors', 'content_hints', 'content_list_type', 'contents', 'curation', 'external_id', 'image', 'materialization_hint', 'series_list', 'aggregate')
+    __field_names__ = ('ad_frequency', 'authors', 'content_hints', 'content_list_type', 'contents', 'curation', 'external_id', 'gallery_view', 'image', 'materialization_hint', 'series_list', 'aggregate')
+    ad_frequency = sgqlc.types.Field(Int, graphql_name='adFrequency')
+
     authors = sgqlc.types.Field(sgqlc.types.list_of(AuthorPerson), graphql_name='authors')
 
     content_hints = sgqlc.types.Field(sgqlc.types.list_of(ContentHint), graphql_name='contentHints')
@@ -16044,6 +15803,8 @@ class ContentList(sgqlc.types.Type, AbstractContent, AbstractPublishable, Abstra
     curation = sgqlc.types.Field(Curation, graphql_name='curation')
 
     external_id = sgqlc.types.Field(String, graphql_name='externalId')
+
+    gallery_view = sgqlc.types.Field(String, graphql_name='galleryView')
 
     image = sgqlc.types.Field('Image', graphql_name='image')
 
@@ -16094,13 +15855,6 @@ class CreateCheerleaderPersonPayload(sgqlc.types.Type, RelayMutationType):
     __schema__ = shield
     __field_names__ = ('cheerleader_person',)
     cheerleader_person = sgqlc.types.Field(CheerleaderPerson, graphql_name='cheerleaderPerson')
-
-
-
-class CreateClubInjuryReportPayload(sgqlc.types.Type, RelayMutationType):
-    __schema__ = shield
-    __field_names__ = ('club_injury_report',)
-    club_injury_report = sgqlc.types.Field(ClubInjury, graphql_name='clubInjuryReport')
 
 
 
@@ -16199,13 +15953,6 @@ class CreateExecutivePersonPayload(sgqlc.types.Type, RelayMutationType):
     __schema__ = shield
     __field_names__ = ('executive_person',)
     executive_person = sgqlc.types.Field('ExecutivePerson', graphql_name='executivePerson')
-
-
-
-class CreateGamePayload(sgqlc.types.Type, RelayMutationType):
-    __schema__ = shield
-    __field_names__ = ('game',)
-    game = sgqlc.types.Field('Game', graphql_name='game')
 
 
 
@@ -16346,13 +16093,6 @@ class CreateVideoPayload(sgqlc.types.Type, RelayMutationType):
     __schema__ = shield
     __field_names__ = ('video',)
     video = sgqlc.types.Field('Video', graphql_name='video')
-
-
-
-class CreateWeekPayload(sgqlc.types.Type, RelayMutationType):
-    __schema__ = shield
-    __field_names__ = ('week',)
-    week = sgqlc.types.Field('Week', graphql_name='week')
 
 
 
@@ -18222,13 +17962,6 @@ class UpdateFranchisePayload(sgqlc.types.Type, RelayMutationType):
     __schema__ = shield
     __field_names__ = ('franchise',)
     franchise = sgqlc.types.Field(Franchise, graphql_name='franchise')
-
-
-
-class UpdateGamePayload(sgqlc.types.Type, RelayMutationType):
-    __schema__ = shield
-    __field_names__ = ('game',)
-    game = sgqlc.types.Field(Game, graphql_name='game')
 
 
 
