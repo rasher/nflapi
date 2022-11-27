@@ -34,7 +34,10 @@ class NFLClientCredentials(requests.auth.AuthBase):
         return r
 
     def __get_token(self, ua):
-        if self.cache.get('expire', EPOCH) < pendulum.now():
+        expire = self.cache.get('expire', EPOCH)
+        if expire is None:
+            expire = EPOCH
+        if expire < pendulum.now():
             self.__update_token(ua)
         token = self.cache.get('token')
         logger.debug("Using token: %s" % token)
