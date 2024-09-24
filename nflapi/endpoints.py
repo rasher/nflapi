@@ -1,5 +1,6 @@
 import datetime
 import logging
+import pprint
 from typing import Optional, Dict
 
 import pendulum
@@ -63,7 +64,7 @@ class JsonWrapper:
         return self._raw
 
     def __str__(self):
-        return str(self.raw)
+        return str(pprint.pformat(self.raw))
 
     def __repr__(self):
         return repr(self.raw)
@@ -111,6 +112,10 @@ class Football:
         path = FOOTBALL_GAMES_BY_WEEK.format(season=season, season_type=season_type, week=week, with_external_ids='true')
         return self.request(path).games
 
+    def game_summaries_by_week(self, season: int, season_type: str, week: int):
+        path = FOOTBALL_STATS_LIVE_GAME_SUMMARIES_BY_WEEK.format(season=season, season_type=season_type, week=week)
+        return self.request(path).data
+
     def week_by_date(self, date: datetime.datetime):
         path = FOOTBALL_WEEK_BY_DATE.format(date=date)
         return self.request(path)
@@ -128,7 +133,11 @@ class Football:
         return self.request(path)
 
     def combine_profiles_by_year(self, year: int, combine_attendance: bool = True, limit: int = 1000):
-        path = FOOTBALL_COMBINE_BY_YEAR.format(year=year, combine_attendance=combine_attendance, limit=limit)
+        path = FOOTBALL_COMBINE_PROFILES_BY_YEAR.format(year=year, combine_attendance=combine_attendance, limit=limit)
+        return self.request(path)
+
+    def draft_picks_by_year(self, year: int, limit: int = 1000):
+        path = FOOTBALL_DRAFT_PICKS_REPORT_BY_YEAR.format(year=year, limit=limit)
         return self.request(path)
 
     @staticmethod

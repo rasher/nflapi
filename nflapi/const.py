@@ -1,6 +1,8 @@
 API_HOST = 'https://api.nfl.com'
 
 ENDPOINT_V1_REROUTE = '/v1/reroute'
+ENDPOINT_IDENTITY_V3_TOKEN = '/identity/v3/token'
+ENDPOINT_IDENTITY_V3_TOKEN_REFRESH = '/identity/v3/token/refresh'
 
 ENDPOINT_SHIELD_V3 = '/v3/shield'
 
@@ -11,9 +13,13 @@ FOOTBALL_WEEK_BY_DATE = '/weeks/date/{date:%Y-%m-%d}'
 FOOTBALL_TEAMS_BY_SEASON = '/teams/history?season={season}&limit={limit}'
 FOOTBALL_TEAM_BY_ID = '/teams/{id}'
 FOOTBALL_STANDINGS_BY_WEEK = '/standings?seasonType={season_type}&week={week}&season={season}&limit={limit}'
-FOOTBALL_COMBINE_BY_YEAR = '/combine/profiles?year={year}&combineAttendance={combine_attendance}&limit={limit}'
+FOOTBALL_COMBINE_PROFILES_BY_YEAR = '/combine/profiles?year={year}&combineAttendance={combine_attendance}&limit={limit}'
 FOOTBALL_ROSTERS_BY_SEASON = '/rosters?season={season}&limit={limit}'
 FOOTBALL_DRAFT_PICKS_REPORT_BY_YEAR = '/draft/picks/report?year={year}&limit={limit}'
+FOOTBALL_STATS_LIVE_GAME_SUMMARIES_BY_WEEK = "/stats/live/game-summaries?season={season}&seasonType={season_type}&week={week}"
+
+ENDPOINT_EXPERIENCE_V1 = '/experience/v1'
+EXPERIENCE_DRAFT = '/draft?year={year}&limit={limit}'
 
 CONFERENCE_NAMES = {
     'AFC': 'American Football Conference',

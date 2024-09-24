@@ -47,11 +47,17 @@ def nflcli(ctx, verbose, date):
 
 
 def print_week(w):
-    logging.debug("Week: %r", w)
-    if w.week_type in (WeekType.PRE, WeekType.REG):
-        print("{w.season_value} {w.season_type} {w.week_value}".format(w=w))
+    logging.debug("Week: %r", w.raw)
+    if hasattr(w, 'season'):
+        if w.week_type in (WeekType.PRE, WeekType.REG):
+            print("{w.season} {w.season_type} {w.week}".format(w=w))
+        else:
+            print("{w.season} {w.week_type}".format(w=w))
     else:
-        print("{w.season_value} {w.week_type}".format(w=w))
+        if w.week_type in (WeekType.PRE, WeekType.REG):
+            print("{w.season_value} {w.season_type} {w.week_value}".format(w=w))
+        else:
+            print("{w.season_value} {w.week_type}".format(w=w))
 
 
 @nflcli.command(short_help="Display the current week")
@@ -178,9 +184,23 @@ def combine(nfl: NFL, year: int, *args, **kwargs):
         })
 
 
+@nflcli.command(short_help="Draft")
+@nflobj
+def draft(nfl: NFL, date: pendulum.DateTime, *args, **kwargs):
+    picks_data = nfl.draft.picks(date.year)
+    teams = {t.id: t for t in nfl.football.teams_by_season(date.year).teams}
+    profiles = {p.person.id: p for p in nfl.combine.participants(date.year).combine_profiles}
+    for pick in picks_data.picks:
+        if pick.person_id:
+            c = profiles.get(pick.person_id)
+            print("{p.draft_round}.{p.draft_position:<2d} {t.nick_name:<10s} {c.person.display_name}".format(p=pick,
+                                                                                               t=teams[pick.team_id],
+                                                                                   c=c))
+
+
 @nflcli.command(short_help="Franchises")
 @nflobj
-def test(nfl: NFL, *args, **kwargs):
+def franchises(nfl: NFL, *args, **kwargs):
     op = Operation(shield.Viewer)
     franchises: FranchiseConnection = op.viewer.franchises(first=40, state=FranchiseState.ACTIVE)
     f: Franchise = franchises.edges.node
@@ -188,6 +208,20 @@ def test(nfl: NFL, *args, **kwargs):
     t = f.current_team()
     t.abbreviation()
     pprint([e.node for e in nfl.query(op).viewer.franchises.edges])
+
+
+@nflcli.command(short_help="Live")
+@nflobj
+def live(nfl: NFL, date: pendulum.DateTime, *args, **kwargs):
+    week = nfl.football.week_by_date(date)
+    print_week(week)
+    teams = {t.id: t for t in nfl.football.teams_by_season(date.year).teams}
+    games = nfl.football.game_summaries_by_week(week.season, week.season_type, week.week)
+    for game in games:
+        home_team = teams.get(game.home_team.team_id, None)
+        away_team = teams.get(game.away_team.team_id, None)
+        print("{game.phase:6} {away.abbreviation:3} {game.away_team.score.total:2} @"
+              " {game.home_team.score.total:2} {home.abbreviation:3}".format(game=game, home=home_team, away=away_team))
 
 
 def main():

@@ -1,4 +1,5 @@
 import logging
+from os import environ
 from pprint import pformat
 
 import pendulum
@@ -27,37 +28,51 @@ class NFLClientCredentials(requests.auth.AuthBase):
 
     def __init__(self, cache_name: str = 'nflapi'):
         self.cache = FileCache(cache_name, flag='cs')
-        self.cache.clear()
 
     def __call__(self, r: requests.Request):
         r.headers['Authorization'] = self.__get_token(ua=r.headers.get('User-Agent', None))
         return r
 
     def __get_token(self, ua):
-        expire = self.cache.get('expire', EPOCH)
-        if expire is None:
-            expire = EPOCH
-        if expire < pendulum.now():
-            self.__update_token(ua)
-        token = self.cache.get('token')
-        logger.debug("Using token: %s" % token)
-        return token
+        expire = self.cache.get('expire', EPOCH) or EPOCH  # In case we accidentally set it to None
+        refresh_token = self.cache.get('refreshToken', None)
+        access_token = self.cache.get('accessToken', None)
 
-    def __update_token(self, ua):
-        logger.debug('Updating auth token')
-        data = {
-            'grant_type': 'client_credentials'
+        logging.debug("Expire is %s", expire)
+        token = None
+        if access_token is not None and expire > pendulum.now():
+            logger.debug("Using stored token")
+            token = access_token
+        if token is None and refresh_token is not None:
+            token = self.__refresh_token(refresh_token, ua)
+        if token is None:
+            token = self.__get_and_store_new_token(ua)
+        return 'Bearer {token}'.format(token=token)
+
+    def __refresh_token(self, refresh_token: str, ua: str) -> str:
+        logger.debug("Using refresh token")
+        extra_data = {
+            'refreshToken': refresh_token,
         }
-        response = self.__token_request(ENDPOINT_V1_REROUTE, data, ua)
-        token = '{token_type} {access_token}'.format(**response)
-        expire = pendulum.now().add(seconds=response['expires_in'] - 30)
-        self.cache['token'] = token
-        self.cache['expire'] = expire
-        logger.debug('Updated token: %s - expires %s', token, expire)
+        js = self.__token_request(ENDPOINT_IDENTITY_V3_TOKEN_REFRESH, extra_data, ua)
+        return js['accessToken']
 
-    @staticmethod
-    def __token_request(path, data, ua):
-        headers = {'X-Domain-Id': '100', 'User-Agent': ua}
+    def __get_and_store_new_token(self, ua: str):
+        logger.debug("Retrieving new access token")
+        js = self.__token_request(ENDPOINT_IDENTITY_V3_TOKEN, {}, ua)
+        return js['accessToken']
+
+    def __token_request(self, path, extra_data, ua):
+        data = {
+            'clientKey': environ.get('NFL_CLIENT_KEY', ''),
+            'clientSecret': environ.get('NFL_CLIENT_SECRET', ''),
+            'deviceId': '',
+            'deviceInfo': '',
+            'networkType': 'other',
+            'peacockUUID': 'undefined',
+        }.update(extra_data)
+
+        headers = {'User-Agent': ua}
         logger.debug('Request: POST %s, data=<%s>', path, pformat(data))
 
         url = API_HOST + path
@@ -68,6 +83,11 @@ class NFLClientCredentials(requests.auth.AuthBase):
             js = response.json()
             response.raise_for_status()
             logger.debug('Response: %s', pformat(js))
+            self.cache['accessToken'] = js['accessToken']
+            self.cache['refreshToken'] = js['refreshToken']
+            self.cache['expire'] = pendulum.from_timestamp(js['expiresIn'])
+            logger.debug('Response: %s', pformat(js))
+            logger.debug('Expire: %s', self.cache['expire'])
             return js
         except HTTPError as e:
             raise Exception("Unsuccessful response: %r" % response.data) from e
@@ -97,6 +117,7 @@ class NFL:
         self.roster = RosterHelper(self)
         self.player = PlayerHelper(self)
         self.combine = CombineHelper(self)
+        self.draft = DraftHelper(self)
 
     def query(self, *args, **kwargs):
         logger.info("Using deprecated method")

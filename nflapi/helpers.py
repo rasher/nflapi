@@ -184,6 +184,11 @@ class CombineHelper(Helper):
         return self.nfl.football.combine_profiles_by_year(year)
 
 
+class DraftHelper(Helper):
+    def picks(self, year: int = 0):
+        return self.nfl.football.draft_picks_by_year(year)
+
+
 class PlayerHelper(Helper):
     def lookup(self, season: int = 0, player_name: str = None, team_id: str = None, status=None, first=100, after=None, select_fun: Callable[[shield.Player], None] = None):
         def add_team_person_fields(player):
@@ -235,4 +240,5 @@ __all__ = [
     'RosterHelper',
     'PlayerHelper',
     'CombineHelper',
+    'DraftHelper',
 ]
