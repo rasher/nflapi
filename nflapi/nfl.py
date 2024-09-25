@@ -70,7 +70,8 @@ class NFLClientCredentials(requests.auth.AuthBase):
             'deviceInfo': '',
             'networkType': 'other',
             'peacockUUID': 'undefined',
-        }.update(extra_data)
+        }
+        data.update(extra_data)
 
         headers = {'User-Agent': ua}
         logger.debug('Request: POST %s, data=<%s>', path, pformat(data))
