@@ -88,6 +88,10 @@ class Football:
 
     def request(self, path, method='GET', **kwargs):
         url = API_HOST + ENDPOINT_FOOTBALL_V2 + path
+        headers = dict(self.base_headers)
+        if 'headers' in kwargs:
+            headers.update(kwargs['headers'])
+        kwargs['headers'] = headers
         return JsonWrapper.wrap_object(requests.request(method, url, auth=self.auth, **kwargs).json())
 
     def game_by_id(self, game_id):

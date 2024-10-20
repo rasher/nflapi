@@ -54,8 +54,11 @@ class NFLClientCredentials(requests.auth.AuthBase):
         extra_data = {
             'refreshToken': refresh_token,
         }
-        js = self.__token_request(ENDPOINT_IDENTITY_V3_TOKEN_REFRESH, extra_data, ua)
-        return js['accessToken']
+        try:
+            js = self.__token_request(ENDPOINT_IDENTITY_V3_TOKEN_REFRESH, extra_data, ua)
+            return js['accessToken']
+        except Exception as e:
+            logging.debug("Could not refresh token", exc_info=1)
 
     def __get_and_store_new_token(self, ua: str):
         logger.debug("Retrieving new access token")
@@ -64,8 +67,8 @@ class NFLClientCredentials(requests.auth.AuthBase):
 
     def __token_request(self, path, extra_data, ua):
         data = {
-            'clientKey': environ.get('NFL_CLIENT_KEY', ''),
-            'clientSecret': environ.get('NFL_CLIENT_SECRET', ''),
+            'clientKey': environ['NFL_CLIENT_KEY'],
+            'clientSecret': environ['NFL_CLIENT_SECRET'],
             'deviceId': '',
             'deviceInfo': '',
             'networkType': 'other',
