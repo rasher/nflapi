@@ -23,7 +23,6 @@ REQUIRED = [
     'requests>=2.28.1,<3',
     'pendulum>=3,<4',
     'click>=8.1.3,<9',
-    'sgqlc>=16.0,<17',
     'fcache>=0.4.7,<0.5',
 ]
 
@@ -95,7 +94,6 @@ setup(
     entry_points={
         'console_scripts': [
             'nflcli=nflapi.cli.nflcli:main',
-            'generate_api=nflapi.util.generate_api:main',
             ],
     },
     install_requires=REQUIRED,

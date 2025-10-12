@@ -4,8 +4,6 @@ ENDPOINT_V1_REROUTE = '/v1/reroute'
 ENDPOINT_IDENTITY_V3_TOKEN = '/identity/v3/token'
 ENDPOINT_IDENTITY_V3_TOKEN_REFRESH = '/identity/v3/token/refresh'
 
-ENDPOINT_SHIELD_V3 = '/v3/shield'
-
 ENDPOINT_FOOTBALL_V2 = '/football/v2'
 FOOTBALL_GAME_BY_ID = "/games/{game_id}?withExternalIds={with_external_ids}"
 FOOTBALL_GAMES_BY_WEEK = '/games/season/{season}/seasonType/{season_type}/week/{week}?withExternalIds={with_external_ids}'
@@ -20,6 +18,7 @@ FOOTBALL_STATS_LIVE_GAME_SUMMARIES_BY_WEEK = "/stats/live/game-summaries?season=
 
 ENDPOINT_EXPERIENCE_V1 = '/experience/v1'
 EXPERIENCE_DRAFT = '/draft?year={year}&limit={limit}'
+EXPERIENCE_TEAMS = '/teams?season={season}'
 
 CONFERENCE_NAMES = {
     'AFC': 'American Football Conference',

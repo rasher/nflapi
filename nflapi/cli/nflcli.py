@@ -3,17 +3,13 @@ import csv
 import logging
 import sys
 from functools import update_wrapper
-from pprint import pprint
 
 import click
 import pendulum
-from sgqlc.operation import Operation
 
 from nflapi import NFL
-from nflapi import shield
 from nflapi.__version__ import __version__ as VERSION
 from nflapi.const import DIVISION_NAMES
-from nflapi.shield import WeekType, Team, FranchiseState, FranchiseConnection, Franchise
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
@@ -48,16 +44,10 @@ def nflcli(ctx, verbose, date):
 
 def print_week(w):
     logging.debug("Week: %r", w.raw)
-    if hasattr(w, 'season'):
-        if w.week_type in (WeekType.PRE, WeekType.REG):
-            print("{w.season} {w.season_type} {w.week}".format(w=w))
-        else:
-            print("{w.season} {w.week_type}".format(w=w))
+    if w.week_type in ('PRE', 'REG'):
+        print("{w.season} {w.season_type} {w.week}".format(w=w))
     else:
-        if w.week_type in (WeekType.PRE, WeekType.REG):
-            print("{w.season_value} {w.season_type} {w.week_value}".format(w=w))
-        else:
-            print("{w.season_value} {w.week_type}".format(w=w))
+        print("{w.season} {w.week_type}".format(w=w))
 
 
 @nflcli.command(short_help="Display the current week")
@@ -109,45 +99,46 @@ def standings(nfl: NFL, date: pendulum.DateTime, *args, **kwargs):
 
 @nflcli.command()
 @nflobj
-def teams(nfl: NFL, **kwargs):
-    # nfl.football.teams_by_season(2021)
-
-    def add(t: Team):
-        t.id()
-        t.full_name()
-        t.conference()
-        t.division()
-        t.venues()
-
-    for t in sorted(nfl.team.get_all(select_fun=add), key=lambda t: t.full_name):
-        print("{t.full_name}\n  Id:    {t.id}\n  Conf.: {t.conference}\n  Div.:  {t.division}".format(t=t))
+def teams(nfl: NFL, date: pendulum.DateTime, **kwargs):
+    if date is None:
+        all_teams = nfl.team.get_all()
+    else:
+        season = nfl.schedule.current_week().season
+        all_teams = nfl.team.get_all(season)
+    logging.debug("All teams", all_teams)
+    for t in sorted(all_teams, key=lambda t: t.full_name):
+        print("{t.full_name}\n  Id:    {t.id}\n  Conf.: {t.conference_abbr}\n  Div.:  {t.division_full_name}".format(
+            t=t))
         for v in t.venues:
-            print("  Venue: {v.full_name}".format(v=v))
+            print("  Venue: {v.name}".format(v=v))
 
 
 @nflcli.command(short_help="Team info")
 @click.argument('abbr')
 @nflobj
-def team(nfl: NFL, abbr, *args, **kwargs):
-    def selector(team):
-        team.full_name()
-        team.venues().display_name()
-        team.division()
-        team.conference()
-
-    team = nfl.team.lookup(abbr, select_fun=selector)
-    print(team.full_name)
-    print(team.conference)
-    print(team.division)
-    print(team.venues[0].display_name)
+def team(nfl: NFL, abbr, date: pendulum.DateTime, *args, **kwargs):
+    logging.debug("date %s", date)
+    if date is None:
+        team = nfl.team.lookup(abbr)
+    else:
+        season = nfl.schedule.week(date).season
+        team = nfl.team.lookup(abbr, season)
+    logging.debug("Team result %r", team)
+    if team:
+        print(team.full_name)
+        print(team.conference_abbr)
+        print(team.division_full_name)
+        print(team.venues[0].name)
+    else:
+        print("No results for %s" % abbr)
 
 
 @nflcli.command(short_help="Game state")
 @click.argument('id')
 @nflobj
 def game(nfl: NFL, id, *args, **kwargs):
-    game = nfl.game.by_id(id)
-    pprint(game.raw)
+    from pprint import pprint
+    pprint(nfl.game.by_id(id))
 
 
 @nflcli.command(short_help="Combine")
@@ -198,16 +189,25 @@ def draft(nfl: NFL, date: pendulum.DateTime, *args, **kwargs):
                                                                                    c=c))
 
 
-@nflcli.command(short_help="Franchises")
+@nflcli.command(short_help="Roster")
+@click.argument('abbr')
 @nflobj
-def franchises(nfl: NFL, *args, **kwargs):
-    op = Operation(shield.Viewer)
-    franchises: FranchiseConnection = op.viewer.franchises(first=40, state=FranchiseState.ACTIVE)
-    f: Franchise = franchises.edges.node
-    f.id()
-    t = f.current_team()
-    t.abbreviation()
-    pprint([e.node for e in nfl.query(op).viewer.franchises.edges])
+def roster(nfl: NFL, abbr: str, date: pendulum.DateTime, *args, **kwargs):
+    if date is None:
+        season = nfl.schedule.current_week().season
+    else:
+        season = nfl.schedule.week(date).season
+    logging.debug("Season %s", season)
+
+    team = nfl.team.lookup(abbr, season)
+    logging.debug("Team %s", team)
+
+    roster = nfl.roster.lookup(abbr, season)
+
+    print("{0.full_name}".format(team))
+    for player in sorted(roster, key=lambda p: (p.position_group, p.display_name)):
+        jersey_number = '' if player.jersey_number is None else player.jersey_number
+        print("  {1: >2} {0.display_name} ({0.position})".format(player, jersey_number))
 
 
 @nflcli.command(short_help="Live")

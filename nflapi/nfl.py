@@ -8,7 +8,7 @@ from fcache.cache import FileCache
 from requests.exceptions import HTTPError
 
 from .const import *
-from .endpoints import Football, Shield
+from .endpoints import Football
 from .helpers import *
 from .__version__ import __version__
 
@@ -108,13 +108,11 @@ class NFL:
         if auth is False:
             auth = NFLClientCredentials('nflapi')
         self.football = Football(auth, base_headers)
-        self.shield = Shield(auth, base_headers)
 
         self.team = TeamHelper(self)
         self.schedule = ScheduleHelper(self)
         self.standings = StandingsHelper(self)
         self.game = GameHelper(self)
-        self.game_detail = GameDetailHelper(self)
         self.roster = RosterHelper(self)
         self.player = PlayerHelper(self)
         self.combine = CombineHelper(self)
