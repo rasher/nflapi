@@ -18,7 +18,7 @@ class ScheduleHelper(Helper):
         return self.week(date)
 
     def week(self, date: datetime.datetime):
-        return self.nfl.football.week_by_date(date)
+        return self.nfl.api.week_by_date(date)
 
 
 class GameHelper(Helper):
@@ -31,19 +31,24 @@ class GameHelper(Helper):
             season = current_week.season
         if None in (season, season_type, week):
             raise Exception("Season (%s), type (%s) or week (%s) unset", season, season_type, week)
-        games = self.nfl.football.games_by_week(season, season_type=season_type, week=week)
+        games = self.nfl.api.games_by_week(season, season_type=season_type, week=week)
         return games
 
     def by_id(self, game_id: str):
-        return self.nfl.football.game_by_id(game_id)
+        return self.nfl.api.game_by_id(game_id)
+
+    def game_detail(self, game_id: str, include_drive_chart: bool = False, include_replays: bool = False,
+                    include_standings: bool = False, include_tagged_videos: bool = False):
+        return self.nfl.api.game_details(game_id, include_drive_chart, include_replays, include_standings,
+                                         include_tagged_videos)
 
     def game_detail_id_for_id(self, game_id: str):
-        return self.nfl.football.game_detail_id_for_id(game_id)
+        return self.nfl.api.game_detail_id_for_id(game_id)
 
 
 class StandingsHelper(Helper):
     def get(self, week, season_type, season):
-        result = self.nfl.football.standings_by_week(season, season_type, week)
+        result = self.nfl.api.standings_by_week(season, season_type, week)
         team_records = result.weeks[0].standings
 
         teams = {t.id: t for t in self.nfl.team.by_season(season)}
@@ -68,13 +73,14 @@ class TeamHelper(Helper):
                 return t
         return None
 
-    def by_ids(self, ids: List[str]):
-        raise Exception("Not available")
+    def by_ids(self, ids: List[str], season=0):
+        teams = list(filter(lambda t: t.id in ids, self.by_season(season)))
+        return {t.id: t for t in teams}
 
     def by_season(self, season: int):
         if season == 0:
             season = self.nfl.schedule.current_week().season
-        return self.nfl.football.teams_by_season(season).teams
+        return self.nfl.api.teams_by_season(season).teams
 
 
 class RosterHelper(Helper):
@@ -93,17 +99,17 @@ class RosterHelper(Helper):
     def all(self, season: int = 0):
         if season == 0:
             season = self.nfl.schedule.current_week().season
-        return self.nfl.football.rosters_by_season(season).rosters
+        return self.nfl.api.rosters_by_season(season).rosters
 
 
 class CombineHelper(Helper):
     def participants(self, year: int = 0):
-        return self.nfl.football.combine_profiles_by_year(year)
+        return self.nfl.api.combine_profiles_by_year(year)
 
 
 class DraftHelper(Helper):
     def picks(self, year: int = 0):
-        return self.nfl.football.draft_picks_by_year(year)
+        return self.nfl.api.draft_picks_by_year(year)
 
 
 class PlayerHelper(Helper):

@@ -9,6 +9,11 @@ from nflapi.const import *
 logger = logging.getLogger(__name__)
 
 
+def bs(x):
+    """boolean string, convert boolean to string, lower case"""
+    return str(x).lower()
+
+
 class JsonWrapper:
     def __init__(self, json):
         self._raw = json
@@ -42,7 +47,7 @@ class JsonWrapper:
             return o
 
 
-class Football:
+class API:
 
     def __init__(self, auth, base_headers):
         self.auth = auth
@@ -50,7 +55,7 @@ class Football:
         self.game_detail_lut = {}
 
     def request(self, path, method='GET', **kwargs):
-        url = API_HOST + ENDPOINT_FOOTBALL_V2 + path
+        url = API_HOST + path
         headers = dict(self.base_headers)
         if 'headers' in kwargs:
             headers.update(kwargs['headers'])
@@ -109,6 +114,15 @@ class Football:
 
     def rosters_by_season(self, season: int, limit: int = 1000):
         path = FOOTBALL_ROSTERS_BY_SEASON.format(season=season, limit=limit)
+        return self.request(path)
+
+    def game_details(self, game_id: str, include_drive_chart: bool = False, include_replays: bool = False,
+                    include_standings: bool = False, include_tagged_videos: bool = False):
+        path = EXPERIENCE2_GAMEDETAILS_BY_ID.format(id=game_id,
+                                                    include_drive_chart=bs(include_drive_chart),
+                                                    include_replays=bs(include_replays),
+                                                    include_standings=bs(include_standings),
+                                                    include_tagged_videos=bs(include_tagged_videos))
         return self.request(path)
 
     @staticmethod

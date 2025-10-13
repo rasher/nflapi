@@ -137,8 +137,18 @@ def team(nfl: NFL, abbr, date: pendulum.DateTime, *args, **kwargs):
 @click.argument('id')
 @nflobj
 def game(nfl: NFL, id, *args, **kwargs):
-    from pprint import pprint
-    pprint(nfl.game.by_id(id))
+    gd = nfl.game.game_detail(id, include_drive_chart=True)
+
+    teams = nfl.team.by_ids([gd.home_team.id, gd.away_team.id])
+    home = teams[gd.home_team.id]
+    away = teams[gd.away_team.id]
+
+    print("{0.full_name} @ {1.full_name}".format(away, home))
+    print("{0}".format(pendulum.parse(gd.time).astimezone(pendulum.tz.local_timezone())))
+    for (t, box) in [(away, gd.summary.away_team.score),
+                     (home, gd.summary.home_team.score)]:
+        print("{0.abbreviation: <3} | {1.q1:>2} | {1.q2:>2} | {1.q3:>2} | {1.q4:>2} | {1.ot:>2} | {1.total:>2}".format(
+            t, box))
 
 
 @nflcli.command(short_help="Combine")
@@ -179,7 +189,7 @@ def combine(nfl: NFL, year: int, *args, **kwargs):
 @nflobj
 def draft(nfl: NFL, date: pendulum.DateTime, *args, **kwargs):
     picks_data = nfl.draft.picks(date.year)
-    teams = {t.id: t for t in nfl.football.teams_by_season(date.year).teams}
+    teams = {t.id: t for t in nfl.api.teams_by_season(date.year).teams}
     profiles = {p.person.id: p for p in nfl.combine.participants(date.year).combine_profiles}
     for pick in picks_data.picks:
         if pick.person_id:
@@ -213,10 +223,10 @@ def roster(nfl: NFL, abbr: str, date: pendulum.DateTime, *args, **kwargs):
 @nflcli.command(short_help="Live")
 @nflobj
 def live(nfl: NFL, date: pendulum.DateTime, *args, **kwargs):
-    week = nfl.football.week_by_date(date)
+    week = nfl.api.week_by_date(date)
     print_week(week)
-    teams = {t.id: t for t in nfl.football.teams_by_season(date.year).teams}
-    games = nfl.football.game_summaries_by_week(week.season, week.season_type, week.week)
+    teams = {t.id: t for t in nfl.api.teams_by_season(date.year).teams}
+    games = nfl.api.game_summaries_by_week(week.season, week.season_type, week.week)
     for game in games:
         home_team = teams.get(game.home_team.team_id, None)
         away_team = teams.get(game.away_team.team_id, None)
