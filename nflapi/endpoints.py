@@ -93,7 +93,7 @@ class API:
         return self.request(path)
 
     def teams_by_season(self, season: int):
-        path = FOOTBALL_TEAMS_BY_SEASON.format(season=season, limit=100)
+        path = EXPERIENCE1_TEAMS.format(season=season, limit=100)
         return self.request(path)
 
     def team_by_id(self, id: str):

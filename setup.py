@@ -24,6 +24,8 @@ REQUIRED = [
     'pendulum>=3,<4',
     'click>=8.1.3,<9',
     'fcache>=0.4.7,<0.5',
+    'rich>=14.2.0,<15',
+    'rich-pyfiglet>=1.0.0,<2',
 ]
 
 # The rest you shouldn't have to touch too much :)

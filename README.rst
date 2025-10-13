@@ -45,43 +45,9 @@ Getting standings information::
 
 Have a look at [nflcli.py](nflapi/cli/nflcli.py) for more examples.
 
-You can also query the API directly if you're feeling adventurous.::
-
-  >>> op = Operation(shield.Viewer)
-  >>> player = op.viewer.player(id='3213464f-4c05-8566-2020-85b506da0baa')
-  >>> player.person.display_name()
-  >>> nfl.query(player).viewer.player.person.display_name
-  'Nick Foles'
-
-If you want to get even more wild, you can pass in a raw graphql query. In
-that case you'll have to deal with the raw JSON response::
-
-  >>> query = """{
-  viewer{
-    league{
-      gamesByWeek(week_seasonValue: 2020,
-                  week_seasonType: REG,
-                  week_weekValue: 2) {
-        id
-        gameTime
-        awayTeam{
-          abbreviation
-          }
-          homeTeam{
-            abbreviation
-          }
-        }
-      }
-    }
-  }"""
-  >>> games = nfl.endpoint(query)
-  >>> games['data']['viewer']['league']['gamesByWeek'][0]['gameTime']
-  '2020-09-22T00:15:00.000Z'
-
 TODOs
 =====
 
 * Helpers for more object types
-* A smarter approach to default field selections
 * Documentation
 * Tests, in a perfect world
